@@ -54,12 +54,12 @@ function LoginComponent() {
                                 <label for="email">Email</label>
                                 <input type="email" name="email"
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="form-control rounded-0" id="" />
+                                    className="form-control w-50 rounded-0" id="" />
                             </div>
                             <div className="mb-4 ">
                                 <label for="password">Password</label>
                                 <input type="password" name="password"
-                                    onChange={(e) => setPassword(e.target.value)} className="form-control rounded-0 " id="" />
+                                    onChange={(e) => setPassword(e.target.value)} className="form-control w-50 rounded-0 " id="" />
                             </div>
                             <div className="form-check mb-4 form-switch">
                                 <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked />
@@ -68,9 +68,9 @@ function LoginComponent() {
                             </div>
                             <div className="mb-4 ">
 
-                                <button className="w-100 btn rounded-0"
+                                <button className="w-50 btn rounded-0"
                                     onClick={login}
-                                    type="submit" name="" id="">Sign Up</button>
+                                    type="submit" name="" id="">Login</button>
                             </div>
 
                         </div>
