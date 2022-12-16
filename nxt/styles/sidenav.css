@@ -1,0 +1,19 @@
+.sidenavBody li {
+    margin-top: 20px;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-weight: lighter;
+    transition-property: all;
+    transform: scaleX(1);
+    text-align: start;
+    list-style: none;
+    padding: 10px;
+    transition: 0.5s;
+    transition-property: all;
+}
+
+.sidenavBody li:hover {
+    background-color: white;
+    font-weight: 600;
+}
