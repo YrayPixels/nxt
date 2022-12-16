@@ -42,6 +42,7 @@ function Dashboard() {
                             <Studentfeedback />
                         </div>
                     </div>
+
                     {/* Recently Registerd */}
                     <div className="pt-4">
                         <Recentregisterd />

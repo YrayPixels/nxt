@@ -17,3 +17,12 @@
     background-color: white;
     font-weight: 600;
 }
+
+.sidenavBody span {
+    background-color: #0A770C;
+    font-weight: 600;
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
