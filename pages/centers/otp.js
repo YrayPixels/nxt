@@ -1,5 +1,6 @@
 import Script from 'next/script'
-import RightsideCenters from '../../nxt/components/centers/loginComponent/rigthSide';
+import RightsideCenters from "/components/centers/loginComponent/rigthSide";
+
 import { useState } from 'react';
 import Head from 'next/head'
 
