@@ -1,5 +1,4 @@
-import LoginCenters from "../nxt/components/centers/loginComponent/loginCenters";
-import RightsideCenters from "../nxt/components/centers/loginComponent/rigthSide";
+import RightsideCenters from "/components/centers/loginComponent/rigthSide";
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 
