@@ -2,13 +2,14 @@
     font-family: 'colfax';
     src: url('../Colfax/Colfax-Regular.otf');
 
-    font-weight: normal;
+    font-weight: light;
     font-style: normal;
 
 }
 
 * {
     font-family: 'colfax';
+    font-size: 10px
 }
 
 .formClass {
