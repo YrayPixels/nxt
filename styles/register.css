@@ -9,8 +9,8 @@
     box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
-    transition: 0.5;
-    transition-property: all;
+    transition-property: 'background', 'color';
+    transition: 1s;
 }
 
 .firstSide li:hover {
@@ -34,13 +34,24 @@
     box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
-    transition: 0.5;
-    transition-property: all;
+
 }
 
 .firstsidebottom li:hover {
     color: white;
     background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
+}
+
+.firstsidebottom .settings {
+    background-color: #0A770C;
+    color: white;
+    transition-property: background;
+    transition: 1s;
+}
+
+.firstsidebottom .settings:hover {
+    background-color: white;
+    color: #0A770C;
 }
 
 .secondNav {

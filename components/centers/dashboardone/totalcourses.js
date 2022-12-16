@@ -1,4 +1,5 @@
 import { Book } from '@mui/icons-material';
+import { CircularProgress } from '@mui/material';
 import useSWR from 'swr';
 const fetcher = async () => {
     const response = await fetch('https://stockmgt.gapaautoparts.com/api/center/getTotalCourses')
@@ -11,7 +12,7 @@ function TotalCourse() {
 
     if (error)
         return 'An error has occured'
-    if (!data) return 'loading..'
+    if (!data) return <CircularProgress />
     return (
         <div className="row align-items-center topPills">
             <div className="col-8">

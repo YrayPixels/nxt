@@ -1,8 +1,9 @@
 import FirstsideNav from "../../components/centers/dashboardtwo/firstSidenav"
 import Secondnav from "../../components/centers/dashboardtwo/secondsidenav"
-import StudentRegistration from "../../components/centers/dashboardtwo/studentregform"
+import StudentDetails from "../../components/centers/dashboardtwo/studentdetails"
 
-function RegisterStudents() {
+
+function Students() {
     return <>
         <div className="container-fluid">
 
@@ -20,11 +21,11 @@ function RegisterStudents() {
                     <Secondnav />
                 </div>
                 <div className="col-9 p-5 regMain">
-                    <StudentRegistration />
+                    <StudentDetails />
                 </div>
             </div>
         </div>
     </>
 }
 
-export default RegisterStudents
+export default Students

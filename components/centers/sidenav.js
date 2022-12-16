@@ -1,6 +1,7 @@
 // import styles from '/styles/sidenav.module.css'
 import { Home, Key, NoteAddOutlined, Person2Outlined, PersonOffOutlined } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
+import Link from 'next/link';
 
 
 function Sidenav() {
@@ -12,13 +13,21 @@ function Sidenav() {
             <div>
                 <ul>
                     <li>
-                        <span><HomeIcon /></span> Dashboard
+                        <Link href='/centers/dashboard'>
+                            <span><HomeIcon /></span> Dashboard
+                        </Link>
                     </li>
-                    <li> <span><Home /></span>
-                        Manage Students
+                    <li>
+                        <Link href='/centers/studentlist'><span><Home /></span>
+                            Manage Students
+                        </Link>
                     </li>
-                    <li><span><NoteAddOutlined /></span>
-                        Courses
+                    <li>
+                        <Link href='/centers/studentlist'>
+                            <span><NoteAddOutlined /></span>
+                            Courses
+                        </Link>
+
                     </li>
 
                 </ul>

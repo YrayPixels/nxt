@@ -1,4 +1,5 @@
 import { LocationCityOutlined } from '@mui/icons-material';
+import { CircularProgress } from '@mui/material';
 import useSWR from 'swr';
 const fetcher = async () => {
     const response = await fetch('https://stockmgt.gapaautoparts.com/api/center/getTotalUsers')
@@ -10,7 +11,7 @@ function Totalfaculty() {
 
     if (error)
         return 'An error has occured'
-    if (!data) return 'loading..'
+    if (!data) return <CircularProgress />
     return (
         <div className="row topPills  align-items-center">
             <div className="col-8">
