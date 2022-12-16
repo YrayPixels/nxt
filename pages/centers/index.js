@@ -22,23 +22,18 @@ function LoginComponent() {
         const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/login", requestOptions)
         const data = await response.json()
         resultData.push(data);
-        console.log(resultData);
+        alert(resultData);
         // return response.json()
     }
 
-    if (resultData.length == 0) {
-        console.log(resultData);
-    }
-    else if (resultData[0].message) {
-        console.log(resultData[0].message);
+    // if (resultData.length == 0) {
+    //     alert(resultData);
+    // }
+    // else if (resultData[0].message) {
+    // (resultData[0].message);
 
-    }
+    // }
 
-
-    // if (resultData.message)
-
-
-    // console.log(data)
 
     return (
         <div className="loginCont">
