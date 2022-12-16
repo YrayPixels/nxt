@@ -1,3 +1,4 @@
+import { People } from '@mui/icons-material';
 import useSWR from 'swr';
 const fetcher = async () => {
     const response = await fetch('https://stockmgt.gapaautoparts.com/api/center/getTotalUsers')
@@ -13,13 +14,14 @@ function TotalactiveUsers() {
     if (!data) return 'loading..'
 
     return (
-        <div className="d-flex topPills">
-            <div className="col-10">
+        <div className="row align-items-center topPills">
+            <div className="col-8">
                 <p>Active Users</p>
                 <p className="fw-bold num">{data.result}</p>
             </div>
-            <div className="col-2">
-                <img src="" alt="" />
+            <div className="col-4 text-center ">
+                <span className='text-center shadow-sm '><People /></span>
+
             </div>
         </div>
     );

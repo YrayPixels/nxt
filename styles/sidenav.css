@@ -19,10 +19,25 @@
 }
 
 .sidenavBody span {
-    background-color: #0A770C;
+    /* background-color: #0A770C; */
+    background-color: white;
     font-weight: 600;
-    color: white;
+    color: grey;
+    /* box-shadow: ; */
     padding: 5px;
     margin: 5px;
     border-radius: 5px;
+}
+
+.sidenavBody span:hover {
+    background-color: #0A770C;
+    color: white;
+    /* background-color: white; */
+
+    /* font-weight: 600;
+   
+    box-shadow: ;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px; */
 }

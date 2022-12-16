@@ -1,3 +1,4 @@
+import { Female } from '@mui/icons-material';
 import useSWR from 'swr';
 
 const fetcher = async () => {
@@ -13,13 +14,14 @@ function Totalfemale() {
         return 'An error has occured'
     if (!data) return 'loading..'
     return (
-        <div className="d-flex topPills">
-            <div className="col-10">
+        <div className="row align-items-center topPills">
+            <div className="col-8">
                 <p>Total Female</p>
                 <p className="fw-bold num">{data.students}</p>
             </div>
-            <div className="col-2">
-                <img src="" alt="" />
+            <div className="col-4 text-center ">
+                <span className='text-center shadow-sm '><Female /></span>
+
             </div>
         </div>
     );
