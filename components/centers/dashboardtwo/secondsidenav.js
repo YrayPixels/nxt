@@ -1,13 +1,13 @@
 function Secondnav() {
     return (<>
-        <div>
-            <div>New Students</div>
+        <div className="secondNav">
+            <div className="fw-bold">New Students</div>
             <ul>
                 <li>
                     Account
                 </li>
             </ul>
-            <div>Student  Information</div>
+            <div className="fw-bold">Student Information</div>
             <ul>
                 <li>
                     Student Details

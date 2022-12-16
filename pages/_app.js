@@ -4,6 +4,8 @@ import '../styles/sidenav.css'
 import '../styles/dashmain.css'
 import Script from 'next/script'
 import '../styles/otp.css'
+import '../styles/register.css'
+
 import Head from 'next/head'
 
 

@@ -1,24 +1,31 @@
 import HomeIcon from '@mui/icons-material/Home';
-import { Home, Key, NoteAddOutlined, Person2Outlined, PersonOffOutlined } from '@mui/icons-material';
+import { Home, Key, NoteAddOutlined, People, Person2Outlined, Person3Sharp, PersonOffOutlined, Settings } from '@mui/icons-material';
 
 function FirstsideNav() {
     return (<>
-        <ul>
+        <ul className='firstSide'>
             <li>
-                <span><HomeIcon /></span> Dashboard
+                <span><HomeIcon /></span>
             </li>
-            <li> <span><Home /></span>
-                Manage Students
+            <li> <span><People /></span>
             </li>
             <li><span><NoteAddOutlined /></span>
-                Courses
             </li>
 
             <li>
-                <span><Person2Outlined /></span>Profile
+                <span><Person2Outlined /></span>
             </li>
             <li>
-                <span><Key /></span>Sign Out
+                <span><Key /></span>
+            </li>
+        </ul>
+
+        <ul className='firstsidebottom'>
+            <li>
+                <Person3Sharp />
+            </li>
+            <li>
+                <Settings />
             </li>
         </ul>
     </>);
