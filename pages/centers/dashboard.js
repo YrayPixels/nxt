@@ -18,7 +18,6 @@ function Dashboard() {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
     if (status === "authenticated")
-        // console.log(data)
         return (
             <div className="container-fluid">
                 <div className=" row dashboardCenters">
