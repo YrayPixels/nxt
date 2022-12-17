@@ -1,13 +1,18 @@
-import FirstsideNav from "../../components/centers/dashboardtwo/firstSidenav"
-import RegisteredStudents from "../../components/centers/dashboardtwo/registeredstudents"
-import Secondnav from "../../components/centers/dashboardtwo/secondsidenav"
+
 import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
+import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
+import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
+// import RegisteredStudents from "../../../components/centers/dashboardtwo/RegisteredStudents";
+// import RegisteredCourses from "../../../components/centers/courses/RegisteredCourses";
+import RegisteredStudents from "../../../components/centers/dashboardtwo/RegisteredStudents";
+
+
 // import StudentRegistration from "../../components/centers/dashboardtwo/studentregform"
 
-function Students() {
+function Courses() {
     const { status, data } = useSession();
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -42,6 +47,6 @@ function Students() {
     )
 }
 
-export default Students
+export default Courses
 
 

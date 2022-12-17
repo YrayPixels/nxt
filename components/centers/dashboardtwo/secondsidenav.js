@@ -3,7 +3,7 @@ import Link from "next/link";
 function Secondnav() {
     return (<>
         <div className="secondNav">
-            <div className="fw-bold">New Students</div>
+            <div className="fw-bold">Students</div>
             <ul>
 
                 <Link href={'/centers/dashboard'}>
@@ -16,16 +16,29 @@ function Secondnav() {
                         Add New Student
                     </li>
                 </Link>
-
-            </ul>
-            <div className="fw-bold">Student Information</div>
-            <ul>
                 <Link href={'/centers/studentlist'}>
                     <li>
-                        Student Details
+                        All Students
+                    </li>
+                </Link>
+
+
+            </ul>
+            <div className="fw-bold">Courses</div>
+            <ul>
+                <Link href={'/centers/register'}>
+                    <li>
+                        Add Courses
+                    </li>
+                </Link>
+                <Link href={'/centers/courses'}>
+                    <li>
+                        View all Courses
                     </li>
                 </Link>
             </ul>
+
+
         </div>
     </>);
 }

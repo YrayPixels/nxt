@@ -41,3 +41,8 @@ a:hover {
 .tableData {
     font-size: smaller;
 }
+
+.singleSubmits button {
+    background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
+
+}
