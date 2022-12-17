@@ -6,46 +6,40 @@ myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emob
 
 var requestOptions = {
     method: 'GET',
-    headers: myHeaders,
+    // headers: myHeaders,
     redirect: 'follow'
 };
 const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getAllStudents", requestOptions)
+    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getAllCourses", requestOptions)
     const data = await response.json()
-    return data.students
+    return data.result
 }
 
-function RegisteredStudents() {
+function AllCourses() {
     const { data, error } = useSWR('register', fetcher)
+    // console.log(data)
     if (error)
         return 'An error has occured'
     if (!data) return <CircularProgress />
     // console.log(data)
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
-            <p>Registered Students</p>
-            {/* <Input fullWidth
-                classes={
-                    'form-control'
-                }
-                placeholder="Enter text here..." /> */}
+            <p>All</p>
+
             <input type="text" className='form-control w-50' placeholder='Enter Text Here...' />
         </div>
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Students:  {data.length}</h6>
-                <p>Done this month</p>
+                <h6 className="fw-bold">Total No of Courses: {data.length}</h6>
             </div>
             <table className="tableData table table-responsive table">
                 <thead>
                     <tr>
-                        <th>STUDENT'S NAME</th>
-                        <th>EMAIl</th>
-                        <th>PHONE</th>
-                        <th>DEPARTMENT</th>
-                        <th>PROGRAMME</th>
-                        <th>OCCUPATION</th>
+                        <th>ID</th>
+                        <th>TITLE</th>
+                        <th>CODE</th>
+                        <th>UNIT</th>
                         <th>ACTIONS</th>
                     </tr>
                 </thead>
@@ -54,12 +48,10 @@ function RegisteredStudents() {
                         data.map(data => {
                             return (
                                 <tr className='align-items-center '>
-                                    <td><span><img src="" alt="" /></span> {data.name}</td>
-                                    <td>{data.email}</td>
-                                    <td>{data.phone}</td>
-                                    <td>department </td>
-                                    <td>programme</td>
-                                    <td> {data.occupation}</td>
+                                    <td><span><img src="" alt="" /></span> {data.id}</td>
+                                    <td>{data.title}</td>
+                                    <td>{data.code}</td>
+                                    <td> {data.unit}</td>
                                     <td><button className='btn btn-primary'>View</button></td>
                                 </tr>
                             )
@@ -71,5 +63,4 @@ function RegisteredStudents() {
         </div>
     </div>);
 }
-
-export default RegisteredStudents;
+export default AllCourses;

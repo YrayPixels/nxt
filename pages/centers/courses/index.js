@@ -5,12 +5,8 @@ import Router from "next/router"
 import { CircularProgress } from "@mui/material"
 import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
-// import RegisteredStudents from "../../../components/centers/dashboardtwo/RegisteredStudents";
-// import RegisteredCourses from "../../../components/centers/courses/RegisteredCourses";
 import RegisteredStudents from "../../../components/centers/dashboardtwo/RegisteredStudents";
-
-
-// import StudentRegistration from "../../components/centers/dashboardtwo/studentregform"
+import AllCourses from "../../../components/registercomp/Courses";
 
 function Courses() {
     const { status, data } = useSession();
@@ -33,7 +29,7 @@ function Courses() {
                         <Secondnav />
                     </div>
                     <div className="col-9 p-5 regMain">
-                        <RegisteredStudents />
+                        <AllCourses />
                     </div>
                 </div>
             </div>
