@@ -87,7 +87,6 @@ function StudentRegistration() {
         const fetcher = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddNewStudent", requestOptions)
             const data = await response.json()
-            console.log(data)
         }
 
     };
