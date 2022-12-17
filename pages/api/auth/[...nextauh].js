@@ -59,7 +59,8 @@ const authoptions = {
     pages: {
         signIn: '/',
         // si 
-    }
+    },
+    secret: 'ifiafdfip98108037413',
 }
 
 
