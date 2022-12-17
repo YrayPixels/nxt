@@ -7,6 +7,7 @@ import '../styles/otp.css'
 import '../styles/register.css'
 
 import Head from 'next/head'
+import { SessionProvider } from 'next-auth/react'
 
 
 
@@ -15,9 +16,12 @@ import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
 
-    return <Component {...pageProps}>
+    return (<SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
 
-    </Component>
+    </SessionProvider>
+    )
+
 
 
 

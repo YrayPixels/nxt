@@ -3,7 +3,7 @@ function StudentRegistration() {
         <h3 className="py-4">
             Student Registration Information
         </h3>
-        <form className="card p-4" action="">
+        <form onSubmit={handleSubmitForm} className="card p-4" action="">
 
             <div className="row col-6 align-items-center">
                 <div className="profileImg col-5">

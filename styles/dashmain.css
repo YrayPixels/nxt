@@ -37,3 +37,7 @@ a:hover {
     /* text-decoration: none; */
     color: inherit;
 }
+
+.tableData {
+    font-size: smaller;
+}

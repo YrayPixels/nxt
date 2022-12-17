@@ -2,6 +2,7 @@
 import { Home, Key, NoteAddOutlined, Person2Outlined, PersonOffOutlined } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
+import { signIn, signOut } from 'next-auth/react';
 
 
 function Sidenav() {
@@ -42,8 +43,15 @@ function Sidenav() {
                     <li>
                         <span><Person2Outlined /></span>Profile
                     </li>
-                    <li>
+                    <li onClick={() => {
+                        signOut()
+                    }} >
                         <span><Key /></span>Sign Out
+                    </li>
+                    <li onClick={() => {
+                        signIn()
+                    }}>
+                        <span><Key /></span>SignIn
                     </li>
                 </ul>
             </div>
