@@ -23,6 +23,7 @@ const getCourses = async () => {
 }
 
 function StudentRegistration() {
+    const [notify, setNotify] = useState(' ');
 
     const [programs, setProgram] = useState([]);
     const [courses, setCourses] = useState([]);
@@ -38,6 +39,7 @@ function StudentRegistration() {
         occupation: " ",
         heighest_qualification: " ",
         center_id: " ",
+        age: " "
     });
 
     const fetchData = () => {
@@ -84,13 +86,24 @@ function StudentRegistration() {
             redirect: 'follow'
         };
 
-        const fetcher = async () => {
+        console.log(urlencoded)
+        const addStudent = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddNewStudent", requestOptions)
             const data = await response.json()
+
+            if (data.message == 'Student Added Successfully') {
+                setNotify(data.message)
+            }
+            return data
         }
+        addStudent()
 
     };
     return (<>
+        {
+            notify == 'Student Added Successfully' && (
+                <p className="text-success text-center fw-bold">Student Added</p>)
+        }
         <h3 className="py-4">
             Student Registration Information
         </h3>
@@ -132,12 +145,12 @@ function StudentRegistration() {
                 <div className="col-6 mb-3">
                     <label htmlFor="age">Age</label>
                     <input onChange={(e) => setUserInfo(
-                        { ...userInfo, email: e.target.value })} type="text" name="age" className="form-control" />
+                        { ...userInfo, age: e.target.value })} type="text" name="age" className="form-control" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="department">Department</label>
                     <select name="department" onChange={(e) => setUserInfo(
-                        { ...userInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
+                        { ...userInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                         <option selected>Select your Department</option>
                         {

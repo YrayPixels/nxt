@@ -5,6 +5,7 @@ import Router from "next/router"
 import { CircularProgress } from "@mui/material"
 import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
+
 import RegisteredStudents from "../../../components/centers/dashboardtwo/RegisteredStudents";
 
 

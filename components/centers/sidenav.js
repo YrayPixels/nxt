@@ -24,7 +24,7 @@ function Sidenav() {
                         </Link>
                     </li>
                     <li>
-                        <Link href='/centers/studentlist'>
+                        <Link href='/centers/courses'>
                             <span><NoteAddOutlined /></span>
                             Courses
                         </Link>

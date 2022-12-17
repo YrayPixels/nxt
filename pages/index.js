@@ -21,10 +21,8 @@ function LoginComponent() {
         })
         if (res.error == null && res.status == 200) {
             redirect()
-            console.log(res);
         } else {
             setNotify(res.error);
-            console.log(res.error)
         }
     };
     return (

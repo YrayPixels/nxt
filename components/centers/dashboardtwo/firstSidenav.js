@@ -17,7 +17,11 @@ function FirstsideNav() {
                     <span><People /></span>
                 </Link>
             </li>
-            <li><span><NoteAddOutlined /></span>
+
+            <li>
+                <Link href='/centers/courses'>
+                    <span><NoteAddOutlined /></span>
+                </Link>
             </li>
 
             <li>
