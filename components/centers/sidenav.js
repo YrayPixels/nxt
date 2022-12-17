@@ -48,11 +48,7 @@ function Sidenav() {
                     }} >
                         <span><Key /></span>Sign Out
                     </li>
-                    <li onClick={() => {
-                        signIn()
-                    }}>
-                        <span><Key /></span>SignIn
-                    </li>
+
                 </ul>
             </div>
         </div >

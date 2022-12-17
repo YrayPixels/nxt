@@ -1,0 +1,11 @@
+.secondNav li {
+    padding: 5px;
+    border-radius: 5px;
+    transition: 0.5s all;
+}
+
+.secondNav li:hover {
+    background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
+    color: white;
+    /* padding: 3px; */
+}
