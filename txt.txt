@@ -1,0 +1,42 @@
+
+Centers login //done remaining otp but consumed
+Add new Student // done
+getRecentRegisteredStudents // done
+getAllCourses // done
+getAllStudents //done
+getAllFaculties //done
+getTotalFaculty //done
+getTotalUsers //done
+getTotalCourses //done
+totalFemaleStudents //done
+Get All Programmes //done
+
+
+editStudent
+totalMaleStudents
+Add new Lecturer
+
+
+What not done
+Admin login
+Top Centers
+Get Partners
+Get Course Lunched Within 3 Month
+Admin OTP Verification
+Add new Center
+Center OTP Verification
+Get Course Lunched Within 4 Month
+Get Course Lunched Within 5 Month
+Get Course Lunched Within 7 Month
+Get Course Lunched Within 8 Month
+Get Summary
+
+
+What i Need
+Get All Programmes
+Add to Programmes
+Get All Lecturers
+Add to Lecturers
+Add to Falculty
+Add to Department
+Add to
