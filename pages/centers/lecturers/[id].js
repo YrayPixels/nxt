@@ -1,3 +1,4 @@
+import { EmailOutlined, Phone } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import { useRouter } from "next/router"
 import { useState } from "react";
@@ -14,6 +15,11 @@ var requestOptions = {
     redirect: 'follow'
 };
 
+const fetcher = async () => {
+    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1", requestOptions)
+    const data = await response.json()
+    return data.result
+}
 
 function Lecturer() {
     // const [lecturer, setLecturer] = useState([])
@@ -22,11 +28,7 @@ function Lecturer() {
     const router = useRouter()
     const lecturer_id = router.query.id
 
-    const fetcher = async () => {
-        const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1", requestOptions)
-        const data = await response.json()
-        return data.result
-    }
+
     console.log(data[lecturer_id])
     return (<>
         <div className="container-fluid">
@@ -57,7 +59,9 @@ function Lecturer() {
                                     <h2>
                                         {data[lecturer_id].name}
                                     </h2>
-                                    <p>{data[lecturer_id].email}</p>
+                                    <p><EmailOutlined /> {data[lecturer_id].email}</p>
+                                    <p><Phone /> {data[lecturer_id].phone}</p>
+
                                 </div>
 
                             </div>
