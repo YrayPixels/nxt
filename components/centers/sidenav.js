@@ -24,23 +24,16 @@ function Sidenav() {
                         </Link>
                     </li>
                     <li>
-                        <Link href='/centers/courses'>
+                        <Link href='/centers/lecturers'>
                             <span><School /></span>
                             Manage Lecturers
                         </Link>
 
                     </li>
                     <li>
-                        <Link href='/centers/courses'>
+                        <Link href='/centers/faculties'>
                             <span><Apartment /></span>
                             Manage Faculty
-                        </Link>
-
-                    </li>
-                    <li>
-                        <Link href='/centers/courses'>
-                            <span><SettingsAccessibility /></span>
-                            Manage Programs
                         </Link>
 
                     </li>
