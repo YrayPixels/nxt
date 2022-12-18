@@ -15,14 +15,16 @@ var requestOptions = {
     redirect: 'follow'
 };
 
-const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1", requestOptions)
-    const data = await response.json()
-    return data.result
-}
+
 
 function Lecturer() {
     // const [lecturer, setLecturer] = useState([])
+
+    const fetcher = async () => {
+        const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1", requestOptions)
+        const data = await response.json()
+        return data.result
+    }
     const { data, error } = useSWR('register', fetcher)
 
     const router = useRouter()
