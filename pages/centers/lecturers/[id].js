@@ -16,9 +16,7 @@ var requestOptions = {
 };
 
 
-
 function Lecturer() {
-    // const [lecturer, setLecturer] = useState([])
 
     const fetcher = async () => {
         const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1", requestOptions)
@@ -29,12 +27,8 @@ function Lecturer() {
 
     const router = useRouter()
     const lecturer_id = router.query.id
+    console.log(data[lecturer_id])
 
-
-    // console.log(data[lecturer_id])
-    if (data == {})
-        return (<>
-            no lecturer</>)
     return (<>
         <div className="container-fluid">
             <div>
@@ -53,32 +47,32 @@ function Lecturer() {
 
                     {
 
-                        <div className="shadow p-5 bg-info">
-                            <div className="d-flex align-items-center justify-content-between">
-                                <div>
-                                    <Avatar
-                                        alt={data[0].name}
-                                        src="/static/images/avatar/2.jpg"
-                                        sx={{ width: 100, height: 100 }} />
-                                </div>
-                                <div>
-                                    <h2>
-                                        {data[0].name}
-                                    </h2>
-                                    <p><EmailOutlined /> {data[0].email}</p>
-                                    <p><Phone /> {data[0].phone}</p>
+                        // <div className="shadow p-5 bg-info">
+                        //     <div className="d-flex align-items-center justify-content-between">
+                        //         <div>
+                        //             <Avatar
+                        //                 alt={data[0].name}
+                        //                 src="/static/images/avatar/2.jpg"
+                        //                 sx={{ width: 100, height: 100 }} />
+                        //         </div>
+                        //         <div>
+                        //             <h2>
+                        //                 {data[0].name}
+                        //             </h2>
+                        //             <p><EmailOutlined /> {data[0].email}</p>
+                        //             <p><Phone /> {data[0].phone}</p>
 
-                                </div>
+                        //         </div>
 
-                            </div>
+                        //     </div>
 
-                            <div>
-                                <div>
+                        //     <div>
+                        //         <div>
 
-                                </div>
-                            </div>
+                        //         </div>
+                        //     </div>
 
-                        </div>
+                        // </div>
 
                     }
                 </div>
