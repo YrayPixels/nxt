@@ -4,31 +4,12 @@ import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
 
-
-
-const getCourses = async () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
-
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
-
-
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getAllCourses", requestOptions)
-    const data = await response.json()
-    return data
-}
-
 function StudentRegistration() {
     const [notify, setNotify] = useState(' ');
-
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
+    const [department, setDepartment] = useState([]);
     const [courses, setCourses] = useState([]);
-
     const [userInfo, setUserInfo] = useState({
         names: " ",
         email: " ",
@@ -44,24 +25,31 @@ function StudentRegistration() {
     });
 
     const fetchData = () => {
-        const allFaculties = "https://stockmgt.gapaautoparts.com/api/center/getAllFaculties"
+        const allFaculties = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
-        const allCourses = "https://stockmgt.gapaautoparts.com/api/center/getAllCourses"
+        const allCourses = "https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/1"
+        const allDept = "https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/1"
 
         const getAllPrograms = axios.get(allPrograms);
         const getAllCourse = axios.get(allCourses);
         const getAllFaculties = axios.get(allFaculties);
+        const getAllDept = axios.get(allDept);
 
 
-        axios.all([getAllPrograms, getAllCourse, getAllFaculties]).then(
+
+        axios.all([getAllPrograms, getAllCourse, getAllFaculties, getAllDept]).then(
             axios.spread((...allData) => {
                 const allProgramsData = allData[0].data.result;
                 const allCoursesData = allData[1].data.result;
                 const allFacultiesData = allData[2].data.result;
+                const allDeptData = allData[3].data.result;
+
 
                 setProgram(allProgramsData)
                 setCourses(allCoursesData)
                 setFaculties(allFacultiesData)
+                setDepartment(allDeptData)
+
             })
         )
     }
@@ -146,7 +134,7 @@ function StudentRegistration() {
                 <div className="col-6 mb-3">
                     <label htmlFor="falculty">Faculty</label>
                     <select name="department" onChange={(e) => setUserInfo(
-                        { ...userInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example" name="falculty" >
+                        { ...userInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                         <option selected>Select your Faculty</option>
                         {
@@ -173,12 +161,13 @@ function StudentRegistration() {
 
                         <option selected>Select your Department</option>
                         {
-                            programs.map(program => {
+                            department.map(department => {
                                 return (
-                                    <option value={program.id}>{program.title}</option>
+                                    <option value={department.id}>{department.title}</option>
 
                                 )
                             })
+
 
                         }
 

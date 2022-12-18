@@ -10,7 +10,7 @@ var requestOptions = {
     redirect: 'follow'
 };
 const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getAllCourses", requestOptions)
+    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/1", requestOptions)
     const data = await response.json()
     return data.result
 }

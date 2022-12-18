@@ -10,6 +10,16 @@ getTotalUsers //done
 getTotalCourses //done
 totalFemaleStudents //done
 Get All Programmes //done
+Get Lecturer by Center ID//done
+Get Course By CenterId//done
+Get Faculty By Center //done
+Add Faculty//done
+Add Department//done
+Add Course//done
+Get Department By CenterId//done
+
+
+
 
 
 editStudent
@@ -30,13 +40,9 @@ Get Course Lunched Within 5 Month
 Get Course Lunched Within 7 Month
 Get Course Lunched Within 8 Month
 Get Summary
-
-
-What i Need
-Get All Programmes
-Add to Programmes
-Get All Lecturers
-Add to Lecturers
-Add to Falculty
-Add to Department
-Add to
+Edit Lecturer
+Edit Faculty
+edit Department
+Edit Course
+Add Programme
+Edit Programme

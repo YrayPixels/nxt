@@ -10,12 +10,12 @@ var requestOptions = {
     redirect: 'follow'
 };
 const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetProgrammeByCenterId/1", requestOptions)
+    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/1", requestOptions)
     const data = await response.json()
     return data.result
 }
 
-function AllPrograms() {
+function AllDepartment() {
     const { data, error } = useSWR('register', fetcher)
     // console.log(data)
     if (error)
@@ -61,4 +61,4 @@ function AllPrograms() {
         </div>
     </div>);
 }
-export default AllPrograms;
+export default AllDepartment;

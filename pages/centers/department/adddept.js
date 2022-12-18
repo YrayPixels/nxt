@@ -1,14 +1,13 @@
-
 import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
-import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
-import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
-import AllPrograms from "../../../components/pagesIndex/allPrograms";
-// import AllCourses from "../../../components/centers/dashboardtwo/courses";
+import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
+import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
+import AddDepartment from "../../../components/centers/createcomponent/addDepartment"
 
-function ProgramsOffered() {
+
+function RegisterDepartment() {
     const { status, data } = useSession();
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -16,10 +15,12 @@ function ProgramsOffered() {
     if (status === "authenticated")
         return <>
             <div className="container-fluid">
+
                 <div>
                     <div className="p-3">
                         for top nav
                     </div>
+
                 </div>
                 <div className="row justify-content-center ">
                     <div className="col-1 border border-1 border-start  " >
@@ -29,7 +30,7 @@ function ProgramsOffered() {
                         <Secondnav />
                     </div>
                     <div className="col-9 p-5 regMain">
-                        <AllPrograms />
+                        <AddDepartment />
                     </div>
                 </div>
             </div>
@@ -43,6 +44,4 @@ function ProgramsOffered() {
     )
 }
 
-export default ProgramsOffered
-
-
+export default RegisterDepartment

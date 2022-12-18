@@ -28,7 +28,7 @@ function Secondnav() {
             <ul>
 
 
-                <Link href={'/centers/register'}>
+                <Link href={'/centers/lecturers/register'}>
                     <li>
                         Add New Lecturer
                     </li>
@@ -43,7 +43,7 @@ function Secondnav() {
             </ul>
             <div className="fw-bold">Courses</div>
             <ul>
-                <Link href={'/centers/register'}>
+                <Link href={'/centers/courses/addcourses'}>
                     <li>
                         Add Courses
                     </li>
@@ -69,16 +69,16 @@ function Secondnav() {
                 </Link>
             </ul>
 
-            <div className="fw-bold">Programs</div>
+            <div className="fw-bold">Department</div>
             <ul>
-                <Link href={'/centers/register'}>
+                <Link href={'/centers/department/adddept'}>
                     <li>
-                        Add Programs
+                        Add Department
                     </li>
                 </Link>
-                <Link href={'/centers/programs'}>
+                <Link href={'/centers/department'}>
                     <li>
-                        View all Programs
+                        View all Department
                     </li>
                 </Link>
             </ul>
