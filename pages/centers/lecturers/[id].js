@@ -31,7 +31,10 @@ function Lecturer() {
     const lecturer_id = router.query.id
 
 
-    console.log(data[lecturer_id])
+    // console.log(data[lecturer_id])
+    if (data == {})
+        return (<>
+            no lecturer</>)
     return (<>
         <div className="container-fluid">
             <div>
@@ -49,6 +52,7 @@ function Lecturer() {
                 <div className="col-9 p-5 regMain">
 
                     {
+
                         <div className="shadow p-5 bg-info">
                             <div className="d-flex align-items-center justify-content-between">
                                 <div>
