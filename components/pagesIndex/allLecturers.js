@@ -59,7 +59,7 @@ function AllLecturers() {
                                     <td> {lecturer.occupation}</td>
 
                                     <td>
-                                        <Link href={`/centers/lecturers/${encodeURIComponent(data.indexOf(lecturer))}`} >
+                                        <Link href={`/centers/lecturers/${data.indexOf(lecturer)}`} >
                                             <button className='btn btn-primary'>View</button>
 
                                         </Link>

@@ -4,7 +4,8 @@ import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 
 function LecturerDetails({ datas }) {
-    const { name, email, phone } = datas
+    const { name, email, phone, heighest_qualification
+        , occupation, address } = datas
     return (<>
         <div className="container-fluid">
             <div>
@@ -32,8 +33,15 @@ function LecturerDetails({ datas }) {
                             <h2 className="">
                                 {name}
                             </h2>
-                            <p><Email /> {email}</p>
+                            <p><Email
+                            /> {email}</p>
                             <p><Phone /> {phone}</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-info mt-4 p-5 shadow">
+                        <div>
+                            <h2>{email}</h2>
                         </div>
                     </div>
                 </div>
