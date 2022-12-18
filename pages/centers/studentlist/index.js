@@ -6,10 +6,8 @@ import { CircularProgress } from "@mui/material"
 import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 
-import RegisteredStudents from "../../../components/centers/dashboardtwo/RegisteredStudents";
 
 
-// import StudentRegistration from "../../components/centers/dashboardtwo/studentregform"
 
 function Students() {
     const { status, data } = useSession();
@@ -32,7 +30,7 @@ function Students() {
                         <Secondnav />
                     </div>
                     <div className="col-9 p-5 regMain">
-                        <RegisteredStudents />
+                        {/* <RegisteredStudents /> */}
                     </div>
                 </div>
             </div>
