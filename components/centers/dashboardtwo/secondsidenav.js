@@ -57,7 +57,7 @@ function Secondnav() {
 
             <div className="fw-bold">Faculties</div>
             <ul>
-                <Link href={'/centers/register'}>
+                <Link href={'/centers/faculties/addfaculty'}>
                     <li>
                         Add Faculties
                     </li>
