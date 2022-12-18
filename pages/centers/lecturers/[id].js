@@ -45,36 +45,7 @@ function Lecturer() {
                 </div>
                 <div className="col-9 p-5 regMain">
 
-                    {
 
-                        // <div className="shadow p-5 bg-info">
-                        //     <div className="d-flex align-items-center justify-content-between">
-                        //         <div>
-                        //             <Avatar
-                        //                 alt={data[0].name}
-                        //                 src="/static/images/avatar/2.jpg"
-                        //                 sx={{ width: 100, height: 100 }} />
-                        //         </div>
-                        //         <div>
-                        //             <h2>
-                        //                 {data[0].name}
-                        //             </h2>
-                        //             <p><EmailOutlined /> {data[0].email}</p>
-                        //             <p><Phone /> {data[0].phone}</p>
-
-                        //         </div>
-
-                        //     </div>
-
-                        //     <div>
-                        //         <div>
-
-                        //         </div>
-                        //     </div>
-
-                        // </div>
-
-                    }
                 </div>
             </div>
         </div>
