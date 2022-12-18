@@ -41,3 +41,7 @@
     margin: 5px;
     border-radius: 5px; */
 }
+
+.sidenavBody {
+    position: fixed;
+}

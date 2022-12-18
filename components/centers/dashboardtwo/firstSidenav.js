@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 function FirstsideNav() {
     return (<>
-        <ul className='firstSide'>
+        <ul className='firstSide position-sticky'>
             <li>
                 <Link href='/centers/dashboard'>
                     <span><HomeIcon /></span>
