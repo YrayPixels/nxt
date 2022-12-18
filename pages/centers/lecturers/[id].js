@@ -53,16 +53,16 @@ function Lecturer() {
                             <div className="d-flex align-items-center justify-content-between">
                                 <div>
                                     <Avatar
-                                        alt={data[lecturer_id].name}
+                                        alt={data[0].name}
                                         src="/static/images/avatar/2.jpg"
                                         sx={{ width: 100, height: 100 }} />
                                 </div>
                                 <div>
                                     <h2>
-                                        {data[lecturer_id].name}
+                                        {data[0].name}
                                     </h2>
-                                    <p><EmailOutlined /> {data[lecturer_id].email}</p>
-                                    <p><Phone /> {data[lecturer_id].phone}</p>
+                                    <p><EmailOutlined /> {data[0].email}</p>
+                                    <p><Phone /> {data[0].phone}</p>
 
                                 </div>
 
