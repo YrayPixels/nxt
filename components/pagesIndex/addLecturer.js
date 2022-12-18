@@ -5,31 +5,14 @@ import useSWR from 'swr';
 import axios from "axios";
 
 
-
-const getCourses = async () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
-
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
-
-
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getAllCourses", requestOptions)
-    const data = await response.json()
-    return data
-}
-
-function StudentRegistration() {
+function LecturerRegistration() {
     const [notify, setNotify] = useState(' ');
 
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
     const [courses, setCourses] = useState([]);
 
-    const [userInfo, setUserInfo] = useState({
+    const [lecturerInfo, setLecturerInfo] = useState({
         names: " ",
         email: " ",
         phone: " ",
@@ -70,19 +53,19 @@ function StudentRegistration() {
         fetchData()
     }, [])
 
-    const handleStudentReg = async (e) => {
+    const handleLecturerReg = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("name", userInfo.names);
-        urlencoded.append("email", userInfo.email);
-        urlencoded.append("phone", userInfo.phone);
-        urlencoded.append("address", userInfo.address);
-        urlencoded.append("faculty_id", userInfo.faculty_id);
-        urlencoded.append("department_id", userInfo.department_id);
-        urlencoded.append("programme_id", userInfo.programme_id);
-        urlencoded.append("occupation", userInfo.occupation);
-        urlencoded.append("heighest_qualification", userInfo.heighest_qualification);
+        urlencoded.append("name", lecturerInfo.names);
+        urlencoded.append("email", lecturerInfo.email);
+        urlencoded.append("phone", lecturerInfo.phone);
+        urlencoded.append("address", lecturerInfo.address);
+        urlencoded.append("faculty_id", lecturerInfo.faculty_id);
+        urlencoded.append("department_id", lecturerInfo.department_id);
+        urlencoded.append("programme_id", lecturerInfo.programme_id);
+        urlencoded.append("occupation", lecturerInfo.occupation);
+        urlencoded.append("heighest_qualification", lecturerInfo.heighest_qualification);
         urlencoded.append("center_id", 1);
         urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
 
@@ -93,8 +76,8 @@ function StudentRegistration() {
         };
 
         console.log(urlencoded)
-        const addStudent = async () => {
-            const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddNewStudent", requestOptions)
+        const addLecturer = async () => {
+            const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddLecturer", requestOptions)
             const data = await response.json()
 
             if (data.message == 'Student Added Successfully') {
@@ -102,18 +85,19 @@ function StudentRegistration() {
             }
             return data
         }
-        addStudent()
+
+        addLecturer()
 
     };
     return (<>
         {
-            notify == 'Student Added Successfully' && (
-                <p className="text-success text-center fw-bold">Student Added</p>)
+            notify == 'Lecturer Added Successfully' && (
+                <p className="text-success text-center fw-bold">Lecturer Added</p>)
         }
         <h3 className="py-4">
-            Student Registration Information
+            Lecturer Registration Information
         </h3>
-        <form className="card p-4" action="" onSubmit={handleStudentReg} >
+        <form className="card p-4" action="" onSubmit={handleLecturerReg} >
 
             <div className="row col-6 align-items-center">
                 <div className="profileImg col-5">
@@ -127,26 +111,26 @@ function StudentRegistration() {
 
             <div className="mb-3">
                 <label htmlFor="fullname">Trainee Name</label>
-                <input onChange={(e) => setUserInfo(
-                    { ...userInfo, names: e.target.value })}
+                <input onChange={(e) => setLecturerInfo(
+                    { ...lecturerInfo, names: e.target.value })}
                     type="text" name="fullname" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="phone">Telephone number</label>
-                <input onChange={(e) => setUserInfo(
-                    { ...userInfo, phone: e.target.value })} type="text" name="phone" className="form-control" />
+                <input onChange={(e) => setLecturerInfo(
+                    { ...lecturerInfo, phone: e.target.value })} type="text" name="phone" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="email">Email</label>
-                <input onChange={(e) => setUserInfo(
-                    { ...userInfo, email: e.target.value })} type="text" name="email" className="form-control" />
+                <input onChange={(e) => setLecturerInfo(
+                    { ...lecturerInfo, email: e.target.value })} type="text" name="email" className="form-control" />
             </div>
 
             <div className="mb-3 row ">
                 <div className="col-6 mb-3">
                     <label htmlFor="falculty">Faculty</label>
-                    <select name="department" onChange={(e) => setUserInfo(
-                        { ...userInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example" name="falculty" >
+                    <select name="falculty" onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                         <option selected>Select your Faculty</option>
                         {
@@ -163,13 +147,13 @@ function StudentRegistration() {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="age">Age</label>
-                    <input onChange={(e) => setUserInfo(
-                        { ...userInfo, age: e.target.value })} type="text" name="age" className="form-control" />
+                    <input onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, age: e.target.value })} type="text" name="age" className="form-control" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="department">Department</label>
-                    <select name="department" onChange={(e) => setUserInfo(
-                        { ...userInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
+                    <select name="department" onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                         <option selected>Select your Department</option>
                         {
@@ -186,8 +170,8 @@ function StudentRegistration() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="programme">Programme</label>
-                    <select name="programme" onChange={(e) => setUserInfo(
-                        { ...userInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
+                    <select name="programme" onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                         <option selected>Select your program</option>
                         {
@@ -204,24 +188,24 @@ function StudentRegistration() {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="address">Address</label>
-                    <input onChange={(e) => setUserInfo(
-                        { ...userInfo, address: e.target.value })} type="text" name="address" className="form-control" />
+                    <input onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, address: e.target.value })} type="text" name="address" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="academic">Highest Qualification</label>
-                    <input onChange={(e) => setUserInfo(
-                        { ...userInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
+                    <input onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="employementStatus">Employement Status</label>
-                    <input onChange={(e) => setUserInfo(
-                        { ...userInfo, occupation: e.target.value })} type="text" name="employementStatus" className="form-control" />
+                    <input onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, occupation: e.target.value })} type="text" name="employementStatus" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
 
                     <label htmlFor="occupation">Occupation</label>
-                    <input onChange={(e) => setUserInfo(
-                        { ...userInfo, occupation: e.target.value })} type="text" name="occupation" className="form-control" />
+                    <input onChange={(e) => setLecturerInfo(
+                        { ...lecturerInfo, occupation: e.target.value })} type="text" name="occupation" className="form-control" />
                 </div>
             </div>
             <div className="col-5 m-auto singleSubmits">
@@ -231,4 +215,4 @@ function StudentRegistration() {
     </>);
 }
 
-export default StudentRegistration;
+export default LecturerRegistration;

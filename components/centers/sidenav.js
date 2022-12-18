@@ -1,5 +1,5 @@
 // import styles from '/styles/sidenav.module.css'
-import { Home, Key, NoteAddOutlined, Person2Outlined, PersonOffOutlined } from '@mui/icons-material';
+import { Apartment, Home, Key, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, School, SettingsAccessibility } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { signIn, signOut } from 'next-auth/react';
@@ -19,18 +19,38 @@ function Sidenav() {
                         </Link>
                     </li>
                     <li>
-                        <Link href='/centers/studentlist'><span><Home /></span>
+                        <Link href='/centers/studentlist'><span><PeopleOutlineOutlined /></span>
                             Manage Students
                         </Link>
                     </li>
                     <li>
                         <Link href='/centers/courses'>
-                            <span><NoteAddOutlined /></span>
-                            Courses
+                            <span><School /></span>
+                            Manage Lecturers
                         </Link>
 
                     </li>
+                    <li>
+                        <Link href='/centers/courses'>
+                            <span><Apartment /></span>
+                            Manage Faculty
+                        </Link>
 
+                    </li>
+                    <li>
+                        <Link href='/centers/courses'>
+                            <span><SettingsAccessibility /></span>
+                            Manage Programs
+                        </Link>
+
+                    </li>
+                    <li>
+                        <Link href='/centers/courses'>
+                            <span><NoteAddOutlined /></span>
+                            Manage Courses
+                        </Link>
+
+                    </li>
                 </ul>
             </div>
             <div className="text-center">
