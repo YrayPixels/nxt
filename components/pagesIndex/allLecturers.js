@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
+import Link from 'next/link'
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
@@ -47,16 +48,23 @@ function AllLecturers() {
                 </thead>
                 <tbody>
                     {
-                        data.map(data => {
+                        data.map(lecturer => {
                             return (
                                 <tr className='align-items-center '>
-                                    <td><span><img src="" alt="" /></span> {data.name}</td>
-                                    <td>{data.email}</td>
-                                    <td>{data.phone}</td>
+                                    <td><span><img src="" alt="" /></span> {lecturer.name}</td>
+                                    <td>{lecturer.email}</td>
+                                    <td>{lecturer.phone}</td>
                                     <td>department </td>
                                     <td>programme</td>
-                                    <td> {data.occupation}</td>
-                                    <td><button className='btn btn-primary'>View</button></td>
+                                    <td> {lecturer.occupation}</td>
+
+                                    <td>
+                                        <Link href={`/centers/lecturers/${encodeURIComponent(data.indexOf(lecturer))}`} >
+                                            <button className='btn btn-primary'>View</button>
+
+                                        </Link>
+
+                                    </td>
                                 </tr>
                             )
                         })
@@ -65,6 +73,6 @@ function AllLecturers() {
                 </tbody>
             </table>
         </div>
-    </div>);
+    </div >);
 }
 export default AllLecturers;

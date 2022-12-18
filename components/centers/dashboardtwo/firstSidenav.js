@@ -1,5 +1,5 @@
 import HomeIcon from '@mui/icons-material/Home';
-import { Home, Key, NoteAddOutlined, People, Person2Outlined, Person3Sharp, PersonOffOutlined, Settings } from '@mui/icons-material';
+import { Apartment, Home, Key, NoteAddOutlined, People, PeopleOutlineOutlined, Person2Outlined, Person3Sharp, PersonOffOutlined, School, Settings } from '@mui/icons-material';
 import Link from 'next/link';
 
 function FirstsideNav() {
@@ -9,28 +9,31 @@ function FirstsideNav() {
                 <Link href='/centers/dashboard'>
                     <span><HomeIcon /></span>
                 </Link>
-
             </li>
-
             <li>
-                <Link href='/centers/studentlist'>
-                    <span><People /></span>
+                <Link href='/centers/studentlist'><span><PeopleOutlineOutlined /></span>
                 </Link>
             </li>
+            <li>
+                <Link href='/centers/lecturers'>
+                    <span><School /></span>
+                </Link>
 
+            </li>
+            <li>
+                <Link href='/centers/faculties'>
+                    <span><Apartment /></span>
+                </Link>
+
+            </li>
             <li>
                 <Link href='/centers/courses'>
                     <span><NoteAddOutlined /></span>
                 </Link>
-            </li>
 
-            <li>
-                <span><Person2Outlined /></span>
-            </li>
-            <li>
-                <span><Key /></span>
             </li>
         </ul>
+
 
         <ul className='firstsidebottom'>
             <li>

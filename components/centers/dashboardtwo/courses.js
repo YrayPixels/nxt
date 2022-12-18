@@ -40,7 +40,7 @@ function AllCourses() {
                         <th>TITLE</th>
                         <th>CODE</th>
                         <th>UNIT</th>
-                        <th>ACTIONS</th>
+                        <th className='text-center'>ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,14 @@ function AllCourses() {
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
                                     <td> {data.unit}</td>
-                                    <td><button className='btn btn-primary'>View</button></td>
+                                    <td className='text-center'><div className='btn-group'>
+                                        <button className='btn btn-primary p-2'>
+                                            Edit
+                                        </button>
+                                        <button className='btn btn-danger p-2'>
+                                            Delete
+                                        </button>
+                                    </div></td>
                                 </tr>
                             )
                         })

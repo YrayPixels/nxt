@@ -39,18 +39,25 @@ function AllFaculties() {
                         <th>ID</th>
                         <th>TITLE</th>
                         <th>CODE</th>
-                        <th>ACTIONS</th>
+                        <th className='text-center'>ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         data.map(data => {
                             return (
-                                <tr className='align-items-center '>
+                                <tr className='align-items-start '>
                                     <td><span><img src="" alt="" /></span> {data.id}</td>
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
-                                    <td><button className='btn btn-primary'>View</button></td>
+                                    <td className='text-center'><div className='btn-group '>
+                                        <button className='btn btn-primary p-2'>
+                                            Edit
+                                        </button>
+                                        <button className='btn btn-danger p-2'>
+                                            Delete
+                                        </button>
+                                    </div></td>
                                 </tr>
                             )
                         })
