@@ -6,7 +6,7 @@ function NewtopNAv() {
         <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex">
                 <div>
-                    <img src="" alt="" />
+                    <img src="/" alt="" />
                 </div>
                 <div>
                     <p className="fs-4 fw-bold">(SPESSE) Dashboard</p>
