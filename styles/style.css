@@ -136,7 +136,7 @@
     overflow: hidden;
 }
 
-.backgroundCenter {
+/* .backgroundCenter {
     border-radius: 68% 0% 0% 13% / 85% 10% 46% 15%;
     position: absolute;
     height: 900px;
@@ -146,6 +146,19 @@
     right: 0px;
     z-index: -1;
 
+} */
+.backgroundCenter {
+    top: -300px;
+    right: 0px;
+    z-index: -1;
+    position: absolute;
+    height: 900px;
+    width: 900px;
+    width: 0;
+    height: 0;
+    border-bottom: 900px solid #A6CE34;
+    border-left: 1100px solid transparent;
+    /* border-radius: 68% 0% 0% 13% / 85% 10% 46% 15%; */
 }
 
 .loginCont h2 {

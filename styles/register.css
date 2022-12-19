@@ -1,7 +1,7 @@
 .firstSide li {
     position: sticky;
 
-    margin-top: 50px;
+    margin-top: 10px;
     list-style: none;
     /* line-height: 60px; */
     padding: 15px;
@@ -13,6 +13,7 @@
     transition: 1s;
 }
 
+
 .firstSide li:hover {
     color: white;
     background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
@@ -20,7 +21,7 @@
 }
 
 .firstsidebottom {
-    margin-top: 40px;
+    margin-top: 20px
 }
 
 .firstsidebottom li {

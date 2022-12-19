@@ -87,7 +87,7 @@ function Sidenav() {
 
                     </li>
                     <li>
-                        <Link href="/centers/lecturers/addcourses">
+                        <Link href="/centers/launchprogram">
                             <span><RocketLaunch /></span>Launch Programme
                         </Link>
                     </li>
