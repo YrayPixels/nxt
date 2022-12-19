@@ -11,7 +11,7 @@ function LoginComponent() {
 
     const [userInfo, setUserInfo] = useState({ email: " ", password: " " });
     function redirect() {
-        router.replace('/centers/dashboard');
+        router.replace('/centers/otp');
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,6 +33,9 @@ function LoginComponent() {
         const status = response.status;
         if (status == 200) {
             setNotify(' ')
+            sessionStorage.setItem("bearer_token", data.barear_token);
+            sessionStorage.setItem("user_id", [data.message.id, data.message.email]);
+            redirect()
         } else if (status == 201) {
             setNotify('Incorrect Details')
             setLoading('')
