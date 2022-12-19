@@ -28,18 +28,18 @@ const authoptions = {
                     fetchedData.push(data);
                 }
 
-                // const user = {
-                //     id: 1,
-                //     center_name: 'Ibrahim Badamasi Babangida University Lapai',
-                //     center_code: 'IBBUL',
-                //     email: 'ibbu@gmail.com',
-                //     phone_number: '09000000000',
-                //     logo: ' ',
-                //     state_id: '0',
-                //     lga_id: ' 0',
-                //     center_otp: '12345',
-                //     status: ' 1'
-                // }
+                const user = {
+                    id: 1,
+                    center_name: 'Ibrahim Badamasi Babangida University Lapai',
+                    center_code: 'IBBUL',
+                    email: 'ibbu@gmail.com',
+                    phone_number: '09000000000',
+                    logo: ' ',
+                    state_id: '0',
+                    lga_id: ' 0',
+                    center_otp: '12345',
+                    status: ' 1'
+                }
 
 
                 if ((email == "ibbu@gmail.com" || email == "lagos@spesse.ng") && password == 12345678) {
