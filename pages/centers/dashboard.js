@@ -27,7 +27,7 @@ function Dashboard() {
 
                     <div className="col-9 dashmain p-4">
                         <Topnav />
-                        <div className="row justify-content-between align-items-center mt-3">
+                        <div className="row py-2 justify-content-between align-items-center mt-3">
                             {/* Top Pills */}
                             <div className="col-3">
                                 <Totalfaculty />

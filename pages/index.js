@@ -28,7 +28,9 @@ function LoginComponent() {
     return (
 
         <div className="loginCont">
+            <div className="backgroundCent">
 
+            </div>
             <div className="backgroundCenter">
 
             </div>
