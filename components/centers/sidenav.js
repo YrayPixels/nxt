@@ -1,8 +1,9 @@
 // import styles from '/styles/sidenav.module.css'
-import { Apartment, Home, Key, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, School, SettingsAccessibility } from '@mui/icons-material';
+import { Apartment, Home, Key, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, RocketLaunch, School, SettingsAccessibility } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { signIn, signOut } from 'next-auth/react';
+import { CDropdown, CDropdownDivider, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react';
 
 
 function Sidenav() {
@@ -24,30 +25,71 @@ function Sidenav() {
                         </Link>
                     </li>
                     <li>
-                        <Link href='/centers/studentlist'><span><PeopleOutlineOutlined /></span>
-                            Manage Students
-                        </Link>
+                        <CDropdown variant="btn-group" direction="dropend">
+                            <CDropdownToggle color="none"><span><PeopleOutlineOutlined /></span>
+                                Manage Students</CDropdownToggle>
+                            <CDropdownMenu  >
+                                <Link href="/centers/studentlist">
+                                    <CDropdownItem >View All Students</CDropdownItem>
+                                </Link>
+                                <Link href="/centers/register">
+                                    <CDropdownItem >Add Student</CDropdownItem>
+                                </Link>
+                            </CDropdownMenu>
+                        </CDropdown>
+
                     </li>
                     <li>
-                        <Link href='/centers/lecturers'>
-                            <span><School /></span>
-                            Manage Lecturers
-                        </Link>
-
+                        <CDropdown variant="btn-group" direction="dropend">
+                            <CDropdownToggle color="none"><span><School /></span>
+                                Manage Lecturers</CDropdownToggle>
+                            <CDropdownMenu  >
+                                <Link href="/centers/lecturers/register">
+                                    <CDropdownItem >View All Lecturers</CDropdownItem>
+                                </Link>
+                                <Link href="/centers/lecturers">
+                                    <CDropdownItem>Add Lecturer</CDropdownItem>
+                                </Link>
+                            </CDropdownMenu>
+                        </CDropdown>
+                    </li>
+                    <li>
+                        <CDropdown variant="btn-group" direction="dropend">
+                            <CDropdownToggle color="none"><span><Apartment /></span>
+                                Manage Faculty</CDropdownToggle>
+                            <CDropdownMenu  >
+                                <Link href="/centers/lecturers/addfaculty">
+                                    <CDropdownItem >View All Faculties</CDropdownItem>
+                                </Link>
+                                <Link href='/centers/faculties'>
+                                    <CDropdownItem>Add Faculty</CDropdownItem>
+                                </Link>
+                            </CDropdownMenu>
+                        </CDropdown>
                     </li>
                     <li>
                         <Link href='/centers/faculties'>
-                            <span><Apartment /></span>
-                            Manage Faculty
+                            <CDropdown variant="btn-group" direction="dropend">
+                                <CDropdownToggle color="none"> <span><NoteAddOutlined /></span>
+                                    Manage Courses</CDropdownToggle>
+                                <CDropdownMenu  >
+                                    <Link href='/centers/courses'>
+                                        <CDropdownItem >View All Courses</CDropdownItem>
+                                    </Link>
+                                    <Link href="/centers/lecturers/addcourses">
+                                        <CDropdownItem>Add Course</CDropdownItem>
+                                    </Link>
+                                </CDropdownMenu>
+                            </CDropdown>
+
                         </Link>
+
 
                     </li>
                     <li>
-                        <Link href='/centers/courses'>
-                            <span><NoteAddOutlined /></span>
-                            Manage Courses
+                        <Link href="/centers/lecturers/addcourses">
+                            <span><RocketLaunch /></span>Launch Programme
                         </Link>
-
                     </li>
                 </ul>
             </div>
