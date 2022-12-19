@@ -77,8 +77,8 @@ function Useractivity() {
             </div>
             <div>
                 <div className="d-flex align-items-center">
-                    <span className="col-2">Students <span><School /></span></span>
-                    <span className="col-8 px-2"><Progress
+                    <span className="col-3 d-flex justify-content-between">Students <span><School /></span></span>
+                    <span className="col-7 px-2"><Progress
                         color="danger"
                         style={{
                             height: '10px',
@@ -88,8 +88,8 @@ function Useractivity() {
                     <span className="col-2">400</span>
                 </div>
                 <div className="d-flex align-items-center">
-                    <span className="col-2">Courses <span><Book /></span> </span>
-                    <span className="col-8 px-2"><Progress
+                    <span className="col-3 d-flex justify-content-between">Courses <span><Book /></span> </span>
+                    <span className="col-7 px-2"><Progress
                         color="primary"
                         style={{
                             height: '10px',
@@ -99,8 +99,8 @@ function Useractivity() {
                     <span className="col-2">240</span>
                 </div>
                 <div className="d-flex align-items-center">
-                    <span className="col-2">Faculty <span><Apartment /></span> </span>
-                    <span className="col-8 px-2"><Progress
+                    <span className="col-3 d-flex justify-content-between">Faculty <span><Apartment /></span> </span>
+                    <span className="col-7 px-2"><Progress
                         color="newcol3"
                         style={{
                             height: '10px',
