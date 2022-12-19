@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material"
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
 import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
 import AddFaculty from "../../../components/centers/createcomponent/addFalculties"
+import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
 
 
 function RegisterFaculty() {
@@ -18,7 +19,7 @@ function RegisterFaculty() {
 
                 <div>
                     <div className="p-3">
-                        for top nav
+                        <NewtopNAv />
                     </div>
 
                 </div>

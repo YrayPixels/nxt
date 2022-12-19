@@ -6,6 +6,7 @@ import { CircularProgress } from "@mui/material"
 import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import AllFaculties from "../../../components/pagesIndex/allFaculties";
+import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 // import AllCourses from "../../../components/centers/dashboardtwo/courses";
 
 function Faculties() {
@@ -18,7 +19,7 @@ function Faculties() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        for top nav
+                        <NewtopNAv />
                     </div>
                 </div>
                 <div className="row justify-content-center ">

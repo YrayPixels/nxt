@@ -98,19 +98,8 @@ function LecturerRegistration() {
             Lecturer Registration Information
         </h3>
         <form className="card p-4" action="" onSubmit={handleLecturerReg} >
-
-            <div className="row col-6 align-items-center">
-                <div className="profileImg col-5">
-                    <img src="" alt="" />
-                </div>
-                <div className="col-5">
-                    Upload Image
-                    <button>Browse</button>
-                </div>
-            </div>
-
             <div className="mb-3">
-                <label htmlFor="fullname">Trainee Name</label>
+                <label htmlFor="fullname">Lecturer Name</label>
                 <input onChange={(e) => setLecturerInfo(
                     { ...lecturerInfo, names: e.target.value })}
                     type="text" name="fullname" className="form-control" />

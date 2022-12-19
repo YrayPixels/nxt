@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material"
 import AddCourses from "../../../components/centers/createcomponent/addCourses"
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
 import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
+import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
 
 
 function RegisterCourses() {
@@ -18,7 +19,7 @@ function RegisterCourses() {
 
                 <div>
                     <div className="p-3">
-                        for top nav
+                        <NewtopNAv />
                     </div>
 
                 </div>

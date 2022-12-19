@@ -103,18 +103,8 @@ function StudentRegistration() {
         </h3>
         <form className="card p-4" action="" onSubmit={handleStudentReg} >
 
-            <div className="row col-6 align-items-center">
-                <div className="profileImg col-5">
-                    <img src="" alt="" />
-                </div>
-                <div className="col-5">
-                    Upload Image
-                    <button>Browse</button>
-                </div>
-            </div>
-
             <div className="mb-3">
-                <label htmlFor="fullname">Trainee Name</label>
+                <label htmlFor="fullname">Student Name</label>
                 <input onChange={(e) => setUserInfo(
                     { ...userInfo, names: e.target.value })}
                     type="text" name="fullname" className="form-control" />

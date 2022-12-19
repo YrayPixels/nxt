@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material"
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
 import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
 import AddDepartment from "../../../components/centers/createcomponent/addDepartment"
+import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
 
 
 function RegisterDepartment() {
@@ -18,7 +19,7 @@ function RegisterDepartment() {
 
                 <div>
                     <div className="p-3">
-                        for top nav
+                        <NewtopNAv />
                     </div>
 
                 </div>
