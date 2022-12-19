@@ -166,3 +166,7 @@
     color: linear-gradient(135deg, #0A770C 0%, #A6CE34 100%);
 
 }
+
+.activityIcons span {
+    font-size: small;
+}

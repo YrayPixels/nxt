@@ -1,4 +1,4 @@
-import { Apartment, Book, BookOnline, School } from "@mui/icons-material";
+import { AccountBoxRounded, AddBox, Apartment, Book, BookOnline, School } from "@mui/icons-material";
 import { LinearProgress } from "@mui/material";
 import { Progress } from "reactstrap";
 
@@ -37,41 +37,41 @@ function Useractivity() {
                 </Progress>
 
             </div>
-            <div className="d-flex pt-3">
-                <div className="p-2 text-center col-4">
-                    <p className="fw-bold fs-4">4</p>
-                    <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex py-3">
+                <div className="p-2  col-4">
+                    <span className="fw-bold fs-4">4</span>
+                    <div className="d-flex activityIcons justify-content-start align-items-center">
                         <div>
-
+                            <AddBox />
                         </div>
-                        <p>Active users</p>
+                        <span>Active users</span>
                     </div>
                 </div>
-                <div className="p-2 text-center col-3">
-                    <p className="fw-bold fs-4">32</p>
-                    <div className="d-flex justify-content-center align-items-center">
+                <div className="p-2  col-3">
+                    <span className="fw-bold fs-4">1</span>
+                    <div className="d-flex activityIcons justify-content-start align-items-center">
                         <div>
-
+                            <AddBox />
                         </div>
-                        <p>Active users</p>
+                        <span>Observant USers</span>
                     </div>
                 </div>
-                <div className="p-2 text-center col-3">
-                    <p className="fw-bold fs-4">5</p>
-                    <div className="d-flex justify-content-center align-items-center">
+                <div className="p-2  col-3">
+                    <span className="fw-bold fs-4">2</span>
+                    <div className="d-flex activityIcons justify-content-start align-items-center">
                         <div>
-
+                            <AddBox />
                         </div>
-                        <p>Active users</p>
+                        <span>Dormant Users</span>
                     </div>
                 </div>
-                <div className="p-2 text-center col-2">
-                    <p className="fw-bold fs-4">20</p>
-                    <div className="d-flex justify-content-center align-items-center">
+                <div className="p-2  col-2">
+                    <span className="fw-bold fs-4">2</span>
+                    <div className="d-flex activityIcons justify-content-start align-items-center">
                         <div>
-
+                            <AddBox />
                         </div>
-                        <p>Active users</p>
+                        <span>Inactive USers</span>
                     </div>
                 </div>
             </div>
