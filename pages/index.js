@@ -2,29 +2,59 @@ import RightsideCenters from "/components/centers/loginComponent/rigthSide";
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-
+import { CircularProgress } from "@mui/material";
 
 function LoginComponent() {
     const router = useRouter();
     const [notify, setNotify] = useState(' ');
-    const [userInfo, setUserInfo] = useState({ email: " ", password: " " });
+    const [loading, setLoading] = useState(' ');
 
+    const [userInfo, setUserInfo] = useState({ email: " ", password: " " });
     function redirect() {
         router.replace('/centers/dashboard');
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const res = await signIn('credentials', {
-            email: userInfo.email,
-            password: userInfo.password,
-            redirect: false
-        })
-        if (res.error == null && res.status == 200) {
-            redirect()
+
+
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("email", userInfo.email);
+        urlencoded.append("password", userInfo.password);
+
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            // redirect: 'follow'
+        };
+        setLoading('loading')
+
+        const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/login", requestOptions)
+        const data = await response.json()
+        const status = response.status;
+        if (status == 200) {
+            setNotify(' ')
+        } else if (status == 201) {
+            setNotify('Incorrect Details')
+            setLoading('')
         } else {
-            setNotify(res.error);
+            setNotify('An Error has Occured')
         }
-    };
+        console.log(data);
+    }
+
+
+    // const res = await signIn('credentials', {
+    //     email: userInfo.email,
+    //     password: userInfo.password,
+    //     redirect: false
+    // })
+    // if (res.error == null && res.status == 200) {
+    //     // redirect()
+    // } else {
+    //     setNotify(res.error);
+    // }
+
+
     return (
 
         <div className="loginCont">
@@ -41,8 +71,8 @@ function LoginComponent() {
                         <div className="col-6">
                             <h3 className="mb-5 fw-bold">CENTER FOR EXCELLENCE PORTAL (SPESSE)</h3>
                             {
-                                notify == 'Invalid credentials' && (
-                                    <p className="text-danger fw-bold">Incorrect Credentials !!!</p>)
+                                notify != ' ' && (
+                                    <p className="text-danger fw-bold">{notify}</p>)
                             }
                             <h2>Sign In</h2>
                             <p>Enter the email and password provided to log in.</p>
@@ -67,14 +97,15 @@ function LoginComponent() {
                                 <div className="form-check mb-4 form-switch">
                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
                                     <label for=""> Remember Me</label>
-
                                 </div>
                                 <div className="mb-4 ">
-                                    <button className="w-50 btn rounded-0"
-                                        type="submit" name="" id="">Login</button>
+                                    <button className="w-50 btn d-flex justify-content-center align-items-center rounded-0"
+                                        type="submit" name="" id="">
+                                        {
+                                            loading == 'loading' && (<CircularProgress color="inherit" />)
+                                        }Login
+                                    </button>
                                 </div>
-
-
                             </form>
                         </div>
                         <RightsideCenters />

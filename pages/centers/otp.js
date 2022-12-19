@@ -1,6 +1,7 @@
 import Script from 'next/script'
 import RightsideCenters from "/components/centers/loginComponent/rigthSide";
-
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import Head from 'next/head'
 
@@ -8,7 +9,21 @@ function Otp() {
     const [otp, setOtp] = useState('');
     const [response, setResponse] = useState([])
 
+
+
+
     const verifyOtp = async () => {
+        const res = await signIn('credentials', {
+            bearer_token: "1793|4bNnLae9Xz7siyxym8gDapVnOl5DZjAyy0c2ZU5b",
+            otpCode: otp,
+            redirect: false
+        })
+        if (res.error == null && res.status == 200) {
+            // redirect()
+        } else {
+            setNotify(res.error);
+        }
+
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer 1793|4bNnLae9Xz7siyxym8gDapVnOl5DZjAyy0c2ZU5b");
 
