@@ -6,10 +6,7 @@
     /* line-height: 60px; */
     padding: 15px;
     border-radius: 10px;
-    box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
-    transition-property: 'background', 'color';
+
     transition: 1s;
 }
 
@@ -31,10 +28,6 @@
     list-style: none;
     /* line-height: 60px; */
     padding: 15px;
-    border-radius: 10px;
-    box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -3px 26px 28px -19px rgba(0, 0, 0, 0.75);
 
 }
 
