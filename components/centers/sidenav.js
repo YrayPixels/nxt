@@ -58,10 +58,11 @@ function Sidenav() {
                             <CDropdownToggle color="none"><span><Apartment /></span>
                                 Manage Faculty</CDropdownToggle>
                             <CDropdownMenu  >
-                                <Link href="/centers/lecturers/addfaculty">
+                                <Link href="/centers/faculties">
                                     <CDropdownItem >View All Faculties</CDropdownItem>
                                 </Link>
-                                <Link href='/centers/faculties'>
+
+                                <Link href='/centers/faculties/addfaculty'>
                                     <CDropdownItem>Add Faculty</CDropdownItem>
                                 </Link>
                             </CDropdownMenu>
