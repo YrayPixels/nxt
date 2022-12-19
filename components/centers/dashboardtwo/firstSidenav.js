@@ -3,6 +3,7 @@ import { Apartment, Home, Key, NoteAddOutlined, People, PeopleOutlineOutlined, P
 import Link from 'next/link';
 
 function FirstsideNav() {
+
     return (<>
         <ul className='firstSide'>
             <li>
