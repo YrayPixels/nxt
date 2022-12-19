@@ -15,7 +15,7 @@ const fetcher = async () => {
     return data.students
 }
 
-function RegisteredStudents() {
+function StudentsList() {
     const { data, error } = useSWR('register', fetcher)
     if (error)
         return 'An error has occured'
@@ -36,7 +36,7 @@ function RegisteredStudents() {
                 <h6 className="fw-bold">Total No of Students:  {data.length}</h6>
                 <p>Done this month</p>
             </div>
-            <table className="tableData table table-responsive table">
+            <table className="tableData table table-hover  table-responsive ">
                 <thead>
                     <tr>
                         <th>STUDENT'S NAME</th>
@@ -71,4 +71,4 @@ function RegisteredStudents() {
     </div>);
 }
 
-export default RegisteredStudents;
+export default StudentsList;

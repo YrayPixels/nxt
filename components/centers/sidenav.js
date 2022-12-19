@@ -1,5 +1,5 @@
 // import styles from '/styles/sidenav.module.css'
-import { Apartment, Home, Key, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, School, SettingsAccessibility } from '@mui/icons-material';
+import { Apartment, Home, Key, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, School, SettingsAccessibility } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { signIn, signOut } from 'next-auth/react';
@@ -8,8 +8,13 @@ import { signIn, signOut } from 'next-auth/react';
 function Sidenav() {
     return (
         <div className="sidenavBody py-4 ps-4">
-            <div className="text-center">
-                <h5>SPESSE Dashboard</h5>
+            <div className="text-center d-flex fw-bold">
+                <p>
+                    <Monitor />
+                </p>
+                <p>
+                    SPESSE Dashboard
+                </p>
             </div>
             <div>
                 <ul>
