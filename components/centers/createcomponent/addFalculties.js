@@ -20,24 +20,31 @@ function AddFaculty() {
             body: urlencoded,
             redirect: 'follow'
         };
+        setNotify('loading')
 
-        console.log(urlencoded)
         const addFaculty = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddFaculty", requestOptions)
             const data = await response.json()
+            const status = response.status;
 
-            if (data.message == 'Student Added Successfully') {
-                setNotify(data.message)
+            if (status == 200) {
+                setNotify('Faculty Added Succesfully')
+            } else {
+                setNotify('Error Occured!!!')
             }
-            return data
         }
         addFaculty()
     };
 
     return (<>
         {
-            notify == 'Student Added Successfully' && (
-                <p className="text-success text-center fw-bold">Course Added</p>)
+            notify == 'loading' && (
+                <p className="text-success text-center fw-bold"><CircularProgress /></p>
+            )
+        }
+        {
+            notify != ' ' && (
+                <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
             Add Faculty

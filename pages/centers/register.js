@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
+import NewtopNAv from "../../components/centers/dashboardtwo/newtopNav"
 
 
 function RegisterStudents() {
@@ -18,7 +19,7 @@ function RegisterStudents() {
 
                 <div>
                     <div className="p-3">
-                        for top nav
+                        <NewtopNAv />
                     </div>
 
                 </div>

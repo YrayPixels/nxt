@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 function StudentRegistration() {
     const [notify, setNotify] = useState(' ');
@@ -79,26 +80,33 @@ function StudentRegistration() {
             body: urlencoded,
             redirect: 'follow'
         };
-
-        console.log(urlencoded)
+        setNotify('loading')
+        // console.log(urlencoded)
         const addStudent = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddNewStudent", requestOptions)
             const data = await response.json()
-
-            if (data.message == 'Student Added Successfully') {
-                setNotify(data.message)
+            const status = response.status;
+            if (status == 200) {
+                setNotify('Student Added Succesfully')
+            } else {
+                setNotify('Error Occured!!!')
             }
-            return data
+
         }
         addStudent()
 
     };
     return (<>
         {
-            notify == 'Student Added Successfully' && (
-                <p className="text-success text-center fw-bold">Student Added</p>)
+            notify == 'loading' && (
+                <p className="text-success text-center fw-bold"><CircularProgress /></p>
+            )
         }
-        <h3 className="py-4">
+        {
+            notify != ' ' && (
+                <p className="text-success text-center fw-bold">{notify}</p>)
+        }
+        <h3 className="py-4 d-flex align-items-center">
             Student Registration Information
         </h3>
         <form className="card p-4" action="" onSubmit={handleStudentReg} >
@@ -107,23 +115,24 @@ function StudentRegistration() {
                 <label htmlFor="fullname">Student Name</label>
                 <input onChange={(e) => setUserInfo(
                     { ...userInfo, names: e.target.value })}
-                    type="text" name="fullname" className="form-control" />
+
+                    required type="text" name="fullname" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="phone">Telephone number</label>
                 <input onChange={(e) => setUserInfo(
-                    { ...userInfo, phone: e.target.value })} type="text" name="phone" className="form-control" />
+                    { ...userInfo, phone: e.target.value })} type="text" required name="phone" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="email">Email</label>
                 <input onChange={(e) => setUserInfo(
-                    { ...userInfo, email: e.target.value })} type="text" name="email" className="form-control" />
+                    { ...userInfo, email: e.target.value })} type="text" required name="email" className="form-control" />
             </div>
 
             <div className="mb-3 row ">
                 <div className="col-6 mb-3">
                     <label htmlFor="falculty">Faculty</label>
-                    <select name="department" onChange={(e) => setUserInfo(
+                    <select required name="department" onChange={(e) => setUserInfo(
                         { ...userInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                         <option selected>Select your Faculty</option>
@@ -141,12 +150,12 @@ function StudentRegistration() {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="age">Age</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input required onChange={(e) => setUserInfo(
                         { ...userInfo, age: e.target.value })} type="text" name="age" className="form-control" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="department">Department</label>
-                    <select name="department" onChange={(e) => setUserInfo(
+                    <select required name="department" onChange={(e) => setUserInfo(
                         { ...userInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                         <option selected>Select your Department</option>
@@ -165,7 +174,7 @@ function StudentRegistration() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="programme">Programme</label>
-                    <select name="programme" onChange={(e) => setUserInfo(
+                    <select required name="programme" onChange={(e) => setUserInfo(
                         { ...userInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                         <option selected>Select your program</option>
@@ -183,23 +192,23 @@ function StudentRegistration() {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="address">Address</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input required onChange={(e) => setUserInfo(
                         { ...userInfo, address: e.target.value })} type="text" name="address" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="academic">Highest Qualification</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input required onChange={(e) => setUserInfo(
                         { ...userInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="employementStatus">Employement Status</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input required onChange={(e) => setUserInfo(
                         { ...userInfo, occupation: e.target.value })} type="text" name="employementStatus" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
 
                     <label htmlFor="occupation">Occupation</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input required onChange={(e) => setUserInfo(
                         { ...userInfo, occupation: e.target.value })} type="text" name="occupation" className="form-control" />
                 </div>
             </div>

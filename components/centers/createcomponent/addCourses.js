@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 function AddCourses() {
     const [notify, setNotify] = useState(' ');
@@ -44,24 +45,30 @@ function AddCourses() {
             body: urlencoded,
             redirect: 'follow'
         };
+        setNotify('loading')
 
-        console.log(urlencoded)
         const addCourse = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddCourse", requestOptions)
             const data = await response.json()
-
-            if (data.message == 'Student Added Successfully') {
-                setNotify(data.message)
+            const status = response.status;
+            if (status == 200) {
+                setNotify('Course Added Succesfully')
+            } else {
+                setNotify('Error Occured!!!')
             }
-            return data
         }
         addCourse()
     };
 
     return (<>
         {
-            notify == 'Student Added Successfully' && (
-                <p className="text-success text-center fw-bold">Course Added</p>)
+            notify == 'loading' && (
+                <p className="text-success text-center fw-bold"><CircularProgress /></p>
+            )
+        }
+        {
+            notify != ' ' && (
+                <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
             Add Course

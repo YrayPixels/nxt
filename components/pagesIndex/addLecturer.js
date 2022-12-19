@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 
 function LecturerRegistration() {
@@ -75,15 +76,17 @@ function LecturerRegistration() {
             redirect: 'follow'
         };
 
-        console.log(urlencoded)
+        setNotify('loading')
+
         const addLecturer = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddLecturer", requestOptions)
             const data = await response.json()
-
-            if (data.message == 'Student Added Successfully') {
-                setNotify(data.message)
+            const status = response.status;
+            if (status == 200) {
+                setNotify('Lecturer Added Succesfully')
+            } else {
+                setNotify('Error Occured!!!')
             }
-            return data
         }
 
         addLecturer()
@@ -91,8 +94,13 @@ function LecturerRegistration() {
     };
     return (<>
         {
-            notify == 'Lecturer Added Successfully' && (
-                <p className="text-success text-center fw-bold">Lecturer Added</p>)
+            notify == 'loading' && (
+                <p className="text-success text-center fw-bold"><CircularProgress /></p>
+            )
+        }
+        {
+            notify != ' ' && (
+                <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
             Lecturer Registration Information
