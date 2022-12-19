@@ -45,19 +45,6 @@ function LoginComponent() {
         console.log(data);
     }
 
-
-    // const res = await signIn('credentials', {
-    //     email: userInfo.email,
-    //     password: userInfo.password,
-    //     redirect: false
-    // })
-    // if (res.error == null && res.status == 200) {
-    //     // redirect()
-    // } else {
-    //     setNotify(res.error);
-    // }
-
-
     return (
 
         <div className="loginCont">
@@ -105,7 +92,7 @@ function LoginComponent() {
                                     <button className="w-50 btn d-flex justify-content-center align-items-center rounded-0"
                                         type="submit" name="" id="">
                                         {
-                                            loading == 'loading' && (<CircularProgress color="inherit" />)
+                                            loading == 'loading' && (<CircularProgress size='1.5rem' color="inherit" />)
                                         }Login
                                     </button>
                                 </div>

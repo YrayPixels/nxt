@@ -4,28 +4,28 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import Head from 'next/head'
+import { CircularProgress } from '@mui/material';
+// const bearer_key = sessionStorage.getItem("bearer_token");
 
 function Otp() {
+    const router = useRouter();
     const [otp, setOtp] = useState('');
-    const [response, setResponse] = useState([])
+    const [notify, setNotify] = useState(' ')
+    const [loading, setLoading] = useState(' ');
 
 
-
+    function redirect() {
+        router.replace('/centers/dashboard');
+    }
+    // console.log(bearer_key)
 
     const verifyOtp = async () => {
-        const res = await signIn('credentials', {
-            bearer_token: "1793|4bNnLae9Xz7siyxym8gDapVnOl5DZjAyy0c2ZU5b",
-            otpCode: otp,
-            redirect: false
-        })
-        if (res.error == null && res.status == 200) {
-            // redirect()
-        } else {
-            setNotify(res.error);
-        }
+
+        setNotify(' ')
 
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer 1793|4bNnLae9Xz7siyxym8gDapVnOl5DZjAyy0c2ZU5b");
+        myHeaders.append("Authorization",
+            `Bearer 1975|nF4VjC4BUvdKN6pUI0BO5rbS4qz3kHIbC9HkvpNP`)
 
         var formdata = new FormData();
         formdata.append("otp", otp);
@@ -36,24 +36,41 @@ function Otp() {
             body: formdata,
             redirect: 'follow'
         };
+        setLoading('loading')
         const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/otp", requestOptions)
         const data = await response.json()
-        setResponse(data);
+        const status = response.status
+        if (status == 200) {
+            setNotify(' ')
+            const res = await signIn('credentials', {
+                token: 'verified',
+                redirect: false,
+            })
+            if (res.error == null && res.status == 200) {
+                redirect()
+            }
+        } else if (status == 201) {
+            setNotify('Incorrect OTP')
+            setLoading(' ')
+            console.log(data);
+        } else {
+            setNotify('No Authotrization')
+        }
     }
 
     const resendOtp = async () => {
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("email", email);
-        urlencoded.append("password", password);
+        // var urlencoded = new URLSearchParams();
+        // urlencoded.append("email", email);
+        // urlencoded.append("password", password);
 
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/login", requestOptions)
-        const data = await response.json()
-        setLogindata(data);
+        // var requestOptions = {
+        //     method: 'POST',
+        //     body: urlencoded,
+        //     redirect: 'follow'
+        // };
+        // const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/login", requestOptions)
+        // const data = await response.json()
+        // setLogindata(data);
     }
 
     return (
@@ -68,8 +85,8 @@ function Otp() {
                             <div className="col-6">
                                 <h3 className="mb-5 fw-bold">CENTER FOR EXCELLENCE PORTAL (SPESSE)</h3>
                                 {
-                                    response.result == "Invalid OTP" && (
-                                        <p className="text-danger fw-bold">Invalid OTP !!!</p>)
+                                    notify != " " && (
+                                        <p className="text-danger fw-bold">{notify}</p>)
                                 }
                                 <h1>Enter OTP</h1>
                                 <input
@@ -83,7 +100,10 @@ function Otp() {
                                     <input type="text" maxlength="1" />
                                 </div> */}
                                 <div className='btn-group mt-3 p-2 '>
-                                    <button onClick={verifyOtp} className='btn btn-dark p-2'>
+                                    <button onClick={verifyOtp} className='btn btn-dark align-items-center justify-content-center d-flex p-2'>
+                                        {
+                                            loading == 'loading' && (<CircularProgress size='1.5rem' color="inherit" />)
+                                        }
                                         verify Otp
                                     </button>
                                     <button onClick={resendOtp} className='btn btn-light p-2'>
