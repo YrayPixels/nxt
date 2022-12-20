@@ -85,12 +85,17 @@ function Secondnav() {
                 </Link>
             </div>
         </>)
-    if (path == "/centers/launchprogram")
+    if (path == "/centers/launchprogram" || path == "/centers/launchprogram/launcedprogrammes")
         return (<>
             <div className="secondNav">
                 <Link href={'/centers/launchprogram'}>
                     <li>
-                        Launch Program
+                        Launch Programme
+                    </li>
+                </Link>
+                <Link href={'/centers/launchprogram/launcedprogrammes'}>
+                    <li>
+                        Programmes Launced
                     </li>
                 </Link>
             </div>

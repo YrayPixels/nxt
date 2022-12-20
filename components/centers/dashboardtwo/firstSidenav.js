@@ -1,5 +1,5 @@
 import HomeIcon from '@mui/icons-material/Home';
-import { Apartment, Home, Key, NoteAddOutlined, People, PeopleOutlineOutlined, Person2Outlined, Person3Sharp, PersonOffOutlined, School, Settings } from '@mui/icons-material';
+import { Apartment, Home, Key, NoteAddOutlined, People, PeopleOutlineOutlined, Person2Outlined, Person3Sharp, PersonOffOutlined, RocketLaunch, School, Settings } from '@mui/icons-material';
 import Link from 'next/link';
 
 function FirstsideNav() {
@@ -33,6 +33,9 @@ function FirstsideNav() {
                 </Link>
 
             </li>
+            <Link href="/centers/launchprogram">
+                <span><RocketLaunch /></span>
+            </Link>
         </ul>
 
 

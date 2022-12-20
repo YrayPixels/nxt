@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 
 function Programlaunching() {
@@ -12,7 +13,7 @@ function Programlaunching() {
     const [faculties, setFaculties] = useState([]);
     const [courses, setCourses] = useState([]);
 
-    const [lecturerInfo, setLecturerInfo] = useState({
+    const [launchInfo, setlaunchInfo] = useState({
         announcement_date: " ",
         announcement_link: " ",
         programme_id: " ",
@@ -53,11 +54,11 @@ function Programlaunching() {
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("center_id", "1 ");
-        urlencoded.append("programme_id", "1");
-        urlencoded.append("start_date", "fqwe");
-        urlencoded.append("end_date", "ewe");
-        urlencoded.append("announcement_date", "fwef");
-        urlencoded.append("announcement_link", "weewf");
+        urlencoded.append("programme_id", launchInfo.programme_id);
+        urlencoded.append("start_date", launchInfo.start_date);
+        urlencoded.append("end_date", launchInfo.end_date);
+        urlencoded.append("announcement_date", launchInfo.announcement_date);
+        urlencoded.append("announcement_link", launchInfo.announcement_link);
         urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
 
         var requestOptions = {
@@ -65,25 +66,32 @@ function Programlaunching() {
             body: urlencoded,
             redirect: 'follow'
         };
+        setNotify('loading')
 
-        console.log(urlencoded)
-        const addLecturer = async () => {
+        const programlaunch = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/LunchProgramme", requestOptions)
             const data = await response.json()
+            const status = response.status;
 
-            if (data.message == 'Student Added Successfully') {
-                setNotify(data.message)
+            if (status == 200) {
+                setNotify('Program Launched')
+            } else {
+                setNotify('Error Occured!!!')
             }
-            return data
         }
 
-        addLecturer()
+        programlaunch()
 
     };
     return (<>
         {
-            notify == 'Lecturer Added Successfully' && (
-                <p className="text-success text-center fw-bold">Lecturer Added</p>)
+            notify == 'loading' && (
+                <p className="text-success text-center fw-bold"><CircularProgress /></p>
+            )
+        }
+        {
+            notify != ' ' && (
+                <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
             Lauch A Programme
@@ -91,8 +99,8 @@ function Programlaunching() {
         <form className="card p-4" action="" onSubmit={programlaunch} >
             <div className="mb-3">
                 <label htmlFor="programme">Programme</label>
-                <select name="programme" onChange={(e) => setLecturerInfo(
-                    { ...lecturerInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
+                <select name="programme" onChange={(e) => setlaunchInfo(
+                    { ...launchInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                     <option selected>Select your programme</option>
                     {
@@ -110,26 +118,26 @@ function Programlaunching() {
 
             <div className="mb-3">
                 <label htmlFor="startdate">Start Date</label>
-                <input onChange={(e) => setLecturerInfo(
-                    { ...lecturerInfo, start_date: e.target.value })}
+                <input onChange={(e) => setlaunchInfo(
+                    { ...launchInfo, start_date: e.target.value })}
                     type="date" name="startdate" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="enddate">End Date</label>
-                <input onChange={(e) => setLecturerInfo(
-                    { ...lecturerInfo, end_date: e.target.value })}
+                <input onChange={(e) => setlaunchInfo(
+                    { ...launchInfo, end_date: e.target.value })}
                     type="date" name="enddate" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="date">Anouncement Date</label>
-                <input onChange={(e) => setLecturerInfo(
-                    { ...lecturerInfo, announcement_date: e.target.value })}
+                <input onChange={(e) => setlaunchInfo(
+                    { ...launchInfo, announcement_date: e.target.value })}
                     type="date" name="date" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="link">Announcement Link </label>
-                <input onChange={(e) => setLecturerInfo(
-                    { ...lecturerInfo, announcement_link: e.target.value })} type="text" name="link" className="form-control" />
+                <input onChange={(e) => setlaunchInfo(
+                    { ...launchInfo, announcement_link: e.target.value })} type="text" name="link" className="form-control" />
             </div>
 
 
