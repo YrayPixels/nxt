@@ -60,7 +60,8 @@ function StudentRegistration() {
     }, [])
 
     const handleStudentReg = async (e) => {
-        e.preventDefault()
+        // e.preventDefault()
+
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("name", userInfo.names);

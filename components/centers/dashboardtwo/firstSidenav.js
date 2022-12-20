@@ -33,9 +33,11 @@ function FirstsideNav() {
                 </Link>
 
             </li>
-            <Link href="/centers/launchprogram">
-                <span><RocketLaunch /></span>
-            </Link>
+            <li>
+                <Link href="/centers/launchprogram">
+                    <span><RocketLaunch /></span>
+                </Link>
+            </li>
         </ul>
 
 
