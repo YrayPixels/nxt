@@ -1,5 +1,5 @@
 .sidenavBody li {
-    margin-top: 20px;
+    margin-top: 10px;
     border: none;
     box-sizing: border-box;
     border-radius: 5px;
@@ -12,6 +12,8 @@
     transition: 0.5s;
     transition-property: all;
 }
+
+
 
 .sidenavBody li:hover {
     background-color: white;
@@ -45,4 +47,9 @@
 .sidenavBody {
     z-index: 999999999;
     position: fixed;
+}
+
+.SecondNavLogo img {
+    height: 50px;
+    width: 50px;
 }

@@ -61,7 +61,6 @@ function Sidenav() {
                                 <Link href="/centers/faculties">
                                     <CDropdownItem >View All Faculties</CDropdownItem>
                                 </Link>
-
                                 <Link href='/centers/faculties/addfaculty'>
                                     <CDropdownItem>Add Faculty</CDropdownItem>
                                 </Link>

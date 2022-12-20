@@ -1,18 +1,19 @@
 import { Notifications, NotificationsActiveOutlined } from "@mui/icons-material";
+// import mypic from 'public/image/spesee.png'
 import { Avatar } from "@mui/material";
 
 function NewtopNAv() {
     return (<>
-        <div className="d-flex justify-content-between align-items-center">
-            <div className="d-flex">
-                <div>
-                    <img src="/" alt="" />
+        <div className="row justify-content-between align-items-center">
+            <div className="d-flex col-6 align-items-center justify-content-start">
+                <div className="SecondNavLogo">
+                    <img className="img-fluid" src="../image/spesee.png" alt="logo" />
                 </div>
                 <div>
-                    <p className="fs-4 fw-bold">(SPESSE) Dashboard</p>
+                    <span className="fs-4 fw-bold">(SPESSE) Dashboard</span>
                 </div>
             </div>
-            <div className="d-flex align-items-center justify-content-around">
+            <div className="d-flex col-6 align-items-center justify-content-around">
                 <div className="px-3">
                     <NotificationsActiveOutlined />
                 </div>

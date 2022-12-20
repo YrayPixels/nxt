@@ -9,3 +9,9 @@
     color: white;
     /* padding: 3px; */
 }
+
+.secondNav a:active {
+    background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
+    color: white;
+    /* padding: 3px; */
+}
