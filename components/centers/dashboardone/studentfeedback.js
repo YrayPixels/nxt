@@ -6,8 +6,8 @@ const Studentfeedback = () => {
     const [date, setDate] = useState(' ');
     // setDate(new Date());
     // let dates = getMonth()
-    return (<div className=" pt-3 ">
-        <div className="card border text-center border-0 shadow p-5">
+    return (<div className="">
+        <div className="p-5">
             <p className=" fw-bold fs-4">Student Feedback</p>
             <p>LAST UPDATED ON: </p>
             <div className="">
@@ -22,6 +22,7 @@ const Studentfeedback = () => {
                             },
                         ],
                     }}
+
                 />
             </div>
             <div>

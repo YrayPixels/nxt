@@ -25,12 +25,12 @@ function Recentregisterd() {
     // console.log(data)
     return (<div>
 
-        <div className="bg-info p-4 shadow rounded-3">
+        <div className="bg-info p-4 shadow rounded-3 table-responsive">
             <div>
                 <h6 className="fw-bold">Recent Registered  Students</h6>
                 <p>Done this month</p>
             </div>
-            <table className="tableData table table-hover  table-responsive table-borderless">
+            <table className="tableData table table-hover  table-striped  table-borderless">
                 <thead>
                     <tr>
                         <th>STUDENT'S NAME</th>

@@ -12,6 +12,7 @@ function Useractivity() {
                     style={{
                         height: '35px',
                         borderRadius: "0px"
+
                     }}
                     multi>
                     <Progress
@@ -91,6 +92,8 @@ function Useractivity() {
                     <span className="col-3 d-flex justify-content-between">Courses <span><Book /></span> </span>
                     <span className="col-7 px-2"><Progress
                         color="primary"
+                        animated
+
                         style={{
                             height: '10px',
                         }}

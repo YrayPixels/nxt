@@ -21,33 +21,33 @@ function Dashboard() {
         return (
             <div className="container-fluid">
                 <div className=" row dashboardCenters">
-                    <div className="col-3 sidenav">
+                    <div className="d-none d-lg-block col-md-3 sidenav">
                         <Sidenav></Sidenav>
                     </div>
 
-                    <div className="col-9 dashmain p-4">
+                    <div className="col-12 col-lg-9 dashmain p-4">
                         <Topnav />
-                        <div className="row py-2 justify-content-between align-items-center mt-3">
+                        <div className="row g-2 pillTop justify-content-between align-items-center mt-3">
                             {/* Top Pills */}
-                            <div className="col-3">
+                            <div className="col-5 col-lg-3">
                                 <Totalfaculty />
                             </div>
-                            <div className="col-3">
+                            <div className="col-5 col-lg-3">
                                 <TotalactiveUsers />
                             </div>
-                            <div className="col-3">
+                            <div className="col-5 col-lg-3">
                                 <TotalCourse />
                             </div>
-                            <div className="col-3">
+                            <div className="col-5 col-lg-3">
                                 <Totalfemale />
                             </div>
                         </div>
                         {/* User Activity and feedback  */}
-                        <div className="row align-items-stretch">
-                            <div className="col-7">
+                        <div className="row  g-3 align-items-stretch  pt-4 overflow-hidden">
+                            <div className="col-12 me-5 col-md-6 card border border-0 shadow ">
                                 <Useractivity />
                             </div>
-                            <div className="col-5">
+                            <div className="col-12 col-md-5 card border text-center border-0 shadow">
                                 <Studentfeedback />
                             </div>
                         </div>

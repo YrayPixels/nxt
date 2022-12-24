@@ -29,12 +29,12 @@ function AllLecturers() {
 
             <input type="text" className='form-control w-50' placeholder='Enter Text Here...' />
         </div>
-        <div className="bg-info p-4 shadow rounded-0">
+        <div className="bg-info p-4 shadow rounded-0 table-responsive">
 
             <div>
                 <h6 className="fw-bold">Total No of Lecturers: {data.length}</h6>
             </div>
-            <table className="tableData table table-responsive table">
+            <table className="tableData table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>LECTURER'S NAME</th>

@@ -171,9 +171,16 @@
     font-size: small;
 }
 
+.pillsTop {
+
+    overflow-x: scroll;
+}
+
 @media screen and (max-width: 459px) {
     .Right img {
         height: 150px;
         width: 100%;
     }
+
+
 }

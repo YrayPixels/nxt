@@ -7,6 +7,7 @@ import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import StudentsList from "../../../components/centers/dashboardtwo/registeredstudents";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
+import AllNavs from "../../../components/allNavs";
 
 
 
@@ -25,13 +26,8 @@ function Students() {
                     </div>
                 </div>
                 <div className="row justify-content-center ">
-                    <div className="col-1 sticky-top border border-1 border-start  " >
-                        <FirstsideNav />
-                    </div>
-                    <div className="col-2 border  border-1 border-start">
-                        <Secondnav />
-                    </div>
-                    <div className="col-9 p-5 regMain">
+                    <AllNavs />
+                    <div className="col-11 col-md-9  p-lg-5 regMain">
                         <StudentsList />
                     </div>
                 </div>

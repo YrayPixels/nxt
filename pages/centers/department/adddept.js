@@ -2,10 +2,9 @@ import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
-import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
-import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
 import AddDepartment from "../../../components/centers/createcomponent/addDepartment"
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
+import AllNavs from "../../../components/allNavs"
 
 
 function RegisterDepartment() {
@@ -24,12 +23,7 @@ function RegisterDepartment() {
 
                 </div>
                 <div className="row justify-content-center ">
-                    <div className="col-1 border border-1 border-start  " >
-                        <FirstsideNav />
-                    </div>
-                    <div className="col-2 border border-1 border-start">
-                        <Secondnav />
-                    </div>
+                    <AllNavs />
                     <div className="col-9 p-5 regMain">
                         <AddDepartment />
                     </div>
