@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import Head from 'next/head'
+import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
 import OtpInput from 'react-otp-input';
 // const bearer_key = sessionStorage.getItem("bearer_token");
@@ -50,6 +51,12 @@ function Otp() {
         const status = response.status
         if (status == 200) {
             setNotify(' ')
+            Swal.fire({
+                title: 'OTP Verified Successfully',
+                icon: 'success',
+                confirmButtonText: 'close'
+            })
+
             const res = await signIn('credentials', {
                 token: 'verified',
                 redirect: false,
@@ -58,11 +65,23 @@ function Otp() {
                 redirect()
             }
         } else if (status == 201) {
-            setNotify('Incorrect OTP')
+
+            Swal.fire({
+                title: 'Incorrect OTP!',
+                text: 'kindly check your mail for the correct OTP',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
             setLoading(' ')
             // console.log(data);
         } else {
             setNotify('No Authotrization')
+            Swal.fire({
+                title: 'No Authotrization!',
+                text: 'Invalid Request',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
         }
     }
 
@@ -83,8 +102,6 @@ function Otp() {
 
     return (
         <>
-
-
             <div className="loginCont">
                 <div className="backgroundCent">
 

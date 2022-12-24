@@ -2,6 +2,7 @@ import RightsideCenters from "/components/centers/loginComponent/rigthSide";
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
+import Swal from 'sweetalert2';
 import { CircularProgress } from "@mui/material";
 import FooterComp from "../components/footer";
 
@@ -34,12 +35,22 @@ function LoginComponent() {
         const status = response.status;
         if (status == 200) {
             setNotify(' ')
+            Swal.fire({
+                title: 'Logged In Succesfully',
+                icon: 'success',
+                confirmButtonText: 'close'
+            })
             sessionStorage.setItem("bearer_token", data.barear_token);
             sessionStorage.setItem("user_id", [data.message.id, data.message.email]);
             redirect()
         } else if (status == 201) {
             setNotify('Incorrect Details')
             setLoading('')
+            Swal.fire({
+                title: 'Incorrect Details',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
         } else {
             setNotify('An Error has Occured')
         }
