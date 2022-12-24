@@ -1,17 +1,20 @@
 function RightsideCenters() {
-    return (<div className="col-6">
-        <div className="d-flex justify-content-between">
-            <div>
+    return (<>
+        <div className="row justify-content-between align-items-center pb-3">
+            <div className="col-3 col-lg-6">
                 <img className="world img-fluid" src="image/worldBank.png" alt="" />
             </div>
-            <div>
+            <div className="col-3 col-lg-6">
                 <img className="img-fluid" src="image/nuclogo.png" alt="" />
             </div>
+            <div className="col-3 d-lg-none">
+                <img className="img-fluid" src="image/spesee.png" alt="" />
+            </div>
         </div>
-        <div className="text-center">
+        <div className="d-none d-lg-block text-center">
             <img className="img-fluid" src="image/spesee.png" alt="" />
         </div>
-    </div>);
+    </>);
 }
 
 export default RightsideCenters;

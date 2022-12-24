@@ -170,3 +170,10 @@
 .activityIcons span {
     font-size: small;
 }
+
+@media screen and (max-width: 459px) {
+    .Right img {
+        height: 150px;
+        width: 100%;
+    }
+}

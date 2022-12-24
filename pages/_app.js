@@ -7,6 +7,7 @@ import '../styles/otp.css'
 import '../styles/register.css'
 import '../styles/secondNav.css'
 
+
 import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
 

@@ -1,5 +1,4 @@
 import { Notifications, NotificationsActiveOutlined } from "@mui/icons-material";
-// import mypic from 'public/image/spesee.png'
 import { Avatar } from "@mui/material";
 
 function NewtopNAv() {

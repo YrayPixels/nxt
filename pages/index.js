@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { CircularProgress } from "@mui/material";
+import FooterComp from "../components/footer";
 
 function LoginComponent() {
     const router = useRouter();
@@ -54,11 +55,11 @@ function LoginComponent() {
             <div className="backgroundCenter">
 
             </div>
-            <div className="container">
+            <div className="container-fluid container-lg">
 
-                <div className="center_login p-5">
+                <div className="center_login p-2 p-lg-5">
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-12 col-lg-6 order-1 order-lg-0">
                             <h3 className="mb-5 fw-bold">CENTER FOR EXCELLENCE PORTAL (SPESSE)</h3>
                             {
                                 notify != ' ' && (
@@ -98,12 +99,15 @@ function LoginComponent() {
                                 </div>
                             </form>
                         </div>
-                        <RightsideCenters />
+                        <div className="col-12 Right col-lg-6 order-0 order-lg-2">
+                            <RightsideCenters />
+
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="container text-center mt-5 pt-5">
-                <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
+                <FooterComp />
             </div>
 
         </div >

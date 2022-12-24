@@ -5,13 +5,20 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import Head from 'next/head'
 import { CircularProgress } from '@mui/material';
+import OtpInput from 'react-otp-input';
 // const bearer_key = sessionStorage.getItem("bearer_token");
 
 function Otp() {
     const router = useRouter();
-    const [otp, setOtp] = useState('');
+    const [state, setState] = useState({ otp: "" });
+    // const [otpstate, setotpState] = useState([])
     const [notify, setNotify] = useState(' ')
     const [loading, setLoading] = useState(' ');
+
+    // setState();
+
+    const handleChange = otp => setState({ otp });
+
 
 
     function redirect() {
@@ -20,6 +27,7 @@ function Otp() {
     // console.log(bearer_key)
 
     const verifyOtp = async () => {
+        // console.log(state.otp)
 
         setNotify(' ')
 
@@ -28,7 +36,7 @@ function Otp() {
             `Bearer 1975|nF4VjC4BUvdKN6pUI0BO5rbS4qz3kHIbC9HkvpNP`)
 
         var formdata = new FormData();
-        formdata.append("otp", otp);
+        formdata.append("otp", state.otp);
 
         var requestOptions = {
             method: 'POST',
@@ -52,7 +60,7 @@ function Otp() {
         } else if (status == 201) {
             setNotify('Incorrect OTP')
             setLoading(' ')
-            console.log(data);
+            // console.log(data);
         } else {
             setNotify('No Authotrization')
         }
@@ -75,9 +83,14 @@ function Otp() {
 
     return (
         <>
-            <Script src='../public/image/otpscript.js' />
+
+
             <div className="loginCont">
+                <div className="backgroundCent">
+
+                </div>
                 <div className="backgroundCenter">
+
                 </div>
                 <div className="container">
                     <div className="center_otp p-5">
@@ -89,8 +102,18 @@ function Otp() {
                                         <p className="text-danger fw-bold">{notify}</p>)
                                 }
                                 <h1>Enter OTP</h1>
-                                <input
-                                    onChange={(e) => setOtp(e.target.value)} type="text" name="OTP" id="" className='form-control w-50 p-3 fs-1 text-center' maxLength={6} />
+
+                                <OtpInput
+                                    value={state.otp}
+                                    onChange={handleChange}
+                                    numInputs={5}
+                                    separator={<span>-</span>}
+                                    inputStyle='otpInputStyle'
+                                    isInputNum='true'
+                                    placeholder='*****'
+                                />
+                                {/* <input
+                                    onChange={ } type="text" name="OTP" id="" className='form-control w-50 p-3 fs-1 text-center' maxLength={6} /> */}
                                 {/* <div class="otp-field text-dark">
                                     <input type="text" maxlength="1" />
                                     <input type="text" maxlength="1" />
