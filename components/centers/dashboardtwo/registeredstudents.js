@@ -58,15 +58,15 @@ function StudentsList() {
                     'form-control'
                 }
                 placeholder="Enter text here..." /> */}
-            <input type="text" className='form-control w-50' placeholder='Enter Text Here...' />
+            <input type="text" className='col-12 col-md-6 form-control w-50' placeholder='Enter Text Here...' />
         </div>
-        <div className="bg-info p-4 shadow rounded-0">
+        <div className="bg-info p-4 shadow rounded-0 table-responsive">
 
             <div>
                 <h6 className="fw-bold">Total No of Students:  {data.length}</h6>
                 <p>Done this month</p>
             </div>
-            <table className="tableData table table-hover  table-responsive ">
+            <table className="tableData table table-striped table-sm table-hover  ">
                 <thead>
                     <tr>
                         <th>STUDENT'S NAME</th>

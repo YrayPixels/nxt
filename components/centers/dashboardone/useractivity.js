@@ -3,8 +3,8 @@ import { LinearProgress } from "@mui/material";
 import { Progress } from "reactstrap";
 
 function Useractivity() {
-    return (<div className=" pt-3 ">
-        <div className="card border border-0 shadow p-4">
+    return (<div className="  ">
+        <div className="p-4">
             <p className="fw-bold fs-5">User Activity</p>
             <p>Total number of users: 42</p>
             <div className="">
