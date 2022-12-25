@@ -129,7 +129,7 @@ function Sidenav() {
                     </li>
                 </ul>
             </div>
-            <div className="text-center">
+            <div className="text-start">
                 <h6>
                     Account Pages
                 </h6>

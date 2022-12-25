@@ -26,7 +26,7 @@ function Dashboard() {
         return (
             <div className="container-fluid">
                 <div className=" row dashboardCenters">
-                    <div className={(showNav == true) ? `d-none` : `d-block d-lg-block col-md-3 sidenav`}>
+                    <div className={(showNav == true) ? `d-block d-lg-block col-md-3 sidenav` : `d-none`}>
                         <Sidenav></Sidenav>
                     </div>
 

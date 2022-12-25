@@ -31,7 +31,7 @@ function Topnav(props) {
                 <div className="col-1">
                     <span><Settings /></span>
                 </div>
-                <div onClick={openNav} className=" border border-1 d-none d-md-block rounded-1 p-2">
+                <div onClick={openNav} className=" border border-1 d-none d-md-block d-lg-none rounded-1 p-2">
                     <span><Menu /></span>
                 </div>
 
