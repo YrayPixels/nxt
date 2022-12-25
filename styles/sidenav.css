@@ -65,3 +65,26 @@
     height: 50px;
     width: 50px;
 }
+
+@media screen and (max-width: 984px) {
+    .sidenav {
+        position: absolute;
+        color: white;
+        background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
+        width: 85%;
+        z-index: 999999999999;
+    }
+
+
+    .sidenav .sub-links li {
+        color: black;
+
+    }
+
+    .sidenavBody li:hover {
+        /* background-color: white;
+         */
+        color: black;
+        border-radius: 10px;
+    }
+}

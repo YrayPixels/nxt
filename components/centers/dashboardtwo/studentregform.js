@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
-import useSWR from 'swr';
+import Swal from 'sweetalert2';
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 
 
 function StudentRegistration() {
-
+    const [bearer_key, setBearer_key] = useState(' ');
     const [notify, setNotify] = useState(' ');
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
@@ -28,7 +28,13 @@ function StudentRegistration() {
     });
 
     const { session, status } = useSession();
-    console.log(useSession())
+    // console.log(useSession())
+
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+        }
+    }, []);
     // console.log(session.user)
     const fetchData = () => {
         const allFaculties = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
@@ -65,7 +71,7 @@ function StudentRegistration() {
     }, [])
 
     const handleStudentReg = async (e) => {
-        // e.preventDefault()
+        e.preventDefault()
 
 
         var urlencoded = new URLSearchParams();
@@ -79,7 +85,16 @@ function StudentRegistration() {
         urlencoded.append("occupation", userInfo.occupation);
         urlencoded.append("heighest_qualification", userInfo.heighest_qualification);
         urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
+        urlencoded.append("Authorization", `Bearer ${bearer_key}`)
+        urlencoded.append("sex", "Male");
+        urlencoded.append("age", "20");
+        urlencoded.append("Nationality", "1");
+        urlencoded.append("state", "1");
+        urlencoded.append("lga", "1");
+        urlencoded.append("heighest_qualification_year", "2018");
+        urlencoded.append("employee", "FRS");
+        urlencoded.append("employee_type", "Private");
+        urlencoded.append("employment_status", "Employed");
 
         var requestOptions = {
             method: 'POST',
@@ -94,6 +109,18 @@ function StudentRegistration() {
             const status = response.status;
             if (status == 200) {
                 setNotify('Student Added Succesfully')
+                Swal.fire({
+                    title: 'Student Added Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+            } else if (status == 202) {
+                setNotify('Student Already Registered')
+                Swal.fire({
+                    title: 'Students Already Registered',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
             } else {
                 setNotify('Error Occured!!!')
             }

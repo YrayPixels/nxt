@@ -8,12 +8,17 @@ import Useractivity from "../../components/centers/dashboardone/useractivity"
 import Topnav from "../../components/centers/dashboardtwo/topnav"
 import Sidenav from "../../components/centers/sidenav"
 import { useSession } from "next-auth/react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
 
 function Dashboard() {
     const { status, data } = useSession();
+    const [showNav, setShowNav] = useState(false)
+    function navState(ClickedNav) {
+        // alert(ClickedNav)
+        setShowNav(ClickedNav)
+    }
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
@@ -21,12 +26,12 @@ function Dashboard() {
         return (
             <div className="container-fluid">
                 <div className=" row dashboardCenters">
-                    <div className="d-none d-lg-block col-md-3 sidenav">
+                    <div className={(showNav == true) ? `d-none` : `d-block d-lg-block col-md-3 sidenav`}>
                         <Sidenav></Sidenav>
                     </div>
 
-                    <div className="col-12 col-lg-9 dashmain p-4">
-                        <Topnav />
+                    <div className={`col-12 col-lg-9 dashmain p-4`}>
+                        <Topnav naviState={navState} />
                         <div className="row g-2 pillTop justify-content-between align-items-center mt-3">
                             {/* Top Pills */}
                             <div className="col-5 col-lg-3">
@@ -58,7 +63,7 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         )
 
     return (
