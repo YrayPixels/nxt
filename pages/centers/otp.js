@@ -2,27 +2,29 @@ import Script from 'next/script'
 import RightsideCenters from "/components/centers/loginComponent/rigthSide";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
 import OtpInput from 'react-otp-input';
 
-if (typeof window !== 'undefined') {
-    const bearer_key = window.sessionStorage.getItem("bearer_token");
-} else {
-    const bearer_key = ' ';
-}
 
 
 function Otp() {
     const router = useRouter();
+    const [bearer_key, setBearer_key] = useState(' ');
     const [state, setState] = useState({ otp: "" });
     // const [otpstate, setotpState] = useState([])
     const [notify, setNotify] = useState(' ')
     const [loading, setLoading] = useState(' ');
 
-    // setState();
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+
+        }
+    }, []);
+
 
     const handleChange = otp => setState({ otp });
 
