@@ -8,11 +8,15 @@ import { useState } from 'react';
 
 
 function Sidenav() {
+    // const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState({
+        manageStud: false,
+        manageLect: false,
+        manageFac: false,
+        manageCou: false,
+        LauncPro: false,
+    })
 
-    const [visible, setVisible] = useState(true)
-    function showDropDown() {
-        setVisible(!visible)
-    }
     return (
         <div className="sidenavBody py-4 ps-4">
             <div className="text-center d-flex fw-bold">
@@ -30,80 +34,93 @@ function Sidenav() {
                             <span><HomeIcon /></span> Dashboard
                         </Link>
                     </li>
-                    <li onClick={showDropDown}>
-                        <span>Testing the Drop Down</span>
-                        <div className={(visible ? 'd-block' : 'd-none')}>
-                            <ul>
+                    <li onMouseEnter={(e) => setVisible(
+                        { ...visible, manageStud: true })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageStud: false })}>
+                        <span><PeopleOutlineOutlined /></span>
+                        Manage Students
+                        <div className={(visible.manageStud ? 'd-block' : 'd-none')}>
+                            <ul className='sub-links'>
                                 <li>
-                                    Click Me
+                                    <Link href="/centers/studentlist">
+                                        View All Students
+                                    </Link>
                                 </li>
                                 <li>
-                                    Click Me 2
+                                    <Link href="/centers/register">
+                                        Add Student
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <CDropdown variant="btn-group" direction="dropend">
-                            <CDropdownToggle color="none"><span><PeopleOutlineOutlined /></span>
-                                Manage Students</CDropdownToggle>
-                            <CDropdownMenu  >
-                                <Link href="/centers/studentlist">
-                                    <CDropdownItem >View All Students</CDropdownItem>
-                                </Link>
-                                <Link href="/centers/register">
-                                    <CDropdownItem >Add Student</CDropdownItem>
-                                </Link>
-                            </CDropdownMenu>
-                        </CDropdown>
-
+                    <li onMouseEnter={(e) => setVisible(
+                        { ...visible, manageLect: true })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageLect: false })}>
+                        <span><School /></span>
+                        Manage Lecturers
+                        <div className={(visible.manageLect ? 'd-block' : 'd-none')}>
+                            <ul className='sub-links'>
+                                <li>
+                                    <Link href="/centers/lecturers/register">
+                                        View All Lecturers
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/centers/lecturers">
+                                        Add Lecturer
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li>
-                        <CDropdown variant="btn-group" direction="dropend">
-                            <CDropdownToggle color="none"><span><School /></span>
-                                Manage Lecturers</CDropdownToggle>
-                            <CDropdownMenu  >
-                                <Link href="/centers/lecturers/register">
-                                    <CDropdownItem >View All Lecturers</CDropdownItem>
-                                </Link>
-                                <Link href="/centers/lecturers">
-                                    <CDropdownItem>Add Lecturer</CDropdownItem>
-                                </Link>
-                            </CDropdownMenu>
-                        </CDropdown>
-                    </li>
-                    <li>
-                        <CDropdown variant="btn-group" direction="dropend">
-                            <CDropdownToggle color="none"><span><Apartment /></span>
-                                Manage Faculty</CDropdownToggle>
-                            <CDropdownMenu  >
-                                <Link href="/centers/faculties">
-                                    <CDropdownItem >View All Faculties</CDropdownItem>
-                                </Link>
-                                <Link href='/centers/faculties/addfaculty'>
-                                    <CDropdownItem>Add Faculty</CDropdownItem>
-                                </Link>
-                            </CDropdownMenu>
-                        </CDropdown>
-                    </li>
-                    <li>
+                    <li onMouseEnter={(e) => setVisible(
+                        { ...visible, manageFac: true })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageFac: false })}>
                         <Link href='/centers/faculties'>
-                            <CDropdown variant="btn-group" direction="dropend">
-                                <CDropdownToggle color="none"> <span><NoteAddOutlined /></span>
-                                    Manage Courses</CDropdownToggle>
-                                <CDropdownMenu  >
-                                    <Link href='/centers/courses'>
-                                        <CDropdownItem >View All Courses</CDropdownItem>
-                                    </Link>
-                                    <Link href="/centers/lecturers/addcourses">
-                                        <CDropdownItem>Add Course</CDropdownItem>
-                                    </Link>
-                                </CDropdownMenu>
-                            </CDropdown>
+
+                            <span><Apartment /></span>
+                            Manage Faculty
+                            <div className={(visible.manageFac ? 'd-block' : 'd-none')}>
+                                <ul className='sub-links'>
+                                    <li>
+                                        <Link href="/centers/faculties">
+                                            View All Faculties                                </Link>
+                                    </li>
+                                    <li>
+                                        <Link href='/centers/faculties/addfaculty'>
+                                            Add Faculty
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </Link>
+                    </li>
+                    <li onMouseEnter={(e) => setVisible(
+                        { ...visible, manageCou: true })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageCou: false })}>
+                        <Link href='/centers/faculties'>
+
+                            <span><NoteAddOutlined /></span>
+                            Manage Courses
+                            <div className={(visible.manageCou ? 'd-block' : 'd-none')}>
+                                <ul className='sub-links'>
+                                    <li>
+                                        <Link href='/centers/courses'>
+                                            View All Courses
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/centers/lecturers/addcourses">
+                                            Add Course
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+
+
 
                         </Link>
-
-
                     </li>
                     <li>
                         <Link href="/centers/launchprogram">
