@@ -7,7 +7,13 @@ import Head from 'next/head'
 import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
 import OtpInput from 'react-otp-input';
-const bearer_key = sessionStorage.getItem("bearer_token");
+
+if (typeof window !== 'undefined') {
+    const bearer_key = window.sessionStorage.getItem("bearer_token");
+} else {
+    const bearer_key = ' ';
+}
+
 
 function Otp() {
     const router = useRouter();
