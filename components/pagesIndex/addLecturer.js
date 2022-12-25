@@ -84,8 +84,18 @@ function LecturerRegistration() {
             const status = response.status;
             if (status == 200) {
                 setNotify('Lecturer Added Succesfully')
+                Swal.fire({
+                    title: 'Lecturer Added Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
             } else {
                 setNotify('Error Occured!!!')
+                Swal.fire({
+                    title: 'Lecturer Details Exists',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
             }
         }
 

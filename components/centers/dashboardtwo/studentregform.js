@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 
+
 function StudentRegistration() {
+
     const [notify, setNotify] = useState(' ');
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
@@ -25,6 +27,9 @@ function StudentRegistration() {
         age: " "
     });
 
+    const { session, status } = useSession();
+    console.log(useSession())
+    // console.log(session.user)
     const fetchData = () => {
         const allFaculties = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"

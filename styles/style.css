@@ -133,30 +133,38 @@
 }
 
 .loginCont {
+    /* height: 400px; */
     overflow: hidden;
 }
 
 .backgroundCenter {
-    border-radius: 68% 0% 0% 13% / 85% 10% 46% 15%;
+    /* border-radius: 68% 0% 0% 13% / 85% 10% 46% 15%; */
     position: absolute;
     height: 1000px;
-    width: 900px;
+    width: 1000px;
     background-color: #A6CE34;
     top: -400px;
-    right: 0px;
-    z-index: -1;
+    border-radius: 100px;
+    right: -100px;
+    z-index: -2;
 
 }
 
 .backgroundCent {
     /* left: 0; */
-    /* z-index: ; */
-    top: -70px;
-    right: 400px;
+    z-index: -1;
+    top: -200px;
+    right: 200px;
+
     transform: rotateX(180deg);
     position: absolute;
-    border-bottom: 600px solid white;
-    border-right: 600px solid transparent;
+    height: 100px;
+    /* width: 400px; */
+    /* overflow: ; */
+    /* background-color: white; */
+    /* border: 1px solid black; */
+    border-bottom: 1550px solid white;
+    border-right: 1500px solid transparent;
 
 }
 
@@ -172,9 +180,10 @@
 }
 
 .pillsTop {
-
     overflow-x: scroll;
 }
+
+
 
 @media screen and (max-width: 459px) {
     .Right img {

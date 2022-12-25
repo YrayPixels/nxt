@@ -4,9 +4,15 @@ import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { signIn, signOut } from 'next-auth/react';
 import { CDropdown, CDropdownDivider, CDropdownItem, CDropdownMenu, CDropdownToggle } from '@coreui/react';
+import { useState } from 'react';
 
 
 function Sidenav() {
+
+    const [visible, setVisible] = useState(true)
+    function showDropDown() {
+        setVisible(!visible)
+    }
     return (
         <div className="sidenavBody py-4 ps-4">
             <div className="text-center d-flex fw-bold">
@@ -23,6 +29,19 @@ function Sidenav() {
                         <Link href='/centers/dashboard'>
                             <span><HomeIcon /></span> Dashboard
                         </Link>
+                    </li>
+                    <li onClick={showDropDown}>
+                        <span>Testing the Drop Down</span>
+                        <div className={(visible ? 'd-block' : 'd-none')}>
+                            <ul>
+                                <li>
+                                    Click Me
+                                </li>
+                                <li>
+                                    Click Me 2
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <CDropdown variant="btn-group" direction="dropend">

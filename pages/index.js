@@ -112,7 +112,6 @@ function LoginComponent() {
                         </div>
                         <div className="col-12 Right col-lg-6 order-0 order-lg-2">
                             <RightsideCenters />
-
                         </div>
                     </div>
                 </div>

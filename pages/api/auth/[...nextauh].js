@@ -15,15 +15,15 @@ const authoptions = {
 
                 const user = {
                     id: 1,
-                    center_name: 'Ibrahim Badamasi Babangida University Lapai',
-                    center_code: 'IBBUL',
-                    email: 'ibbu@gmail.com',
-                    phone_number: '09000000000',
+                    center_name: ' ',
+                    center_code: ' ',
+                    email: ' ',
+                    phone_number: ' ',
                     logo: ' ',
-                    state_id: '0',
-                    lga_id: ' 0',
-                    center_otp: '12345',
-                    status: ' 1'
+                    state_id: ' ',
+                    lga_id: ' ',
+                    center_otp: ' ',
+                    status: ' '
                 }
 
 
@@ -31,12 +31,10 @@ const authoptions = {
                     // Any object returned will be saved in `user` property of the JWT
                     // throw new Error('something is happening')
                     // console.log(fetchedData)
-                    return user;
+                    return { id: 1, name: 'Micheal David', email: ' bigg Timez' };
                 }
                 // If you return null then an error will be displayed advising the user to check their details.
-                console.log(fetchedData)
                 throw new Error('Invalid credentials')
-
             }
 
         })

@@ -7,7 +7,7 @@ import Head from 'next/head'
 import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
 import OtpInput from 'react-otp-input';
-// const bearer_key = sessionStorage.getItem("bearer_token");
+const bearer_key = sessionStorage.getItem("bearer_token");
 
 function Otp() {
     const router = useRouter();
@@ -33,16 +33,16 @@ function Otp() {
         setNotify(' ')
 
         var myHeaders = new Headers();
-        myHeaders.append("Authorization",
-            `Bearer 1975|nF4VjC4BUvdKN6pUI0BO5rbS4qz3kHIbC9HkvpNP`)
+        myHeaders.append("Authorization", `Bearer ${bearer_key}`);
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-        var formdata = new FormData();
-        formdata.append("otp", state.otp);
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("otp", state.otp);
 
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
-            body: formdata,
+            body: urlencoded,
             redirect: 'follow'
         };
         setLoading('loading')
@@ -75,9 +75,9 @@ function Otp() {
             setLoading(' ')
             // console.log(data);
         } else {
-            setNotify('No Authotrization')
+            setNotify('No Authorization')
             Swal.fire({
-                title: 'No Authotrization!',
+                title: 'No Authorization!',
                 text: 'Invalid Request',
                 icon: 'error',
                 confirmButtonText: 'close'
