@@ -1,21 +1,21 @@
-// import { Email, Phone } from "@mui/icons-material";
-// import { Avatar } from "@mui/material";
-// import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
-// import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
+import { Email, Phone } from "@mui/icons-material";
+import { Avatar } from "@mui/material";
+import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
+import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import { useRouter } from 'next/router'
 
-function LecturerDetails() {
+function LecturerDetails(datas) {
     const router = useRouter()
 
     const lecturer_id = router.query.id
-    // const { name, email, phone, heighest_qualification
-    //     , occupation, address } = datas
+    const { name, email, phone, heighest_qualification
+        , occupation, address } = datas
     return (<>
 
         <h2>
             {lecturer_id}
         </h2>
-        {/* <div className="container-fluid">
+        <div className="container-fluid">
             <div>
                 <div className="p-3">
                     for top nav
@@ -54,24 +54,24 @@ function LecturerDetails() {
                     </div>
                 </div>
             </div>
-        </div> */}
+        </div>
 
     </>);
 }
 
 export default LecturerDetails;
 
-// export async function getServerSideProps(context) {
-//     const { params } = context;
-//     const { id } = params
-//     const response = await fetch('https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1')
+export async function getServerSideProps(context) {
+    const { params } = context;
+    const { id } = params
+    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1`)
 
-//     const data = await response.json()
-//     const datas = data.result[id]
+    const data = await response.json()
+    const datas = data
 
-//     return {
-//         props: {
-//             datas: datas,
-//         },
-//     }
-// }
+    return {
+        props: {
+            datas: datas,
+        },
+    }
+}

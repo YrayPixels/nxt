@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 function Secondnav() {
+
     const path = window.location.pathname
-    if (path == "/centers/studentlist" || path == "/centers/register")
+    if (path == "/centers/studentlist" || path.includes("studentlist") || path == "/centers/register")
         return (<>
             <div className="secondNav">
                 <ul>

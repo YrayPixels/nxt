@@ -26,28 +26,6 @@ function StudentsList() {
     const [activeStudents, setActiveStdent] = useState([])
     const { data, error } = useSWR('register', fetcher)
 
-    const handleSelection = async (event, param) => {
-        // console.log(id)
-        const fetchData = () => {
-            const activestudent = `https://stockmgt.gapaautoparts.com/api/center/ViewStudent/${param}`
-            const getactivestudent = axios.get(activestudent);
-            axios.all([getactivestudent]).then(
-                axios.spread((...allData) => {
-                    const activestudentData = allData[0].data.students;
-                    setActiveStdent(activestudentData)
-                    // console.log(activestudentData)
-                })
-            )
-        }
-        fetchData()
-        setVisible(!visible)
-        // console.log(fetchData())
-        // useEffect(() => {
-        //     fetchData()
-        // }, [])
-
-    }
-
     if (error)
         return 'An error has occured'
     if (!data) return <CircularProgress />
@@ -93,9 +71,8 @@ function StudentsList() {
                                     <td>
                                         <Link href={`/centers/studentlist/${student.id}`} >
                                             <button className='btn btn-primary'>View</button>
-
                                         </Link>
-                                        <button onClick={event => handleSelection(event, student.id)} className='btn btn-primary'>View</button></td>
+                                    </td>
                                 </tr>
                             )
                         })
@@ -104,47 +81,6 @@ function StudentsList() {
                 </tbody>
             </table>
         </div>
-
-        <CModal alignment="center" scrollable visible={visible} onClose={() => setVisible(false)}>
-            <CModalHeader>
-                <CModalTitle>
-                    <div className='d-flex justify-content-between align-items-center'>
-                        <div>
-                            <div className='fw-bold'>
-                                {activeStudents.name
-                                }
-                            </div>
-                            <span><EmailOutlined /> {activeStudents.email}</span>
-                        </div>
-                    </div>
-                </CModalTitle>
-            </CModalHeader>
-            <CModalBody>
-                <div>
-                    <div className='row g-2 '>
-                        <div className='col-5'> <span>Email: {activeStudents.email}</span></div>
-                        <div className='col-5'> <span>Phone: {activeStudents.phone}</span></div>
-                        <div className='col-5'> <span>Address: {activeStudents.address}</span></div>
-                        <div className='col-5'> <span>Faculty: {activeStudents.faculty_id}</span></div>
-                        <div className='col-5'> <span>Department: {activeStudents.department_id}</span></div>
-                        <div className='col-5'> <span>Programme: {activeStudents.programme_id}</span></div>
-                        <div className='col-5'> <span>State: {activeStudents.state_id}</span></div>
-                        <div className='col-5'> <span>LGA: {activeStudents.lga_id}</span></div>
-                        <div className='col-5'> <span>Occupation: {activeStudents.occupation}</span></div>
-                        <div className='col-5'> <span>Highest Qualification: {activeStudents.heighest_qualification}</span></div>
-                        <div className='col-5'> <span>Center: {activeStudents.center_id}</span></div>
-                        <div className='col-5'> <span>Nationality: {activeStudents.nationality_id}</span></div>
-                        <div className='col-5'> <span>Age: {activeStudents.age}</span></div>
-                        <div className='col-5'> <span>Employment Status: {activeStudents.employment_status}</span></div>
-                        <div className='col-5'> <span>Gender: {activeStudents.sex}</span></div>
-                    </div>
-                </div>
-            </CModalBody>
-            <CModalFooter>
-                <button className='btn btn-primary' onClick={() => setVisible(false)}>Close</button>
-
-            </CModalFooter>
-        </CModal>
     </div>);
 }
 
