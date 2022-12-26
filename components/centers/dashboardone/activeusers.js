@@ -16,11 +16,11 @@ function TotalactiveUsers() {
 
     return (
         <div className="row align-items-center topPills">
-            <div className="col-8">
+            <div className="col-12 col-md-8">
                 <p>Active Users</p>
                 <p className="fw-bold num">{data.result}</p>
             </div>
-            <div className="col-4 text-center ">
+            <div className="col-12 col-md-4 text-center ">
                 <span className='text-center shadow-sm '><People /></span>
 
             </div>

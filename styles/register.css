@@ -1,13 +1,10 @@
 .firstSide li {
-    position: sticky;
-
     margin-top: 10px;
     list-style: none;
-    /* line-height: 60px; */
-    padding: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-radius: 10px;
-
-    transition: 1s;
+    transition: 0.5s;
 }
 
 

@@ -13,6 +13,8 @@ import OtpInput from 'react-otp-input';
 function Otp() {
     const router = useRouter();
     const [bearer_key, setBearer_key] = useState(' ');
+    const [email, setEmail] = useState(' ');
+    const [password, setPassword] = useState(' ');
     const [state, setState] = useState({ otp: "" });
     // const [otpstate, setotpState] = useState([])
     const [notify, setNotify] = useState(' ')
@@ -21,6 +23,9 @@ function Otp() {
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setPassword(window.sessionStorage.getItem('token_'));
+            setEmail(window.sessionStorage.getItem('user_email'));
+
 
         }
     }, []);
@@ -67,6 +72,8 @@ function Otp() {
 
             const res = await signIn('credentials', {
                 token: 'verified',
+                email: email,
+                password: password,
                 redirect: false,
             })
             if (res.error == null && res.status == 200) {

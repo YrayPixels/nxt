@@ -5,7 +5,7 @@ import Link from 'next/link';
 function FirstsideNav() {
 
     return (<>
-        <ul className='firstSide'>
+        <ul className='firstSide text-center p-2'>
             <li>
                 <Link href='/centers/dashboard'>
                     <span><HomeIcon /></span>
@@ -39,9 +39,7 @@ function FirstsideNav() {
                 </Link>
             </li>
         </ul>
-
-
-        <ul className='firstsidebottom'>
+        <ul className='firstsidebottom text-center p-2 '>
             <li>
                 <Person3Sharp />
             </li>

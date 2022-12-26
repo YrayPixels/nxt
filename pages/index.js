@@ -41,7 +41,9 @@ function LoginComponent() {
                 confirmButtonText: 'close'
             })
             sessionStorage.setItem("bearer_token", data.barear_token);
-            sessionStorage.setItem("user_id", [data.message.id, data.message.email]);
+            sessionStorage.setItem("user_email", [data.message.email]);
+            sessionStorage.setItem("token_", [userInfo.password]);
+
             redirect()
         } else if (status == 201) {
             setNotify('Incorrect Details')
@@ -54,7 +56,6 @@ function LoginComponent() {
         } else {
             setNotify('An Error has Occured')
         }
-        console.log(data);
     }
 
     return (

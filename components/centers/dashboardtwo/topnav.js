@@ -7,12 +7,11 @@ function Topnav(props) {
     const { naviState } = props;
     const [navOpener, setNavOpener] = useState(false)
     function openNav() {
-        // alert('clicked')
         setNavOpener(!navOpener)
         naviState(navOpener)
     }
     return (
-        <div className=" topnav pt-2 row align-items-center">
+        <div className="topnav pt-2 row align-items-center">
             <div className="col-12 d-flex col-md-6 fw-bold align-items-center justify-content-between">
                 <span><Dashboard /> <span>Dashboard</span></span>
                 <button onClick={openNav} className=" border border-1  d-md-none rounded-1 p-2">

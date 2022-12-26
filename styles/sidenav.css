@@ -88,4 +88,21 @@
         color: black;
         border-radius: 10px;
     }
+
+    .allNavSide {
+        position: absolute;
+        color: white;
+        top: 0;
+        background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
+        width: 85%;
+        z-index: 999999999999;
+        height: 1000px;
+    }
+
+    .subNav {
+        display: none;
+    }
+
 }
+
+@media screen and (min-width: 992px) {}
