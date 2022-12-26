@@ -1,6 +1,7 @@
-import { Email, Phone } from "@mui/icons-material";
+import { Edit, Email, Phone } from "@mui/icons-material";
 import { Avatar, CircularProgress } from "@mui/material";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AllNavs from "../../../components/allNavs";
@@ -41,6 +42,7 @@ function StudentInfo(props) {
 
                         <div className="col-12  regMain">
                             <div className="p-5  bg-info shadow">
+
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div>
                                         <Avatar
@@ -56,6 +58,12 @@ function StudentInfo(props) {
                                         <p><Email
                                         /> {students.email}</p>
                                         <p><Phone /> {students.phone}</p>
+
+                                        <div className="mb-2">
+                                            <Link href={'facebook.com'}>
+                                                <Edit /> Edit Profile
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr />
