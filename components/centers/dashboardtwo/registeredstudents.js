@@ -4,6 +4,7 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { EmailOutlined } from '@mui/icons-material';
+import Link from 'next/link';
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
@@ -80,16 +81,21 @@ function StudentsList() {
                 </thead>
                 <tbody>
                     {
-                        data.map(data => {
+                        data.map(student => {
                             return (
                                 <tr className='align-items-center '>
-                                    <td><span><img src="" alt="" /></span> {data.name}</td>
-                                    <td>{data.email}</td>
-                                    <td>{data.phone}</td>
+                                    <td><span><img src="" alt="" /></span> {student.name}</td>
+                                    <td>{student.email}</td>
+                                    <td>{student.phone}</td>
                                     <td>department </td>
                                     <td>programme</td>
-                                    <td> {data.occupation}</td>
-                                    <td><button onClick={event => handleSelection(event, data.id)} className='btn btn-primary'>View</button></td>
+                                    <td> {student.occupation}</td>
+                                    <td>
+                                        <Link href={`/centers/studentlist/${student.id}`} >
+                                            <button className='btn btn-primary'>View</button>
+
+                                        </Link>
+                                        <button onClick={event => handleSelection(event, student.id)} className='btn btn-primary'>View</button></td>
                                 </tr>
                             )
                         })
