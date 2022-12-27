@@ -12,7 +12,7 @@ function StudentInfo(props) {
     const { datas, id } = props
     const { students } = datas
     const studentid = router.query.id
-    console.log(students)
+    // console.log(students)
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
