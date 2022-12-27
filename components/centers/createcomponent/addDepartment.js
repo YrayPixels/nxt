@@ -52,8 +52,18 @@ function AddDepartment() {
 
             if (status == 200) {
                 setNotify('Department Added Succesfully')
+                Swal.fire({
+                    title: 'Department Added Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
             } else {
                 setNotify('Error Occured!!!')
+                Swal.fire({
+                    title: 'An Error Occured!!!',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
             }
         }
         addDepartment()

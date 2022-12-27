@@ -53,8 +53,18 @@ function AddCourses() {
             const status = response.status;
             if (status == 200) {
                 setNotify('Course Added Succesfully')
+                Swal.fire({
+                    title: 'Course Added Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
             } else {
                 setNotify('Error Occured!!!')
+                Swal.fire({
+                    title: 'An Error Occured!!!',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
             }
         }
         addCourse()

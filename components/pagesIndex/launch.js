@@ -75,8 +75,18 @@ function Programlaunching() {
 
             if (status == 200) {
                 setNotify('Program Launched')
+                Swal.fire({
+                    title: 'Program Launched Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
             } else {
                 setNotify('Error Occured!!!')
+                Swal.fire({
+                    title: 'An Error Occured!!!',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
             }
         }
 

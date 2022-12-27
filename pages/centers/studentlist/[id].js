@@ -9,16 +9,21 @@ import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 
 function StudentInfo(props) {
     const router = useRouter()
+    const studentid = router.query.id
     const { datas, id } = props
     const { students } = datas
-    const studentid = router.query.id
-    // console.log(students)
+    console.log(props)
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
+
+    // function fetchData() {
+    //     console.log('this would work')
+    // }
+
 
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -149,6 +154,7 @@ function StudentInfo(props) {
 }
 
 export default StudentInfo;
+
 export async function getServerSideProps(context) {
     const { params } = context;
     const { id } = params

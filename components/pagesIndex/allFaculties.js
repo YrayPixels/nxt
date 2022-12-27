@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
+import Link from 'next/link';
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
@@ -51,9 +52,11 @@ function AllFaculties() {
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
                                     <td className='text-center'><div className='btn-group '>
-                                        <button className='btn btn-primary p-2'>
-                                            Edit
-                                        </button>
+                                        <Link href={`/centers/faculties/edit/${data.id}`}>
+                                            <button className='btn btn-primary p-2'>
+                                                Edit
+                                            </button>
+                                        </Link>
                                         <button className='btn btn-danger p-2'>
                                             Delete
                                         </button>

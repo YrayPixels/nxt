@@ -1,5 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 function AddFaculty() {
     const [notify, setNotify] = useState(' ');
@@ -27,11 +28,20 @@ function AddFaculty() {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddFaculty", requestOptions)
             const data = await response.json()
             const status = response.status;
-
             if (status == 200) {
                 setNotify('Faculty Added Succesfully')
+                Swal.fire({
+                    title: 'Faculty Added Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
             } else {
                 setNotify('Error Occured!!!')
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
             }
         }
         addFaculty()

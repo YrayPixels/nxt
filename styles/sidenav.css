@@ -66,6 +66,12 @@
     width: 50px;
 }
 
+.activated {
+
+    background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
+    color: white;
+}
+
 @media screen and (max-width: 992px) {
     .sidenav {
         position: absolute;

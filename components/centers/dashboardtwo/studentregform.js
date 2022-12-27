@@ -28,7 +28,7 @@ function StudentRegistration() {
         email: " ",
         phone: " ",
         address: " ",
-        faculty_id: " ",
+        faculty_id: "0",
         department_id: " ",
         programme_id: " ",
         heighest_qualification: " ",
@@ -45,7 +45,7 @@ function StudentRegistration() {
     });
 
     const { session, status } = useSession();
-    // console.log(useSession())
+    console.log(userInfo.faculty_id)
 
     useEffect(() => {
         if (window) {
@@ -57,9 +57,9 @@ function StudentRegistration() {
         const allFaculties = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
         const allCourses = "https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/1"
-        const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/1`
+        const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/${userInfo.faculty_id}`
         const allStates = "https://stockmgt.gapaautoparts.com/api/getAllStates"
-        const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/0`
+        const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/1`
 
         const getAllPrograms = axios.get(allPrograms);
         const getAllCourse = axios.get(allCourses);
@@ -233,6 +233,11 @@ function StudentRegistration() {
 
                     </select>
                 </div>
+                <div className="col-6 mb-3">
+                    <label htmlFor="address">Address</label>
+                    <input required onChange={(e) => setUserInfo(
+                        { ...userInfo, address: e.target.value })} type="text" name="address" className="form-control" />
+                </div>
 
             </fieldset>
             {/* Educaional Background */}
@@ -246,7 +251,7 @@ function StudentRegistration() {
                         <select required name="department" onChange={(e) => setUserInfo(
                             { ...userInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
 
-                            <option selected>Select your Faculty</option>
+                            <option selected value={0}>Select your Faculty</option>
                             {
                                 faculties.map(faculty => {
                                     return (
@@ -297,11 +302,7 @@ function StudentRegistration() {
 
                         </select>
                     </div>
-                    <div className="col-6 mb-3">
-                        <label htmlFor="address">Address</label>
-                        <input required onChange={(e) => setUserInfo(
-                            { ...userInfo, address: e.target.value })} type="text" name="address" className="form-control" />
-                    </div>
+
                     <div className="col-6 mb-3">
                         <label htmlFor="academic">Highest Qualification</label>
                         <input required onChange={(e) => setUserInfo(
@@ -324,14 +325,14 @@ function StudentRegistration() {
                             <input required onChange={(e) => setUserInfo(
                                 { ...userInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
                         </div>
+                        <button className="btn btn-dark"><Add /></button>
                     </form>
-
                 </div>
             </fieldset>
             {/* Employment Info */}
             <fieldset>
                 <legend>
-                    Employemnt Information
+                    Employement Information
                 </legend>
                 <div className="mb-3 row ">
                     <div className="col-6 mb-3">
