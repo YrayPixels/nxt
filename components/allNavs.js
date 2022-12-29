@@ -7,7 +7,7 @@ function AllNavs() {
         < div className="col-3 border border-end border-1" >
             <FirstsideNav />
         </div >
-        <div className="col-9">
+        <div className="col-9  border  border-1">
             <Secondnav />
         </div>
     </>);

@@ -1,5 +1,5 @@
 import HomeIcon from '@mui/icons-material/Home';
-import { Apartment, Home, Key, NoteAddOutlined, People, PeopleOutlineOutlined, Person2Outlined, Person3Sharp, PersonOffOutlined, RocketLaunch, School, Settings } from '@mui/icons-material';
+import { Apartment, Book, DepartureBoard, Home, HomeMax, HouseSiding, Key, LocalFireDepartment, MenuBook, NoteAddOutlined, People, PeopleOutlineOutlined, Person2Outlined, Person3Sharp, PersonOffOutlined, RocketLaunch, School, Settings } from '@mui/icons-material';
 import Link from 'next/link';
 
 function FirstsideNav() {
@@ -29,9 +29,15 @@ function FirstsideNav() {
                 </Link>
 
             </li>
+            <li className={(path.includes('department') ? 'activated' : '')}>
+                <Link href='/centers/department'>
+                    <span><HouseSiding /></span>
+                </Link>
+
+            </li>
             <li className={(path.includes('courses') ? 'activated' : '')}>
                 <Link href='/centers/courses'>
-                    <span><NoteAddOutlined /></span>
+                    <span><MenuBook /></span>
                 </Link>
 
             </li>

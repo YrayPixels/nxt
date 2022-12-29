@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
+import Swal from "sweetalert2";
 
 function AddDepartment() {
     const [notify, setNotify] = useState(' ');

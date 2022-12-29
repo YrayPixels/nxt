@@ -12,7 +12,7 @@ function StudentInfo(props) {
     const studentid = router.query.id
     const { datas, id } = props
     const { students } = datas
-    console.log(props)
+    // console.log(props)
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -64,8 +64,8 @@ function StudentInfo(props) {
                                         /> {students.email}</p>
                                         <p><Phone /> {students.phone}</p>
 
-                                        <div className="mb-2">
-                                            <Link href={'facebook.com'}>
+                                        <div className="mb-2 btn btn-outline-dark">
+                                            <Link href={`/centers/studentlist/edit/${students.id}`}>
                                                 <Edit /> Edit Profile
                                             </Link>
                                         </div>
@@ -92,23 +92,23 @@ function StudentInfo(props) {
                                 <div className="row">
                                     <div className="col-3">
                                         <h6>Faculty</h6>
-                                        <p>{students.faculty_id}</p>
+                                        <p>{students.faculties_title}</p>
                                     </div>
                                     <div className="col-3">
                                         <h6>Department</h6>
-                                        <p>{students.department_id}</p>
+                                        <p>{students.departments_title}</p>
                                     </div>
                                     <div className="col-3">
                                         <h6>Program</h6>
-                                        <p>{students.programme_id}</p>
+                                        <p>{students.programmes_title}</p>
                                     </div>
                                     <div className="col-3">
                                         <h6>State</h6>
-                                        <p>{students.state_id}</p>
+                                        <p>{students.state_title}</p>
                                     </div>
                                     <div className="col-3">
                                         <h6>LGA</h6>
-                                        <p>{students.lga_id}</p>
+                                        <p>{students.lga}</p>
                                     </div>
 
 

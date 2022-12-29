@@ -1,5 +1,5 @@
 // import styles from '/styles/sidenav.module.css'
-import { Apartment, Home, Key, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, RocketLaunch, School, SettingsAccessibility } from '@mui/icons-material';
+import { Apartment, Home, HouseSiding, Key, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, RocketLaunch, School, SettingsAccessibility } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { signIn, signOut } from 'next-auth/react';
@@ -15,6 +15,7 @@ function Sidenav() {
         manageFac: false,
         manageCou: false,
         LauncPro: false,
+        manageDept: false,
     })
 
     return (
@@ -90,6 +91,29 @@ function Sidenav() {
                                     <li>
                                         <Link href='/centers/faculties/addfaculty'>
                                             Add Faculty
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </Link>
+                    </li>
+
+                    <li onMouseEnter={(e) => setVisible(
+                        { ...visible, manageDept: true })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageDept: false })}>
+                        <Link href='/centers/faculties'>
+
+                            <span><HouseSiding /></span>
+                            Manage Department
+                            <div className={(visible.manageDept ? 'd-block' : 'd-none')}>
+                                <ul className='sub-links'>
+                                    <li>
+                                        <Link href="/centers/department">
+                                            View All Department                                </Link>
+                                    </li>
+                                    <li>
+                                        <Link href='/centers/department/adddept'>
+                                            Add Department
                                         </Link>
                                     </li>
                                 </ul>

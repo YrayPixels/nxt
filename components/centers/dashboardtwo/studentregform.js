@@ -4,7 +4,8 @@ import { signIn, useSession } from 'next-auth/react';
 import Swal from 'sweetalert2';
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
-import { Add, PlusOneOutlined } from "@mui/icons-material";
+import { Add, PlusOneOutlined, Remove, RemoveCircle } from "@mui/icons-material";
+import Home from "@mui/icons-material/Home";
 
 
 function StudentRegistration() {
@@ -13,15 +14,24 @@ function StudentRegistration() {
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
     const [department, setDepartment] = useState([]);
+    // qual
+    const [qual, setqual] = useState([]);
+    const [Inst, setInst] = useState([]);
+
+    // Qualification Array 
+    const [qaulArray, setQualArray] = useState({
+        student_id: " ",
+        qualification_id: " ",
+        qualification_name: " ",
+        year: " ",
+        institution_id: " ",
+    })
+    let ArraysQualification = [];
+    const [arrayys, setArrayys] = useState([])
     const [lga, setLga] = useState([]);
     const [state, setStateDa] = useState([]);
     const [faculty_id, setFaculty_id] = useState([]);
-    const [showMore, setShowMore] = useState(false)
-
-    // console.log(faculty_id)
-
     // const [nationality, setNationality] = useState([])
-
     const [courses, setCourses] = useState([]);
     const [userInfo, setUserInfo] = useState({
         names: " ",
@@ -36,30 +46,30 @@ function StudentRegistration() {
         age: " ",
         sex: "",
         Nationality: " ",
-        state: " ",
+        state: "0",
         lga: " ",
         heighest_qualification_year: " ",
         employee: " ",
         employee_type: "",
         employment_status: " ",
     });
-
     const { session, status } = useSession();
-    console.log(userInfo.faculty_id)
 
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
         }
     }, []);
-    // console.log(session.user)
     const fetchData = () => {
         const allFaculties = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
         const allCourses = "https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/1"
         const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/${userInfo.faculty_id}`
         const allStates = "https://stockmgt.gapaautoparts.com/api/getAllStates"
-        const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/1`
+        const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/${userInfo.state}`
+        const allQual = `https://stockmgt.gapaautoparts.com/api/GetAllQualifications`
+        const allInstitutes = `https://stockmgt.gapaautoparts.com/api/GetAllQualifications`
+
 
         const getAllPrograms = axios.get(allPrograms);
         const getAllCourse = axios.get(allCourses);
@@ -67,10 +77,15 @@ function StudentRegistration() {
         const getAllDept = axios.get(allDept);
         const getAllStates = axios.get(allStates);
         const getAllLga = axios.get(allLga);
+        const getAllQual = axios.get(allQual);
+        const getAllInstitutes = axios.get(allInstitutes);
 
 
 
-        axios.all([getAllPrograms, getAllCourse, getAllFaculties, getAllDept, getAllStates, getAllLga]).then(
+
+
+
+        axios.all([getAllPrograms, getAllCourse, getAllFaculties, getAllDept, getAllStates, getAllLga, getAllQual, getAllInstitutes]).then(
             axios.spread((...allData) => {
                 const allProgramsData = allData[0].data.result;
                 const allCoursesData = allData[1].data.result;
@@ -78,6 +93,10 @@ function StudentRegistration() {
                 const allDeptData = allData[3].data.result;
                 const allStateData = allData[4].data.result;
                 const allLgaData = allData[5].data.result;
+                const allQualData = allData[6].data.result;
+                const allInstitutesData = allData[7].data.result;
+
+
 
 
 
@@ -87,19 +106,49 @@ function StudentRegistration() {
                 setDepartment(allDeptData)
                 setStateDa(allStateData)
                 setLga(allLgaData)
+                setqual(allQualData)
+                setInst(allInstitutesData)
             })
         )
     }
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [userInfo.state, userInfo.faculty_id])
 
-    function showExtraFields(e) {
+    // function selectLga() {
+    //     const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/${userInfo.state}`
+    //     const getAllLga = axios.get(allLga);
+    //     axios.all([getAllLga]).then(
+    //         axios.spread((...allData) => {
+    //             const allLgaData = allData[0].data.result;
+    //             setLga(allLgaData)
+    //         })
+    //     )
+
+    // }
+    function removeQual(e, val) {
         e.preventDefault()
-        setShowMore(!showMore)
-        alert(showMore)
+
+        let filtered = arrayys.filter(function (ele) {
+            return ele != val
+        })
+        setArrayys(filtered);
+        // console.log(val)
     }
+    function setQualname(event, value) {
+        setQualArray(
+            { ...qaulArray, qualification_name: value })
+        console.log(value)
+        console.log(event)
+    }
+    function handleQualAdd(e) {
+        e.preventDefault()
+        ArraysQualification.push(qaulArray)
+        setArrayys(arrayys.concat(ArraysQualification))
+        console.log(arrayys)
+    }
+
     const handleStudentReg = async (e) => {
         e.preventDefault()
 
@@ -113,7 +162,7 @@ function StudentRegistration() {
         urlencoded.append("department_id", userInfo.department_id);
         urlencoded.append("programme_id", userInfo.programme_id);
         urlencoded.append("occupation", userInfo.occupation);
-        urlencoded.append("heighest_qualification", userInfo.heighest_qualification);
+        urlencoded.append("heighest_qualification", arrayys[0].qualification_name);
         urlencoded.append("center_id", 1);
         urlencoded.append("Authorization", `Bearer ${bearer_key} `)
         urlencoded.append("sex", userInfo.sex);
@@ -121,10 +170,10 @@ function StudentRegistration() {
         urlencoded.append("Nationality", userInfo.Nationality);
         urlencoded.append("state", userInfo.state);
         urlencoded.append("lga", userInfo.lga);
-        urlencoded.append("heighest_qualification_year", userInfo.heighest_qualification_year);
+        urlencoded.append("heighest_qualification_year", arrayys[0].year);
         urlencoded.append("employee", userInfo.employee);
-        urlencoded.append("employee_type", userinfo.employee_type);
-        urlencoded.append("employment_status", userinfo.employment_status);
+        urlencoded.append("employee_type", userInfo.employee_type);
+        urlencoded.append("employment_status", userInfo.employment_status);
 
         var requestOptions = {
             method: 'POST',
@@ -202,7 +251,7 @@ function StudentRegistration() {
                     <select required name="state" onChange={(e) => setUserInfo(
                         { ...userInfo, state: e.target.value })} class="form-select" aria-label="Default select example"  >
 
-                        <option selected>Select your State</option>
+                        <option selected value={0}>Select your State</option>
                         {
                             state.map(State => {
                                 return (
@@ -224,7 +273,7 @@ function StudentRegistration() {
                         {
                             lga.map(lga => {
                                 return (
-                                    <option value={lga.id}>{lga.title}</option>
+                                    <option value={lga.id}>{lga.Lga}</option>
 
                                 )
                             })
@@ -302,30 +351,76 @@ function StudentRegistration() {
 
                         </select>
                     </div>
+                    <form className="qualification date">
+                        <fieldset><legend>Educational Qualifications</legend>
+                            <div className="row align-items-center">
+                                <div className="col-3 mb-3">
+                                    <label htmlFor="qualification">Qualification</label>
+                                    <select required name="qualification" onChange={(e) => setQualArray(
+                                        { ...qaulArray, qualification_id: e.target.value }
+                                    )} class="form-select" aria-label="Default select example">
 
-                    <div className="col-6 mb-3">
-                        <label htmlFor="academic">Highest Qualification</label>
-                        <input required onChange={(e) => setUserInfo(
-                            { ...userInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
-                    </div>
-                    <button onClick={showExtraFields} className="btn col-6 btn-outline-dark"> <Add /> Add Qualifications</button>
-                    <form action="">
-                        <div className="col-6 mb-3">
-                            <label htmlFor="academic">Qualification</label>
-                            <input required onChange={(e) => setUserInfo(
-                                { ...userInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
-                        </div>
-                        <div className="col-6 mb-3">
-                            <label htmlFor="academic">Year</label>
-                            <input required onChange={(e) => setUserInfo(
-                                { ...userInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
-                        </div>
-                        <div className="col-6 mb-3">
-                            <label htmlFor="academic">Institution</label>
-                            <input required onChange={(e) => setUserInfo(
-                                { ...userInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
-                        </div>
-                        <button className="btn btn-dark"><Add /></button>
+                                        <option selected>Select your qualification</option>
+                                        {
+                                            qual.map(qual => {
+
+                                                return (
+                                                    <option onClick={event => setQualname(event, qual.qualification)} value={qual.id}>{qual.qualification}</option>
+
+                                                )
+                                            })
+
+                                        }
+
+                                    </select>
+                                </div>
+                                <div className="col-3 mb-3">
+                                    <label htmlFor="academic">Year Finished</label>
+                                    <input required onChange={(e) => setQualArray(
+                                        { ...qaulArray, year: e.target.value })} type="text" name="academic" className="form-control" />
+                                </div>
+                                <div className="col-3 mb-3">
+                                    <label htmlFor="institute">Institution</label>
+                                    <select required name="institute" onChange={(e) => setQualArray(
+                                        { ...qaulArray, institution_id: e.target.value })} class="form-select" aria-label="Default select example">
+
+                                        <option selected>Select your institution</option>
+                                        {
+                                            Inst.map(Inst => {
+                                                return (
+                                                    <option value={Inst.id}>{Inst.qualification}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                </div>
+
+                                <div className="col-3 text-center"> <button onClick={handleQualAdd} className="btn  btn-dark"><Add /></button>
+                                </div>
+
+                            </div>
+                            <hr />
+                            {
+                                arrayys.map(array => {
+                                    return (
+                                        <div className="row">
+                                            <div className="col-3 mb-3">
+                                                <input required value={array.qualification_name} type="text" name="academic" className="form-control" />
+                                            </div>
+                                            <div className="col-3 mb-3">
+                                                <input required value={array.year} type="text" name="academic" className="form-control" />
+                                            </div>
+                                            <div className="col-3 mb-3">
+                                                <input required value={array.institution_id} type="text" name="academic" className="form-control" />
+                                            </div>
+                                            <div className="col-3 text-center">
+                                                <button onClick={e => removeQual(e, array)} className=" btn border border-0 text-danger"><RemoveCircle /></button>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </fieldset>
                     </form>
                 </div>
             </fieldset>
@@ -338,17 +433,17 @@ function StudentRegistration() {
                     <div className="col-6 mb-3">
                         <label htmlFor="Employee">Employee</label>
                         <input required name="employee" onChange={(e) => setUserInfo(
-                            { ...userInfo, employee: e.target.value })} class="form-select" aria-label="Default select example" />
+                            { ...userInfo, employee: e.target.value })} class="form-control" aria-label="" />
                     </div>
                     <div className="col-6 mb-3">
                         <label htmlFor="EmployeeType">Employee Type</label>
                         <input required name="employeeType" onChange={(e) => setUserInfo(
-                            { ...userInfo, employee_type: e.target.value })} class="form-select" aria-label="Default select example" />
+                            { ...userInfo, employee_type: e.target.value })} class="form-control" aria-label="Default select example" />
                     </div>
                     <div className="col-6 mb-3">
                         <label htmlFor="employmentStatus">Employment Status</label>
                         <input required name="employmentStatus" onChange={(e) => setUserInfo(
-                            { ...userInfo, employment_status: e.target.value })} class="form-select" aria-label="Default select example" />
+                            { ...userInfo, employment_status: e.target.value })} class="form-control" aria-label="Default select example" />
                     </div>
                 </div>
                 <div className="col-5 m-auto singleSubmits">

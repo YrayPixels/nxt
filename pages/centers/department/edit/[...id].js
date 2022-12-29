@@ -11,12 +11,14 @@ import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
 
 
 
-function CourseEdit(props) {
+function DepartmentEdit(props) {
     const [bearer_key, setBearer_key] = useState(' ');
     const router = useRouter()
-    const studentid = router.query.id
+    // const studentid = router.query.id
     const { datas, id } = props
     const { result } = datas
+    console.log(result[0].id)
+    const [faculty, setFaculty] = useState([]);
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -24,47 +26,41 @@ function CourseEdit(props) {
         setShowNav(ClickedNav)
     }
     const [notify, setNotify] = useState(' ');
-
-    const [department, setDepartment] = useState([]);
-    const [courseInfo, setCourseInfo] = useState({
-        coursetitle: " ",
-        coursecode: " ",
-        unit: " ",
-        department_id: " ",
+    const [deptInfo, setdeptInfo] = useState({
+        depttitle: " ",
+        deptcode: " ",
+        faculty_id: " ",
     });
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+        }
+    }, []);
     const fetchData = () => {
-        const allDept = "https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/1"
-        const getAllDept = axios.get(allDept);
-        axios.all([getAllDept]).then(
+        const allFaculty = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
+        const getallFaculty = axios.get(allFaculty);
+        axios.all([getallFaculty]).then(
             axios.spread((...allData) => {
-                const allDeptData = allData[0].data.result;
-                setDepartment(allDeptData)
+                const allFacultyData = allData[0].data.result;
+                setFaculty(allFacultyData)
             })
         )
     }
     useEffect(() => {
         fetchData()
     }, [])
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
-    const editCourse = async (e) => {
+    const handleDeptReg = async (e) => {
         e.preventDefault()
 
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${bearer_key}`);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-
         var urlencoded = new URLSearchParams();
-        urlencoded.append("title", courseInfo.coursetitle);
-        urlencoded.append("code", courseInfo.coursecode);
-        urlencoded.append("department_id", courseInfo.department_id);
-        urlencoded.append("unit", courseInfo.unit);
+        urlencoded.append("title", deptInfo.depttitle);
+        urlencoded.append("code", deptInfo.deptcode);
+        urlencoded.append("faculty_id", deptInfo.faculty_id);
         urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
 
         var requestOptions = {
             method: 'POST',
@@ -73,14 +69,15 @@ function CourseEdit(props) {
         };
         setNotify('loading')
 
-        const addCourse = async () => {
-            const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/EditCourse/1", requestOptions)
+        const addDepartment = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/EditDepartment/${result[0].id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
+
             if (status == 200) {
-                setNotify('Course Edited Succesfully')
+                setNotify('Department Updated Succesfully')
                 Swal.fire({
-                    title: 'Course EDited Successfully',
+                    title: 'Department Updated Successfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
@@ -93,13 +90,12 @@ function CourseEdit(props) {
                 })
             }
         }
-        addCourse()
+        addDepartment()
     };
 
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
-
     if (status === "authenticated")
         return <>
             <div className="container-fluid">
@@ -126,41 +122,31 @@ function CourseEdit(props) {
                                 <p className="text-success text-center fw-bold">{notify}</p>)
                         }
                         <h3 className="py-4">
-                            Edit Course
+                            Edit Department
                         </h3>
-                        <form className="card p-4" action="" onSubmit={editCourse}>
+                        <form className="card p-4" action="" onSubmit={handleDeptReg}>
                             <div className="mb-3">
-                                <label htmlFor="coursetitle">Course Title</label>
-                                <input onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, coursetitle: e.target.value })} type="text" name="coursetitle" className="form-control" />
+                                <label htmlFor="depttitle">Department Name</label>
+                                <input defaultValue={result[0].title} onChange={(e) => setdeptInfo(
+                                    { ...deptInfo, depttitle: e.target.value })} type="text" name="depttitle" className="form-control" />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="coursecode">Course Code</label>
-                                <input onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, coursecode: e.target.value })} type="text" name="coursecode" className="form-control" />
+                                <label htmlFor="deptcode">Department Code</label>
+                                <input defaultValue={result[0].code} onChange={(e) => setdeptInfo(
+                                    { ...deptInfo, deptcode: e.target.value })} type="text" name="deptcode" className="form-control" />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="unit">Unit</label>
-                                <input onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, unit: e.target.value })} type="text" name="unit" className="form-control" />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="department">Department</label>
-                                <select name="department" onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
-
-                                    <option selected>Select your Department</option>
+                                <label htmlFor="falculty">Faculty</label>
+                                <select name="department" onChange={(e) => setdeptInfo(
+                                    { ...deptInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
+                                    <option selected>Select your Faculty</option>
                                     {
-                                        department.map(department => {
+                                        faculty.map(faculty => {
                                             return (
-                                                <option value={department.id}>{department.title}</option>
-
+                                                <option value={faculty.id}>{faculty.title}</option>
                                             )
                                         })
-
-
                                     }
-
                                 </select>
                             </div>
                             <div className="col-5 m-auto singleSubmits">
@@ -181,12 +167,12 @@ function CourseEdit(props) {
     )
 }
 
-export default CourseEdit;
+export default DepartmentEdit;
 
 export async function getServerSideProps(context) {
     const { params } = context;
     const { id } = params
-    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`)
+    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getDepartmentById/${id}`)
     const data = await response.json()
     const student = data.students
     return {

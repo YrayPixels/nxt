@@ -6,6 +6,7 @@ import Script from 'next/script'
 import '../styles/otp.css'
 import '../styles/register.css'
 import '../styles/secondNav.css'
+import '../styles/otpcomp.css'
 
 
 import Head from 'next/head'

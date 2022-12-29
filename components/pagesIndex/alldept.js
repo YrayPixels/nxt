@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
+import Link from 'next/link';
 
 var myHeaders = new Headers();
 myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
@@ -31,7 +32,7 @@ function AllDepartment() {
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Programs: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Departments: {data.length}</h6>
             </div>
             <table className="tableData table table-responsive table">
                 <thead>
@@ -52,7 +53,10 @@ function AllDepartment() {
                                     <td>{data.code}</td>
                                     <td className='text-center'><div className='btn-group'>
                                         <button className='btn btn-primary p-2'>
-                                            Edit
+                                            <Link href={`/centers/department/edit/${data.id}`}>
+                                                Edit
+                                            </Link>
+
                                         </button>
                                         <button className='btn btn-danger p-2'>
                                             Delete
