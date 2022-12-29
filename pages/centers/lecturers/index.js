@@ -36,7 +36,7 @@ function Lecturers() {
                     <div className="col-4 subNav row">
                         <AllNavs />
                     </div>
-                    <div className="col-12 col-lg-8  p-lg-5 regMain">
+                    <div on className="col-12 col-lg-8  p-lg-5 regMain">
                         <AllLecturers />
                     </div>
                 </div>

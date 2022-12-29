@@ -38,6 +38,7 @@ function Recentregisterd() {
                         <th>PHONE</th>
                         <th>DEPARTMENT</th>
                         <th>PROGRAMME</th>
+                        <th>FACULTY</th>
                         <th>OCCUPATION</th>
 
 
@@ -51,9 +52,10 @@ function Recentregisterd() {
                                     <td><span><img src="" alt="" /></span> {data.name}</td>
                                     <td>{data.email}</td>
                                     <td>{data.phone}</td>
-                                    <td>department </td>
-                                    <td>programme</td>
-                                    <td> {data.occupation}</td>
+                                    <td>{data.departments_title} </td>
+                                    <td>{data.programmes_title}</td>
+                                    <td>{data.faculties_title}</td>
+                                    {/* <td> {data.occupation}</td> */}
                                 </tr>
                             )
                         })

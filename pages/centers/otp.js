@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
-import OtpInput from 'react-otp-input';
 
 
 
@@ -29,20 +28,40 @@ function Otp() {
 
         }
     }, []);
+    const [otp, setOtp] = useState([])
+    const [filled, setFilled] = useState([])
+    useEffect(() => {
+        setOtp(filled.join(''))
 
+    }, [filled])
 
-    const handleChange = otp => setState({ otp });
+    let inputArray = []
+    function handleInput(e) {
+        let inputVal = e.target.value;
 
+        if (inputVal != [] && inputVal.length == 1) {
+            if (e.target.nextSibling != null) {
+                e.target.nextSibling.focus()
+                setFilled(filled.concat(inputVal))
 
-
+            } else {
+                inputArray.push(inputVal)
+                setFilled(filled.concat(inputVal))
+                // setFilled(filled.join(''))
+            }
+        } else {
+            if (e.target.previousSibling != null) {
+                e.target.previousSibling.focus()
+            } else {
+                setFilled([])
+            }
+        }
+    }
     function redirect() {
         router.replace('/centers/dashboard');
     }
-    // console.log(bearer_key)
 
     const verifyOtp = async () => {
-        // console.log(state.otp)
-
         setNotify(' ')
 
         var myHeaders = new Headers();
@@ -50,8 +69,7 @@ function Otp() {
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("otp", state.otp);
-
+        urlencoded.append("otp", otp);
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
@@ -88,7 +106,6 @@ function Otp() {
                 confirmButtonText: 'close'
             })
             setLoading(' ')
-            // console.log(data);
         } else {
             setNotify('No Authorization')
             Swal.fire({
@@ -135,25 +152,16 @@ function Otp() {
                                 }
                                 <h1>Enter OTP</h1>
 
-                                <OtpInput
-                                    value={state.otp}
-                                    onChange={handleChange}
-                                    numInputs={5}
-                                    separator={<span>-</span>}
-                                    inputStyle='otpInputStyle'
-                                    isInputNum='true'
-                                    placeholder='*****'
-                                />
-                                {/* <input
-                                    onChange={ } type="text" name="OTP" id="" className='form-control w-50 p-3 fs-1 text-center' maxLength={6} /> */}
-                                {/* <div class="otp-field text-dark">
-                                    <input type="text" maxlength="1" />
-                                    <input type="text" maxlength="1" />
-                                    <input class="space" type="text" maxlength="1" />
-                                    <input type="text" maxlength="1" />
-                                    <input type="text" maxlength="1" />
-                                    <input type="text" maxlength="1" />
-                                </div> */}
+                                <div className="">
+                                    <div className="d-flex OtpComponent">
+                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                    </div>
+                                </div>
+
                                 <div className='btn-group mt-3 p-2 '>
                                     <button onClick={verifyOtp} className='btn btn-dark align-items-center justify-content-center d-flex p-2'>
                                         {
