@@ -5,7 +5,6 @@ import TotalCourse from "../../components/centers/dashboardone/totalcourses"
 import Totalfaculty from "../../components/centers/dashboardone/totalfaculty"
 import Totalfemale from "../../components/centers/dashboardone/totalfemale"
 import Useractivity from "../../components/centers/dashboardone/useractivity"
-import Topnav from "../../components/centers/dashboardtwo/topnav"
 import Sidenav from "../../components/centers/sidenav"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
@@ -16,7 +15,6 @@ import NewtopNAv from "../../components/centers/dashboardtwo/newtopNav"
 function Dashboard() {
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
-    console.log(data)
     function navState(ClickedNav) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
@@ -28,7 +26,6 @@ function Dashboard() {
         return (
             <div className="container-fluid">
                 <div className="py-4 px-2">
-                    {/* <Topnav naviState={navState} /> */}
                     <NewtopNAv naviState={navState} />
                 </div>
                 <div className=" row dashboardCenters">
