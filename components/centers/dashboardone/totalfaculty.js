@@ -13,7 +13,7 @@ function Totalfaculty() {
         return 'An error has occured'
     if (!data) return <CircularProgress />
     return (
-        <div className="row topPills  align-items-center">
+        <div className="row topPills shadow  align-items-center">
             <div className="col-12 col-md-8">
                 <p>Total No of Faculty</p>
                 <p className="fw-bold num">{data.result}</p>

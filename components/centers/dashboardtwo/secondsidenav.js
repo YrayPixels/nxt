@@ -37,18 +37,18 @@ function Secondnav() {
                 </ul>
             </div>
         </>)
-    if (path.includes("courses") || path == "/centers/courses")
+    if (path.includes("modules") || path == "/centers/modules")
         return (<>
             <div className="secondNav">
                 <ul>
-                    <Link href={'/centers/courses/addcourses'}>
+                    <Link href={'/centers/modules/addmodules'}>
                         <li>
-                            Add Courses
+                            Add Modules
                         </li>
                     </Link>
-                    <Link href={'/centers/courses'}>
+                    <Link href={'/centers/modules'}>
                         <li>
-                            View all Courses
+                            View all Modules
                         </li>
                     </Link>
                 </ul>
@@ -86,17 +86,17 @@ function Secondnav() {
                 </Link>
             </div>
         </>)
-    if (path.includes("launchprogram") || path == "/centers/launchprogram/launcedprogrammes")
+    if (path.includes("launchcourse"))
         return (<>
             <div className="secondNav">
-                <Link href={'/centers/launchprogram'}>
+                <Link href={'/centers/launchcourse'}>
                     <li>
-                        Launch Programme
+                        Launch Course
                     </li>
                 </Link>
-                <Link href={'/centers/launchprogram/launcedprogrammes'}>
+                <Link href={'/centers/launchcourse/launchedcourses'}>
                     <li>
-                        Programmes Launced
+                        Courses Launched
                     </li>
                 </Link>
             </div>

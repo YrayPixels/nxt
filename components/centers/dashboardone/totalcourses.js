@@ -14,7 +14,7 @@ function TotalCourse() {
         return 'An error has occured'
     if (!data) return <CircularProgress />
     return (
-        <div className="row align-items-center topPills">
+        <div className="row align-items-center shadow topPills">
             <div className="col-12 col-md-8">
                 <p>Total No of Courses</p>
                 <p className="fw-bold num">{data.result}</p>

@@ -25,23 +25,25 @@ function AllLaunchedProg() {
     // console.log(data)
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
-            <p>All Launched Programs</p>
+            <p>All Launched Courses</p>
 
             <input type="text" className='form-control w-50' placeholder='Enter Text Here...' />
         </div>
         <div className="bg-info p-4 shadow rounded-0  table-responsive ">
 
             <div>
-                <h6 className="fw-bold">Total No of Lecturers: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Launched Courses: {data.length}</h6>
             </div>
             <table className="tableData table-hover table-striped table">
                 <thead>
                     <tr>
-                        <th>PROGRAMME NAME</th>
+                        <th>COURSES NAME</th>
                         <th>START DATE</th>
                         <th>END DATE</th>
                         <th>ANNOUNCEMENT DATE</th>
                         <th>ANNOUNCEMENT LINK</th>
+                        <th>OTHER MEDIA LINK</th>
+                        <th>SESSION ID</th>
                         <th>ACTIONS</th>
                     </tr>
                 </thead>
@@ -55,6 +57,8 @@ function AllLaunchedProg() {
                                     <td>{programme.end_date}</td>
                                     <td>{programme.announcement_date} </td>
                                     <td>{programme.announcement_link}</td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                         <div className='btn-group'>
                                             <button className='btn btn-primary p-2'>

@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
-
+import LoginComponent from '..';
+import { useSession } from 'next-auth/react';
 
 
 function Otp() {
     const router = useRouter();
+    const { status, data } = useSession();
     const [bearer_key, setBearer_key] = useState(' ');
     const [email, setEmail] = useState(' ');
     const [password, setPassword] = useState(' ');
@@ -18,14 +20,28 @@ function Otp() {
     // const [otpstate, setotpState] = useState([])
     const [notify, setNotify] = useState(' ')
     const [loading, setLoading] = useState(' ');
-
+    const [userDetails, setUserDetails] = useState({
+        id: " ",
+        center_name: " ",
+        center_code: " ",
+        email: " ",
+        phone_number: "",
+        logo: ' ',
+        state_id: ' ',
+        lga_id: ' ',
+        center_otp: " ",
+        type: " ",
+        added_at: " ",
+        address: "",
+        status: " ",
+        bearer_toke: "",
+    })
+    console.log(useSession())
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
             setPassword(window.sessionStorage.getItem('token_'));
             setEmail(window.sessionStorage.getItem('user_email'));
-
-
         }
     }, []);
     const [otp, setOtp] = useState([])
@@ -60,17 +76,16 @@ function Otp() {
     function redirect() {
         router.replace('/centers/dashboard');
     }
-
     const verifyOtp = async () => {
         setNotify(' ')
 
-        var myHeaders = new Headers();
+        let myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${bearer_key}`);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-        var urlencoded = new URLSearchParams();
+        let urlencoded = new URLSearchParams();
         urlencoded.append("otp", otp);
-        var requestOptions = {
+        let requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: urlencoded,
@@ -81,21 +96,55 @@ function Otp() {
         const data = await response.json()
         const status = response.status
         if (status == 200) {
-            setNotify(' ')
-            Swal.fire({
-                title: 'OTP Verified Successfully',
-                icon: 'success',
-                confirmButtonText: 'close'
-            })
+            const handleSubmit = async () => {
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("email", email);
+                urlencoded.append("password", password);
+                var requestOptions = {
+                    method: 'POST',
+                    body: urlencoded,
+                };
+                const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/login", requestOptions)
+                const data = await response.json()
+                const details = data.message;
+                const bearer_tok = data.barear_token;
+                const status = response.status;
+                if (status == 200) {
+                    setUserDetails({
+                        ...userDetails,
+                        id: details.id,
+                        center_name: details.center_name,
+                        center_code: details.center_code,
+                        email: details.email,
+                        phone_number: details.phone_number,
+                        logo: details.logo,
+                        state_id: details.state_id,
+                        lga_id: details.lga_id,
+                        center_otp: details.center_otp,
+                        type: details.type,
+                        added_at: details.added_at,
+                        address: details.address,
+                        status: details.status,
+                        bearer_toke: bearer_tok,
+
+                    })
+                }
+            }
+            handleSubmit()
 
             const res = await signIn('credentials', {
                 token: 'verified',
-                email: email,
-                password: password,
-                redirect: false,
             })
+
             if (res.error == null && res.status == 200) {
-                redirect()
+                setNotify(' ')
+                Swal.fire({
+                    title: 'OTP Verified Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+                // redirect()
+                // console.log('verified baby')
             }
         } else if (status == 201) {
 
@@ -134,6 +183,7 @@ function Otp() {
 
     return (
         <>
+            {/* <LoginComponent /> */}
             <div className="loginCont">
                 <div className="backgroundCent">
 

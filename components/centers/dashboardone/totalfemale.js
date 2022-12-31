@@ -15,7 +15,7 @@ function Totalfemale() {
         return 'An error has occured'
     if (!data) return <CircularProgress />
     return (
-        <div className="row align-items-center text-center text-md-start topPills">
+        <div className="row align-items-center shadow text-center text-md-start topPills">
             <div className="col-12 col-md-8">
                 <p>Total Female</p>
                 <p className="fw-bold num">{data.students}</p>

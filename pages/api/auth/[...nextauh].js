@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+
 const authoptions = {
     session: {
         strategy: 'jwt'
@@ -11,19 +12,23 @@ const authoptions = {
             authorize(credentials, req) {
                 // var fetchedData = new fdata();
                 const { token } = credentials
-                // Add logic here to look up the user from the credentials supplied
 
+                // Add logic here to look up the user from the credentials supplied
                 const user = {
-                    id: 1,
-                    center_name: ' ',
-                    center_code: ' ',
-                    email: ' ',
-                    phone_number: ' ',
+                    email: 'moses@gmail.com',
+                    id: '082050jt94',
+                    center_name: 'Moses Center',
+                    center_code: " ",
+                    phone_number: "",
                     logo: ' ',
                     state_id: ' ',
                     lga_id: ' ',
-                    center_otp: ' ',
-                    status: ' '
+                    center_otp: " ",
+                    type: " ",
+                    added_at: " ",
+                    address: "",
+                    status: " ",
+                    bearer_toke: ""
                 }
 
 
@@ -31,14 +36,42 @@ const authoptions = {
                     // Any object returned will be saved in `user` property of the JWT
                     // throw new Error('something is happening')
                     // console.log(fetchedData)
-                    return { id: 1, name: 'Micheal David', email: ' bigg Timez' };
+                    return {
+                        user: {
+                            email: 'moses@gmail.com',
+                            id: '082050jt94',
+                            center_name: 'Moses Center',
+                            center_code: " ",
+                            phone_number: "",
+                            logo: ' ',
+                            state_id: ' ',
+                            lga_id: ' ',
+                            center_otp: " ",
+                            type: " ",
+                            added_at: " ",
+                            address: "",
+                            status: " ",
+                            bearer_toke: ""
+                        }
+                    }
                 }
                 // If you return null then an error will be displayed advising the user to check their details.
                 throw new Error('Invalid credentials')
+            },
+            callbacks: {
+                jwt: async ({ token, user }) => {
+                    user && (token.user = user)
+                    return token
+                },
+                session: async ({ session, token }) => {
+                    session.user = token.user
+                    return session
+                }
             }
 
         })
     ],
+
 
     pages: {
         signIn: '/',

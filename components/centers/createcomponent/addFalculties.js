@@ -4,10 +4,16 @@ import Swal from "sweetalert2";
 
 function AddFaculty() {
     const [notify, setNotify] = useState(' ');
+    const [bearer_key, setBearer_key] = useState(' ');
     const [deptInfo, setdeptInfo] = useState({
         facultyTitle: " ",
         facultyCode: " ",
     });
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+        }
+    }, []);
     const handleFacultyReg = async (e) => {
         e.preventDefault()
 
@@ -15,7 +21,7 @@ function AddFaculty() {
         urlencoded.append("title", deptInfo.facultyTitle);
         urlencoded.append("code", deptInfo.facultyCode);
         urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
+        urlencoded.append("Authorization", `Bearer ${bearer_key}`);
 
         var requestOptions = {
             method: 'POST',

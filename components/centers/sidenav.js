@@ -1,5 +1,5 @@
 // import styles from '/styles/sidenav.module.css'
-import { Apartment, Home, HouseSiding, Key, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, RocketLaunch, School, SettingsAccessibility } from '@mui/icons-material';
+import { Apartment, Home, HouseSiding, Key, LocationCityRounded, LocationDisabled, MapSharp, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, RocketLaunch, School, SettingsAccessibility } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { signIn, signOut } from 'next-auth/react';
@@ -20,23 +20,17 @@ function Sidenav() {
 
     return (
         <div className="sidenavBody py-4 ps-4">
-            <div className="text-center d-flex fw-bold">
-                <p>
-                    <Monitor />
-                </p>
-                <p>
-                    SPESSE Dashboard
-                </p>
-            </div>
             <div>
                 <ul>
+                    {/* DashBoard Link */}
                     <li>
                         <Link href='/centers/dashboard'>
                             <span><HomeIcon /></span> Dashboard
                         </Link>
                     </li>
-                    <li onMouseEnter={(e) => setVisible(
-                        { ...visible, manageStud: true })} onMouseLeave={(e) => setVisible(
+                    {/* Manage Students link */}
+                    <li onClick={(e) => setVisible(
+                        { ...visible, manageStud: !visible.manageStud })} onMouseLeave={(e) => setVisible(
                             { ...visible, manageStud: false })}>
                         <span><PeopleOutlineOutlined /></span>
                         Manage Students
@@ -55,8 +49,9 @@ function Sidenav() {
                             </ul>
                         </div>
                     </li>
-                    <li onMouseEnter={(e) => setVisible(
-                        { ...visible, manageLect: true })} onMouseLeave={(e) => setVisible(
+                    {/* Manage Lecturer Link */}
+                    <li onClick={(e) => setVisible(
+                        { ...visible, manageLect: !visible.manageLect })} onMouseLeave={(e) => setVisible(
                             { ...visible, manageLect: false })}>
                         <span><School /></span>
                         Manage Lecturers
@@ -75,7 +70,8 @@ function Sidenav() {
                             </ul>
                         </div>
                     </li>
-                    <li onMouseEnter={(e) => setVisible(
+                    {/* Manage Faculty Link */}
+                    <li onClick={(e) => setVisible(
                         { ...visible, manageFac: true })} onMouseLeave={(e) => setVisible(
                             { ...visible, manageFac: false })}>
                         <Link href='/centers/faculties'>
@@ -97,58 +93,75 @@ function Sidenav() {
                             </div>
                         </Link>
                     </li>
-
-                    <li onMouseEnter={(e) => setVisible(
-                        { ...visible, manageDept: true })} onMouseLeave={(e) => setVisible(
+                    {/* Manage Department Link */}
+                    <li onClick={(e) => setVisible(
+                        { ...visible, manageDept: !visible.manageDept })} onMouseLeave={(e) => setVisible(
                             { ...visible, manageDept: false })}>
-                        <Link href='/centers/faculties'>
 
-                            <span><HouseSiding /></span>
-                            Manage Department
-                            <div className={(visible.manageDept ? 'd-block' : 'd-none')}>
-                                <ul className='sub-links'>
-                                    <li>
-                                        <Link href="/centers/department">
-                                            View All Department                                </Link>
-                                    </li>
-                                    <li>
-                                        <Link href='/centers/department/adddept'>
-                                            Add Department
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </Link>
+
+                        <span><HouseSiding /></span>
+                        Manage Department
+                        <div className={(visible.manageDept ? 'd-block' : 'd-none')}>
+                            <ul className='sub-links'>
+                                <li>
+                                    <Link href="/centers/department">
+                                        View All Department                                </Link>
+                                </li>
+                                <li>
+                                    <Link href='/centers/department/adddept'>
+                                        Add Department
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+
                     </li>
-                    <li onMouseEnter={(e) => setVisible(
-                        { ...visible, manageCou: true })} onMouseLeave={(e) => setVisible(
+                    {/* Manage Modules link */}
+                    <li onClick={(e) => setVisible(
+                        { ...visible, manageCou: !visible.manageCou })} onMouseLeave={(e) => setVisible(
                             { ...visible, manageCou: false })}>
-                        <Link href='/centers/faculties'>
-
-                            <span><NoteAddOutlined /></span>
-                            Manage Courses
-                            <div className={(visible.manageCou ? 'd-block' : 'd-none')}>
-                                <ul className='sub-links'>
-                                    <li>
-                                        <Link href='/centers/courses'>
-                                            View All Courses
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/centers/lecturers/addcourses">
-                                            Add Course
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-
-
-
-                        </Link>
+                        <span><NoteAddOutlined /></span>
+                        Manage Modules
+                        <div className={(visible.manageCou ? 'd-block' : 'd-none')}>
+                            <ul className='sub-links'>
+                                <li>
+                                    <Link href='/centers/modules'>
+                                        View All Modules
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/centers/modules/addmodules">
+                                        Add Modules
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
+                    {/* Manage Nodes link */}
+                    <li onClick={(e) => setVisible(
+                        { ...visible, manageCou: !visible.manageCou })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageCou: false })}>
+                        <span><MapSharp /></span>
+                        Manage Nodes
+                        <div className={(visible.manageCou ? 'd-block' : 'd-none')}>
+                            <ul className='sub-links'>
+                                <li>
+                                    <Link href='/centers/node'>
+                                        View All Nodes
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/centers/node/addNode">
+                                        Add Node
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {/* Lauunch Course Link */}
                     <li>
-                        <Link href="/centers/launchprogram">
-                            <span><RocketLaunch /></span>Launch Programme
+                        <Link href="/centers/launchcourse">
+                            <span><RocketLaunch /></span>Launch Course
                         </Link>
                     </li>
                 </ul>
@@ -161,8 +174,11 @@ function Sidenav() {
             <div >
                 <ul>
                     <li>
-                        <span><Person2Outlined /></span>Profile
+                        <Link href={'/centers/profile'}>
+                            <span><Person2Outlined /></span>Profile
+                        </Link>
                     </li>
+
                     <li onClick={() => {
                         signOut()
                     }} >

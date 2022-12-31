@@ -6,6 +6,7 @@ import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AllNavs from "../../../components/allNavs";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
+import TopPilsItems from "../../../components/centers/toppills";
 
 function LecturerInfo(props) {
     const router = useRouter()
@@ -42,104 +43,112 @@ function LecturerInfo(props) {
                     <div className="col-4 subNav row">
                         <AllNavs />
                     </div>
-                    <div className="col-12 col-lg-8  p-lg-5 regMain">
+                    <div className="col-12 col-lg-8 regMain">
+                        <div className="p-2">
+                            <TopPilsItems />
+                        </div>
+                        <div className="p-lg-3 ">
 
-                        <div className="col-12  regMain">
-                            <div className="p-5  bg-info shadow">
+                            <div className="col-12">
+                                <div className="bg-info p-5 shadow">
 
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <Avatar
-                                            alt={result.name}
-                                            src="/static/images/avatar/1.jpg"
-                                            sx={{ width: 100, height: 100 }}
-                                        />
-                                    </div>
-                                    <div>
-                                        <h2 className="">
-                                            {result.name}
-                                        </h2>
-                                        <p><Email
-                                        /> {result.email}</p>
-                                        <p><Phone /> {result.phone}</p>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <Avatar
+                                                alt={result.name}
+                                                src="/static/images/avatar/1.jpg"
+                                                sx={{ width: 100, height: 100 }}
+                                            />
+                                        </div>
+                                        <div>
+                                            <h2 className="">
+                                                {result.name}
+                                            </h2>
+                                            <p><Email
+                                            /> {result.email}</p>
+                                            <p><Phone /> {result.phone}</p>
 
-                                        <div className="mb-2 btn btn-outline-dark">
-                                            <Link href={`/centers/studentlist/edit/${result.id}`}>
-                                                <Edit /> Edit Profile
-                                            </Link>
+                                            <div className="mb-2 btn btn-outline-dark">
+                                                <Link href={`/centers/studentlist/edit/${result.id}`}>
+                                                    <Edit /> Edit Profile
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
+                                    <hr />
+                                    <div className="d-flex justify-content-between">
+                                        <div className="col">
+                                            <h6>Gender</h6>
+                                            <p>{result.sex}</p>
+                                        </div>
+                                        <div className="col">
+                                            <h6>Age</h6>
+                                            <p>{result.age}</p>
+                                        </div>
+                                        <div className="col">
+                                            <h6>Address</h6>
+                                            <p>{result.address}</p>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <hr />
-                                <div className="d-flex justify-content-between">
-                                    <div className="col">
-                                        <h6>Gender</h6>
-                                        <p>{result.sex}</p>
-                                    </div>
-                                    <div className="col">
-                                        <h6>Age</h6>
-                                        <p>{result.age}</p>
-                                    </div>
-                                    <div className="col">
-                                        <h6>Address</h6>
-                                        <p>{result.address}</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className="bg-info mt-4 p-5 shadow">
-                                <div className="row">
-                                    <div className="col-3">
-                                        <h6>Faculty</h6>
-                                        <p>{result.faculties_title}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Department</h6>
-                                        <p>{result.departments_title}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Program</h6>
-                                        <p>{result.programmes_title}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>State</h6>
-                                        <p>{result.state_title}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>LGA</h6>
-                                        <p>{result.lga}</p>
-                                    </div>
+                                <div className="bg-info mt-4 p-5 shadow">
+                                    <div className="row">
+                                        <div className="col-3">
+                                            <h6>Faculty</h6>
+                                            <p>{result.faculties_title}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Department</h6>
+                                            <p>{result.departments_title}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Program</h6>
+                                            <p>{result.programmes_title}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>State</h6>
+                                            <p>{result.state_title}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>LGA</h6>
+                                            <p>{result.lga}</p>
+                                        </div>
 
 
-                                    <div className="col-3">
-                                        <h6>Center</h6>
-                                        <p>{result.center_id}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Employee</h6>
-                                        <p>{result.employee}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Employee Type</h6>
-                                        <p>{result.employee_type}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Employment Status</h6>
-                                        <p>{result.employment_status}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Highest Qualification</h6>
-                                        <p>{result.heighest_qualification}</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Highest Qualification Year</h6>
-                                        <p>{result.heighest_qualification_year}</p>
-                                    </div>
+                                        <div className="col-3">
+                                            <h6>Center</h6>
+                                            <p>{result.center_id}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Employee</h6>
+                                            <p>{result.employee}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Employee Type</h6>
+                                            <p>{result.employee_type}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Employment Status</h6>
+                                            <p>{result.employment_status}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Highest Qualification</h6>
+                                            <p>{result.heighest_qualification}</p>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Highest Qualification Year</h6>
+                                            <p>{result.heighest_qualification_year}</p>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
             </div>
         </>

@@ -35,14 +35,14 @@ function FirstsideNav() {
                 </Link>
 
             </li>
-            <li className={(path.includes('courses') ? 'activated' : '')}>
-                <Link href='/centers/courses'>
+            <li className={(path.includes('modules') ? 'activated' : '')}>
+                <Link href='/centers/modules'>
                     <span><MenuBook /></span>
                 </Link>
 
             </li>
-            <li className={(path.includes('launchprogram') ? 'activated' : '')}>
-                <Link href="/centers/launchprogram">
+            <li className={(path.includes('launchcourse') ? 'activated' : '')}>
+                <Link href="/centers/launchcourse">
                     <span><RocketLaunch /></span>
                 </Link>
             </li>

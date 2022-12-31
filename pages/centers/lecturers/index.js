@@ -8,6 +8,7 @@ import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import AllLecturers from "../../../components/pagesIndex/allLecturers";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
+import TopPilsItems from "../../../components/centers/toppills";
 // import AllCourses from "../../../components/centers/dashboardtwo/courses";
 
 function Lecturers() {
@@ -36,9 +37,15 @@ function Lecturers() {
                     <div className="col-4 subNav row">
                         <AllNavs />
                     </div>
-                    <div on className="col-12 col-lg-8  p-lg-5 regMain">
-                        <AllLecturers />
+                    <div className="col-12 col-lg-8 regMain">
+                        <div className="p-2">
+                            <TopPilsItems />
+                        </div>
+                        <div className=" p-lg-3 ">
+                            <AllLecturers />
+                        </div>
                     </div>
+
                 </div>
             </div>
         </>

@@ -14,6 +14,7 @@ function StudentRegistration() {
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
     const [department, setDepartment] = useState([]);
+    let looperArray = [];
     // qual
     const [qual, setqual] = useState([]);
     const [Inst, setInst] = useState([]);
@@ -54,7 +55,12 @@ function StudentRegistration() {
         employment_status: " ",
     });
     const { session, status } = useSession();
-
+    function looper() {
+        for (let i = 0; i <= 90; i++) {
+            looperArray.push(i)
+        }
+        console.log(looperArray)
+    }
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
@@ -193,6 +199,7 @@ function StudentRegistration() {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+
             } else if (status == 202) {
                 setNotify('Student Already Registered')
                 Swal.fire({
@@ -211,7 +218,7 @@ function StudentRegistration() {
     return (<>
         {
             notify == 'loading' && (
-                <p className="text-success text-center fw-bold"><CircularProgress /></p>
+                <p className="text-success  text-center fw-bold"><CircularProgress /></p>
             )
         }
         {
@@ -244,7 +251,15 @@ function StudentRegistration() {
                 <div className="col-6 mb-3">
                     <label htmlFor="age">Age</label>
                     <input required onChange={(e) => setUserInfo(
-                        { ...userInfo, age: e.target.value })} type="text" name="age" className="form-control" />
+                        { ...userInfo, age: e.target.value })} type="number" name="age" className="form-control" max={90} min={10} >
+
+                        {/* <option value="option your age"> option your age</option>
+                        {
+                            looperArray.map(age => {
+                                return <option>{age}</option>
+                            })
+                        } */}
+                    </input>
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="state">State of Origin</label>
@@ -282,10 +297,10 @@ function StudentRegistration() {
 
                     </select>
                 </div>
-                <div className="col-6 mb-3">
+                <div className="mb-3">
                     <label htmlFor="address">Address</label>
-                    <input required onChange={(e) => setUserInfo(
-                        { ...userInfo, address: e.target.value })} type="text" name="address" className="form-control" />
+                    <textarea required onChange={(e) => setUserInfo(
+                        { ...userInfo, address: e.target.value })} type="text" name="address" className="form-control" > </textarea>
                 </div>
 
             </fieldset>
@@ -360,7 +375,7 @@ function StudentRegistration() {
                                         { ...qaulArray, qualification_id: e.target.value }
                                     )} class="form-select" aria-label="Default select example">
 
-                                        <option selected>Select your qualification</option>
+                                        <option selected onClick={event => setQualname(event, 'Select your Qualification')}>Select your qualification</option>
                                         {
                                             qual.map(qual => {
 
@@ -377,7 +392,7 @@ function StudentRegistration() {
                                 <div className="col-3 mb-3">
                                     <label htmlFor="academic">Year Finished</label>
                                     <input required onChange={(e) => setQualArray(
-                                        { ...qaulArray, year: e.target.value })} type="text" name="academic" className="form-control" />
+                                        { ...qaulArray, year: e.target.value })} type="date" name="academic" className="form-control" />
                                 </div>
                                 <div className="col-3 mb-3">
                                     <label htmlFor="institute">Institution</label>
@@ -427,25 +442,41 @@ function StudentRegistration() {
             {/* Employment Info */}
             <fieldset>
                 <legend>
-                    Employement Information
+                    Employment Information
                 </legend>
-                <div className="mb-3 row ">
-                    <div className="col-6 mb-3">
-                        <label htmlFor="Employee">Employee</label>
-                        <input required name="employee" onChange={(e) => setUserInfo(
-                            { ...userInfo, employee: e.target.value })} class="form-control" aria-label="" />
-                    </div>
-                    <div className="col-6 mb-3">
-                        <label htmlFor="EmployeeType">Employee Type</label>
-                        <input required name="employeeType" onChange={(e) => setUserInfo(
-                            { ...userInfo, employee_type: e.target.value })} class="form-control" aria-label="Default select example" />
-                    </div>
-                    <div className="col-6 mb-3">
-                        <label htmlFor="employmentStatus">Employment Status</label>
-                        <input required name="employmentStatus" onChange={(e) => setUserInfo(
-                            { ...userInfo, employment_status: e.target.value })} class="form-control" aria-label="Default select example" />
-                    </div>
+                <div className="mb-3">
+                    <label htmlFor="employmentStatus">Employment Status</label>
+                    <select required name="employmentStatus" onChange={(e) => setUserInfo(
+                        { ...userInfo, employment_status: e.target.value })} class="form-select" aria-label="employement status" >
+
+                        <option selected  >What's your employent Status</option>
+                        <option value={'Employed'}>Employed</option>
+                        <option value={'Unemployed'} >Unemployed</option>
+                    </select>
                 </div>
+                {
+                    userInfo.employment_status == 'Employed' &&
+
+                    <div className="mb-3 row ">
+                        <div className="col-6 mb-3">
+                            <label htmlFor="Employee">Employee</label>
+                            <input placeholder="where do you work" required name="employee" onChange={(e) => setUserInfo(
+                                { ...userInfo, employee: e.target.value })} class="form-control" aria-label="" />
+                        </div>
+                        <div className="col-6 mb-3">
+                            <label htmlFor="EmployeeType">Employee Type</label>
+                            <select required name="employeeType" onChange={(e) => setUserInfo(
+                                { ...userInfo, employee_type: e.target.value })} class="form-control" aria-label="Default select example">
+                                <option selected value={'None'}> What type of organization do you work for</option>
+                                <option value="Private">Private</option>
+                                <option value="Public">Public</option>
+
+
+                            </select>
+                        </div>
+
+                    </div>
+                }
                 <div className="col-5 m-auto singleSubmits">
                     <button type="submit" className="btn rounded-0  text-info w-100"> Submit</button>
                 </div>

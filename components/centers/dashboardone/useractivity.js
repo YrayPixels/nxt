@@ -1,4 +1,4 @@
-import { AccountBoxRounded, AddBox, Apartment, Book, BookOnline, School } from "@mui/icons-material";
+import { AccountBoxRounded, AddBox, Apartment, Book, BookOnline, GifBox, School } from "@mui/icons-material";
 import { LinearProgress } from "@mui/material";
 import { Progress } from "reactstrap";
 
@@ -7,7 +7,7 @@ function Useractivity() {
         <div className="p-4">
             <p className="fw-bold fs-5">User Activity</p>
             <p>Total number of users: 42</p>
-            <div className="">
+            <div className="py-4">
                 <Progress
                     style={{
                         height: '35px',
@@ -38,7 +38,7 @@ function Useractivity() {
                 </Progress>
 
             </div>
-            <div className="d-flex py-3">
+            <div className="d-flex py-5">
                 <div className="p-2  col-4">
                     <span className="fw-bold fs-4">4</span>
                     <div className="d-flex activityIcons justify-content-start align-items-center">
@@ -54,7 +54,7 @@ function Useractivity() {
                         <div>
                             <AddBox />
                         </div>
-                        <span>Observant USers</span>
+                        <span>Observant Users</span>
                     </div>
                 </div>
                 <div className="p-2  col-3">
@@ -76,7 +76,7 @@ function Useractivity() {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="py-4">
                 <div className="d-flex align-items-center">
                     <span className="col-3 d-flex justify-content-between">Students <span><School /></span></span>
                     <span className="col-7 px-2"><Progress

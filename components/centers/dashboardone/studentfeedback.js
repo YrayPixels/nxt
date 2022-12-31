@@ -12,13 +12,15 @@ const Studentfeedback = () => {
             <p>LAST UPDATED ON: </p>
             <div className="">
                 <CChart
+
                     type="doughnut"
                     data={{
-                        // labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
+                        labels: ['Satisfied', 'Dissatisfied',],
                         datasets: [
                             {
                                 backgroundColor: ['#41B883', '#DD1B16'],
-                                data: [72, 20,],
+                                data: [72, 10],
+
                             },
                         ],
                     }}

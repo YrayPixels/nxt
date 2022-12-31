@@ -1,5 +1,6 @@
 import { Dashboard, Menu, Settings } from "@mui/icons-material"
 import { Avatar } from "@mui/material"
+import Link from "next/link";
 import { useState } from "react"
 
 function Topnav(props) {
@@ -19,16 +20,14 @@ function Topnav(props) {
                 </button>
             </div>
             <div className="d-flex align-items-center justify-content-between col-12 col-md-6">
-                <div className="col-5">
-                    <input type="text" className="form-control w-100" placeholder="Type here" />
-                </div>
-
-                <div className="col-3 d-flex align-items-center justify-content-around">
+                <div className="col-6 d-flex align-items-center justify-content-around">
                     <span><Avatar /></span>
-                    <span> Director</span>
+                    <span className='profileName'> Adebayo Adesoji</span>
                 </div>
-                <div className="col-1">
-                    <span><Settings /></span>
+                <div className="col-2">
+                    <Link href={'/centers/profile/settings'}>
+                        <span><Settings /></span>
+                    </Link>
                 </div>
                 <div onClick={openNav} className=" border border-1 d-none d-md-block d-lg-none rounded-1 p-2">
                     <span><Menu /></span>

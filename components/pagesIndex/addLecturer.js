@@ -203,12 +203,8 @@ function LecturerRegistration() {
                     <input onChange={(e) => setLecturerInfo(
                         { ...lecturerInfo, heighest_qualification: e.target.value })} type="text" name="academic" className="form-control" />
                 </div>
-                <div className="col-6 mb-3">
-                    <label htmlFor="employementStatus">Employement Status</label>
-                    <input onChange={(e) => setLecturerInfo(
-                        { ...lecturerInfo, occupation: e.target.value })} type="text" name="employementStatus" className="form-control" />
-                </div>
-                <div className="col-6 mb-3">
+
+                <div className=" mb-3">
 
                     <label htmlFor="occupation">Occupation</label>
                     <input onChange={(e) => setLecturerInfo(

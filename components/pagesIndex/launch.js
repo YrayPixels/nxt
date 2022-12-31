@@ -20,6 +20,7 @@ function Programlaunching() {
         start_date: " ",
         end_date: " ",
         center_id: " ",
+        other_media_link: " ",
     });
 
     const fetchData = () => {
@@ -59,6 +60,7 @@ function Programlaunching() {
         urlencoded.append("end_date", launchInfo.end_date);
         urlencoded.append("announcement_date", launchInfo.announcement_date);
         urlencoded.append("announcement_link", launchInfo.announcement_link);
+        urlencoded.append("other_media_link", launchInfo.other_media_link);
         urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
 
         var requestOptions = {
@@ -104,7 +106,7 @@ function Programlaunching() {
                 <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
-            Lauch A Programme
+            Lauch A Course
         </h3>
         <form className="card p-4" action="" onSubmit={programlaunch} >
             <div className="mb-3">
@@ -148,6 +150,11 @@ function Programlaunching() {
                 <label htmlFor="link">Announcement Link </label>
                 <input onChange={(e) => setlaunchInfo(
                     { ...launchInfo, announcement_link: e.target.value })} type="text" name="link" className="form-control" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="mediaLink">Other Media Link </label>
+                <input onChange={(e) => setlaunchInfo(
+                    { ...launchInfo, other_media_link: e.target.value })} type="text" name="mediaLink" className="form-control" />
             </div>
 
 

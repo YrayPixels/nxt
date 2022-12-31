@@ -11,10 +11,12 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
+import NewtopNAv from "../../components/centers/dashboardtwo/newtopNav"
 
 function Dashboard() {
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
+    console.log(data)
     function navState(ClickedNav) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
@@ -25,6 +27,10 @@ function Dashboard() {
     if (status === "authenticated")
         return (
             <div className="container-fluid">
+                <div className="py-4 px-2">
+                    {/* <Topnav naviState={navState} /> */}
+                    <NewtopNAv naviState={navState} />
+                </div>
                 <div className=" row dashboardCenters">
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 sidenav` : `d-none`}>
                         <Sidenav></Sidenav>
@@ -34,7 +40,8 @@ function Dashboard() {
                     </div>
 
                     <div className={`col-12 col-lg-9 dashmain p-4`}>
-                        <Topnav naviState={navState} />
+
+
                         <div className="row g-2 pillTop justify-content-between align-items-center mt-3">
                             {/* Top Pills */}
                             <div className="col-5 col-lg-3">

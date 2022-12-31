@@ -8,11 +8,12 @@ import StudentsList from "../../../components/centers/dashboardtwo/registeredstu
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
 import TopPilsItems from "../../../components/centers/toppills";
+import AllNodes from "../../../components/centers/nodeComponents/allNodes";
 
 
 
 
-function Students() {
+function AddNode() {
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -44,7 +45,7 @@ function Students() {
                             <TopPilsItems />
                         </div>
                         <div className=" p-lg-3 ">
-                            <StudentsList />
+                            <AllNodes />
                         </div>
                     </div>
                 </div>
@@ -59,6 +60,6 @@ function Students() {
     )
 }
 
-export default Students
+export default AddNode
 
 

@@ -1,5 +1,6 @@
-import { Menu, Notifications, NotificationsActiveOutlined } from "@mui/icons-material";
+import { Menu, Notifications, NotificationsActiveOutlined, Settings } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
+import Link from "next/link";
 import { useState } from "react";
 
 function NewtopNAv(props) {
@@ -35,6 +36,11 @@ function NewtopNAv(props) {
                         <span className="col-12">Otibe Kennedy</span>
                         <span>Admin</span>
                     </div>
+                </div>
+                <div className="col-2">
+                    <Link href={'/centers/profile/settings'}>
+                        <span><Settings /></span>
+                    </Link>
                 </div>
                 <div onClick={openNav} className=" border border-1 d-none d-md-block d-lg-none rounded-1 p-2">
                     <span><Menu /></span>

@@ -2,17 +2,15 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
-import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
-import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
-import StudentsList from "../../../components/centers/dashboardtwo/registeredstudents";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
 import TopPilsItems from "../../../components/centers/toppills";
+import AllNodes from "../../../components/centers/nodeComponents/allNodes";
+import AllSession from "../../../components/centers/sessionComponents/allSession";
+
+function ViewSession() {
 
 
-
-
-function Students() {
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -44,7 +42,7 @@ function Students() {
                             <TopPilsItems />
                         </div>
                         <div className=" p-lg-3 ">
-                            <StudentsList />
+                            <AllSession />
                         </div>
                     </div>
                 </div>
@@ -59,6 +57,12 @@ function Students() {
     )
 }
 
-export default Students
+export default ViewSession;
+
+
+
+
+
+
 
 
