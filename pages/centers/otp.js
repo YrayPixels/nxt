@@ -12,7 +12,7 @@ function Otp() {
     const { status, data } = useSession();
     const [bearer_key, setBearer_key] = useState(' ');
     const [email, setEmail] = useState(' ');
-    const [password, setPassword] = useState(' ');
+    const [dets, setDets] = useState([]);
     const [state, setState] = useState({ otp: "" });
     // const [otpstate, setotpState] = useState([])
     const [notify, setNotify] = useState(' ')
@@ -37,10 +37,11 @@ function Otp() {
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
-            setPassword(window.sessionStorage.getItem('token_'));
-            setEmail(window.sessionStorage.getItem('user_email'));
+            setDets(window.sessionStorage.getItem('dets'));
+            // setEmail(window.sessionStorage.getItem('user_email'));
         }
     }, []);
+    // console.log(JSON.parse(dets))
     const [otp, setOtp] = useState([])
     const [filled, setFilled] = useState([])
     useEffect(() => {
@@ -104,7 +105,6 @@ function Otp() {
                 redirect: false,
             })
             if (res.error == null && res.status == 200) {
-                // console.log('move to next page');
                 redirect()
             }
         } else if (status == 201) {

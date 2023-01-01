@@ -1,7 +1,7 @@
 import { Menu, Notifications, NotificationsActiveOutlined, Settings } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function NewtopNAv(props) {
     const { naviState } = props;
@@ -11,6 +11,15 @@ function NewtopNAv(props) {
         setNavOpener(!navOpener)
         naviState(navOpener)
     }
+    const [bearer_key, setBearer_key] = useState(' ');
+    const [dets, setDets] = useState({});
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setDets(JSON.parse(window.sessionStorage.getItem('dets')));
+        }
+    }, []);
+    // console.log(dets)
     return (<>
         <div className="row justify-content-between align-items-center">
             <div className="d-flex col-12 col-md-6 align-items-center justify-content-between">
@@ -34,8 +43,7 @@ function NewtopNAv(props) {
                 <div className="d-flex align-items-center">
                     <Avatar />
                     <div className="row px-3">
-                        <span className="col-12">Otibe Kennedy</span>
-                        <span>Admin</span>
+                        <span className="col-12">{dets.center_name}</span>
                     </div>
                 </div>
                 <div className="col-2">

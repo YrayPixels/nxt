@@ -5,6 +5,7 @@ import { signIn } from 'next-auth/react';
 import Swal from 'sweetalert2';
 import { CircularProgress } from "@mui/material";
 import FooterComp from "../components/footer";
+import md5 from "md5";
 
 function LoginComponent() {
     const router = useRouter();
@@ -41,7 +42,7 @@ function LoginComponent() {
                 confirmButtonText: 'close'
             })
             sessionStorage.setItem("bearer_token", data.barear_token);
-            sessionStorage.setItem("user_email", [data.message.email]);
+            sessionStorage.setItem("dets", [JSON.stringify(data.message)]);
             sessionStorage.setItem("token_", [userInfo.password]);
 
             redirect()
@@ -81,7 +82,7 @@ function LoginComponent() {
                             <p>Enter the email and password provided to log in.</p>
                             <form action="" onSubmit={handleSubmit}>
                                 <div className="mb-4 ">
-                                    <label for="email">Email</label>
+                                    <label htmlFor="email">Email</label>
                                     <input type="email" name="email"
                                         onChange={(e) => setUserInfo(
                                             { ...userInfo, email: e.target.value })}
@@ -90,7 +91,7 @@ function LoginComponent() {
                                         className="form-control w-50 rounded-0" id="" />
                                 </div>
                                 <div className="mb-4 ">
-                                    <label for="password">Password</label>
+                                    <label htmlFor="password">Password</label>
                                     <input type="password" name="password"
                                         onChange={(e) => setUserInfo(
                                             { ...userInfo, password: e.target.value })}
@@ -99,7 +100,7 @@ function LoginComponent() {
                                 </div>
                                 <div className="form-check mb-4 form-switch">
                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
-                                    <label for=""> Remember Me</label>
+                                    <label htmlFor=""> Remember Me</label>
                                 </div>
                                 <div className="mb-4 ">
                                     <button className="w-50 btn d-flex justify-content-center align-items-center rounded-0"

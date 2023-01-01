@@ -19,6 +19,7 @@ function Dashboard() {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
+
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
