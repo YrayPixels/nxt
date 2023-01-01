@@ -38,7 +38,7 @@ function AllLecturers(props) {
             <div>
                 <h6 className="fw-bold">Total No of Lecturers: {data.length}</h6>
             </div>
-            <table className="tableData table table-striped table-hover">
+            <table className="tableData table table-sm  table-striped table-hover">
                 <thead>
                     <tr>
                         <th>LECTURER'S NAME</th>
@@ -63,8 +63,8 @@ function AllLecturers(props) {
                                     <td> {lecturer.occupation}</td>
 
                                     <td>
-                                        <Link href={`/centers/lecturers/${data.indexOf(lecturer)}`} >
-                                            <button className='btn btn-primary'>View</button>
+                                        <Link href={`/centers/lecturers/${lecturer.id}`} >
+                                            <button className='btn btn-sm btn-primary'>View</button>
 
                                         </Link>
 

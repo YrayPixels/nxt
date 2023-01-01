@@ -49,7 +49,7 @@ function RegisterStudents() {
                             <TopPilsItems />
                         </div>
 
-                        <div className="row">
+                        <div className="row pt-3">
                             <div className="col-2 border bg-info border-1">
                                 <Secondnav />
                             </div>
