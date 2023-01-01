@@ -19,6 +19,14 @@ function Dashboard() {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
+    const [bearer_key, setBearer_key] = useState(' ');
+    const [dets, setDets] = useState({});
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setDets(JSON.parse(window.sessionStorage.getItem('dets')));
+        }
+    }, []);
 
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -67,7 +75,7 @@ function Dashboard() {
 
                         {/* Recently Registerd */}
                         <div className="pt-4">
-                            <Recentregisterd />
+                            <Recentregisterd details={dets} bearer={bearer_key} />
                         </div>
                     </div>
                 </div>

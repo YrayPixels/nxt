@@ -1,27 +1,39 @@
 
 import useSWR from 'swr';
 import { CircularProgress } from '@mui/material';
+import { useState } from 'react';
+import axios from 'axios';
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
+function Recentregisterd(props) {
+    const { details, bearer } = props
+    const { students, setStudents } = useState(' ')
+    const { error, setError } = useState(' ')
 
-var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-};
-const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getRecentRegisteredStudents", requestOptions)
-    const data = await response.json()
-    return data.students
-}
+    var config = {
+        method: 'get',
+        url: "https://stockmgt.gapaautoparts.com/api/center/getRecentRegisteredStudents",
+        headers: {
+            'Authorization': `Bearer ${bearer}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    };
 
-function Recentregisterd() {
+    const fetchData = () => {
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setStudents(data.session)
+                return data;
+            })
+            .catch(function (error) {
+                setError(error);
+            });
+    }
+    fetchData()
 
-    const { data, error } = useSWR('register', fetcher)
-    if (error)
+    if (error != '')
         return 'An error has occured'
-    if (!data) return <CircularProgress />
+    if (students == ' ') return <CircularProgress />
     // console.log(data)
     return (<div>
 
@@ -46,7 +58,7 @@ function Recentregisterd() {
                 </thead>
                 <tbody>
                     {
-                        data.map(data => {
+                        students.map(data => {
                             return (
                                 <tr className='align-items-center '>
                                     <td><span><img src="" alt="" /></span> {data.name}</td>

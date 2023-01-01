@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function NewtopNAv(props) {
-    const { naviState } = props;
+    const { naviState, } = props;
     const [navOpener, setNavOpener] = useState(false)
     function openNav() {
         // alert('clicked me')
@@ -19,7 +19,6 @@ function NewtopNAv(props) {
             setDets(JSON.parse(window.sessionStorage.getItem('dets')));
         }
     }, []);
-    // console.log(dets)
     return (<>
         <div className="row justify-content-between align-items-center">
             <div className="d-flex col-12 col-md-6 align-items-center justify-content-between">

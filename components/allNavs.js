@@ -4,12 +4,12 @@ import Secondnav from "./centers/dashboardtwo/secondsidenav";
 function AllNavs() {
 
     return (<>
-        < div className="col-3 border border-end border-1" >
+        < div className="border border-end border-1" >
             <FirstsideNav />
         </div >
-        <div className="col-9  border  border-1">
+        {/* <div className="col-9  border  border-1">
             <Secondnav />
-        </div>
+        </div> */}
     </>);
 }
 

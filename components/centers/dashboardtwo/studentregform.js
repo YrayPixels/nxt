@@ -8,14 +8,14 @@ import { Add, PlusOneOutlined, Remove, RemoveCircle } from "@mui/icons-material"
 import Home from "@mui/icons-material/Home";
 
 
-function StudentRegistration() {
+function StudentRegistration(props) {
+    const { details, bearer } = props;
     const [bearer_key, setBearer_key] = useState(' ');
     const [notify, setNotify] = useState(' ');
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
     const [department, setDepartment] = useState([]);
     let looperArray = [];
-    // qual
     const [qual, setqual] = useState([]);
     const [Inst, setInst] = useState([]);
 
@@ -61,15 +61,11 @@ function StudentRegistration() {
         }
         console.log(looperArray)
     }
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
+
     const fetchData = () => {
-        const allFaculties = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
+        const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
-        const allCourses = "https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/1"
+        const allCourses = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
         const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/${userInfo.faculty_id}`
         const allStates = "https://stockmgt.gapaautoparts.com/api/getAllStates"
         const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/${userInfo.state}`
@@ -145,8 +141,6 @@ function StudentRegistration() {
     function setQualname(event, value) {
         setQualArray(
             { ...qaulArray, qualification_name: value })
-        console.log(value)
-        console.log(event)
     }
     function handleQualAdd(e) {
         e.preventDefault()
@@ -169,8 +163,8 @@ function StudentRegistration() {
         urlencoded.append("programme_id", userInfo.programme_id);
         urlencoded.append("occupation", userInfo.occupation);
         urlencoded.append("heighest_qualification", arrayys[0].qualification_name);
-        urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", `Bearer ${bearer_key} `)
+        urlencoded.append("center_id", details.id);
+        urlencoded.append("Authorization", `Bearer ${bearer} `)
         urlencoded.append("sex", userInfo.sex);
         urlencoded.append("age", userInfo.age);
         urlencoded.append("Nationality", userInfo.Nationality);
