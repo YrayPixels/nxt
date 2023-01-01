@@ -2,21 +2,35 @@ import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
+// var myHeaders = new Headers();
+// myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
 
-var requestOptions = {
-    method: 'GET',
-    // headers: myHeaders,
-    redirect: 'follow'
-};
-const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1", requestOptions)
-    const data = await response.json()
-    return data.result
-}
+// var requestOptions = {
+//     method: 'GET',
+//     // headers: myHeaders,
+//     redirect: 'follow'
+// };
+// const fetcher = async () => {
+//     const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1", requestOptions)
+//     const data = await response.json()
+//     return data.result
+// }
 
-function AllFaculties() {
+function AllFaculties(props) {
+    const { details, bearer } = props
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${bearer}`);
+    var requestOptions = {
+        method: 'GET',
+        // headers: myHeaders,
+        redirect: 'follow'
+    };
+    const fetcher = async () => {
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`, requestOptions)
+        const data = await response.json()
+        return data.result
+    }
+    // const { details, bearer } = props
     const { data, error } = useSWR('register', fetcher)
     // console.log(data)
     if (error)
@@ -34,7 +48,7 @@ function AllFaculties() {
             <div>
                 <h6 className="fw-bold">Total No of Faculties: {data.length}</h6>
             </div>
-            <table className="tableData table table-responsive table">
+            <table className="tableData table table-striped table-sm table-responsive table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -52,12 +66,14 @@ function AllFaculties() {
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
                                     <td className='text-center'><div className='btn-group '>
-                                        <Link href={`/centers/faculties/edit/${data.id}`}>
-                                            <button className='btn btn-primary p-2'>
+
+                                        <button className='btn btn-primary btn-sm p-2'>
+                                            <Link href={`/centers/faculties/edit/${data.id}`}>
                                                 Edit
-                                            </button>
-                                        </Link>
-                                        <button className='btn btn-danger p-2'>
+                                            </Link>
+                                        </button>
+
+                                        <button className='btn  btn-sm btn-danger p-2'>
                                             Delete
                                         </button>
                                     </div></td>

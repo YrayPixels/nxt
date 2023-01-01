@@ -2,7 +2,8 @@ import { CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
-function AddFaculty() {
+function AddFaculty(props) {
+    const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
     const [deptInfo, setdeptInfo] = useState({
@@ -14,14 +15,15 @@ function AddFaculty() {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
         }
     }, []);
+    console.log(details.id)
     const handleFacultyReg = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("title", deptInfo.facultyTitle);
         urlencoded.append("code", deptInfo.facultyCode);
-        urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", `Bearer ${bearer_key}`);
+        urlencoded.append("center_id", details.id);
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
         var requestOptions = {
             method: 'POST',

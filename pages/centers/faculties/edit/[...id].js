@@ -7,6 +7,8 @@ import { createRef, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import AllNavs from "../../../../components/allNavs";
 import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
+import Secondnav from "../../../../components/centers/dashboardtwo/secondsidenav";
+import TopPilsItems from "../../../../components/centers/toppills";
 
 
 
@@ -89,38 +91,48 @@ function FacultyEdit(props) {
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 d-flex allNavSide` : `d-none`}>
                         <AllNavs />
                     </div>
-                    <div className="col-4 subNav row">
+                    <div className="col-1 subNav row">
                         <AllNavs />
                     </div>
-                    <div className="col-12 col-lg-8  p-lg-5 regMain">
-                        {
-                            notify == 'loading' && (
-                                <p className="text-success text-center fw-bold"><CircularProgress /></p>
-                            )
-                        }
-                        {
-                            notify != ' ' && (
-                                <p className="text-success text-center fw-bold">{notify}</p>)
-                        }
-                        <h3 className="py-4">
-                            Edit Faculty
-                        </h3>
-                        <form className="card p-4" action="" onSubmit={handleEditFaculty}>
-                            <div className="mb-3">
-                                <label htmlFor="facultyTitle">Faculty Name</label>
-                                <input
-                                    defaultValue={result[0].title} onChange={(e) => setdeptInfo(
-                                        { ...deptInfo, facultyTitle: e.target.value })} type="text" name="facultyTitle" className="form-control" />
+                    <div className="col-12 col-lg-11 regMain">
+                        <div className="pb-4 px-2">
+                            <TopPilsItems />
+                        </div>
+                        <div className="row pt-3">
+                            <div className="col-2 border bg-info border-1">
+                                <Secondnav />
                             </div>
-                            <div className="mb-3">
-                                <label htmlFor="facultyCode">Faculty Code</label>
-                                <input defaultValue={result[0].code} onChange={(e) => setdeptInfo(
-                                    { ...deptInfo, facultyCode: e.target.value })} type="text" name="facultyCode" className="form-control" />
+                            <div className="col-10 p-lg-3">
+                                {
+                                    notify == 'loading' && (
+                                        <p className="text-success text-center fw-bold"><CircularProgress /></p>
+                                    )
+                                }
+                                {
+                                    notify != ' ' && (
+                                        <p className="text-success text-center fw-bold">{notify}</p>)
+                                }
+                                <h3 className="py-4">
+                                    Edit Faculty
+                                </h3>
+                                <form className="card p-4" action="" onSubmit={handleEditFaculty}>
+                                    <div className="mb-3">
+                                        <label htmlFor="facultyTitle">Faculty Name</label>
+                                        <input
+                                            defaultValue={result[0].title} onChange={(e) => setdeptInfo(
+                                                { ...deptInfo, facultyTitle: e.target.value })} type="text" name="facultyTitle" className="form-control" />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="facultyCode">Faculty Code</label>
+                                        <input defaultValue={result[0].code} onChange={(e) => setdeptInfo(
+                                            { ...deptInfo, facultyCode: e.target.value })} type="text" name="facultyCode" className="form-control" />
+                                    </div>
+                                    <div className="col-5 m-auto singleSubmits">
+                                        <button type="submit" className="btn rounded-0  text-info w-100">Save</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div className="col-5 m-auto singleSubmits">
-                                <button type="submit" className="btn rounded-0  text-info w-100">Save</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
