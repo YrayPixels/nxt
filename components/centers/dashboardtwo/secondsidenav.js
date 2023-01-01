@@ -54,6 +54,40 @@ function Secondnav() {
                 </ul>
             </div>
         </>)
+    if (path.includes("node"))
+        return (<>
+            <div className="secondNav">
+                <ul>
+                    <Link href={'/centers/node/addnode'}>
+                        <li>
+                            Add Nodes
+                        </li>
+                    </Link>
+                    <Link href={'/centers/node'}>
+                        <li>
+                            View all Nodes
+                        </li>
+                    </Link>
+                </ul>
+            </div>
+        </>)
+    if (path.includes("session"))
+        return (<>
+            <div className="secondNav">
+                <ul>
+                    <Link href={'/centers/session/addsession'}>
+                        <li>
+                            Add Session
+                        </li>
+                    </Link>
+                    <Link href={'/centers/session'}>
+                        <li>
+                            View all Session
+                        </li>
+                    </Link>
+                </ul>
+            </div>
+        </>)
     if (path.includes("faculties") || path == "/centers/faculties")
         return (<>
             <div className="secondNav">

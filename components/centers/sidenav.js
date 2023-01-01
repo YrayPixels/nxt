@@ -1,5 +1,5 @@
 // import styles from '/styles/sidenav.module.css'
-import { Apartment, Home, HouseSiding, Key, LocationCityRounded, LocationDisabled, MapSharp, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, RocketLaunch, School, SettingsAccessibility } from '@mui/icons-material';
+import { Apartment, CalendarMonth, Home, HouseSiding, Key, LocationCityRounded, LocationDisabled, MapSharp, Monitor, NoteAddOutlined, PeopleOutlineOutlined, Person2Outlined, PersonOffOutlined, RocketLaunch, School, SettingsAccessibility } from '@mui/icons-material';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 import { signIn, signOut } from 'next-auth/react';
@@ -16,6 +16,8 @@ function Sidenav() {
         manageCou: false,
         LauncPro: false,
         manageDept: false,
+        manageNode: false,
+        manageSes: false,
     })
 
     return (
@@ -139,20 +141,43 @@ function Sidenav() {
                     </li>
                     {/* Manage Nodes link */}
                     <li onClick={(e) => setVisible(
-                        { ...visible, manageCou: !visible.manageCou })} onMouseLeave={(e) => setVisible(
-                            { ...visible, manageCou: false })}>
+                        { ...visible, manageNode: !visible.manageNode })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageNode: false })}>
                         <span><MapSharp /></span>
                         Manage Nodes
-                        <div className={(visible.manageCou ? 'd-block' : 'd-none')}>
+                        <div className={(visible.manageNode ? 'd-block' : 'd-none')}>
                             <ul className='sub-links'>
                                 <li>
                                     <Link href='/centers/node'>
                                         View All Nodes
                                     </Link>
+
                                 </li>
                                 <li>
                                     <Link href="/centers/node/addNode">
                                         Add Node
+                                    </Link>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {/* Manage Session link */}
+                    <li onClick={(e) => setVisible(
+                        { ...visible, manageSes: !visible.manageSes })} onMouseLeave={(e) => setVisible(
+                            { ...visible, manageSes: false })}>
+                        <span><CalendarMonth /></span>
+                        Manage Session
+                        <div className={(visible.manageSes ? 'd-block' : 'd-none')}>
+                            <ul className='sub-links'>
+                                <li>
+                                    <Link href='/centers/session'>
+                                        View All Sessions
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/centers/session/addsession">
+                                        Add Sessions
                                     </Link>
                                 </li>
                             </ul>

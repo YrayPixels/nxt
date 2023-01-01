@@ -2,8 +2,6 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
-import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav";
-import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import StudentsList from "../../../components/centers/dashboardtwo/registeredstudents";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
@@ -13,6 +11,7 @@ import TopPilsItems from "../../../components/centers/toppills";
 
 
 function Students() {
+    const [bearer_key, setBearer_key] = useState(' ');
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {

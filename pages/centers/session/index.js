@@ -5,7 +5,6 @@ import { CircularProgress } from "@mui/material"
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
 import TopPilsItems from "../../../components/centers/toppills";
-import AllNodes from "../../../components/centers/nodeComponents/allNodes";
 import AllSession from "../../../components/centers/sessionComponents/allSession";
 
 function ViewSession() {

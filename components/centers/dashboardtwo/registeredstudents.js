@@ -9,16 +9,17 @@ import Link from 'next/link';
 
 // Main Func
 function StudentsList() {
+    const [bearer_key, setBearer_key] = useState(' ');
+
+
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
-            setPassword(window.sessionStorage.getItem('token_'));
-            setEmail(window.sessionStorage.getItem('user_email'));
         }
     }, []);
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
+    myHeaders.append("Authorization", `Bearer ${bearer_key}`);
 
     var requestOptions = {
         method: 'GET',
@@ -26,7 +27,7 @@ function StudentsList() {
         redirect: 'follow'
     };
     const fetcher = async () => {
-        const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getAllStudents", requestOptions)
+        const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/1634I6495442478", requestOptions)
         const data = await response.json()
         return data.students
     }

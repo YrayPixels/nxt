@@ -1,12 +1,9 @@
-import Script from 'next/script'
 import RightsideCenters from "/components/centers/loginComponent/rigthSide";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import Head from 'next/head'
 import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
-import LoginComponent from '..';
 import { useSession } from 'next-auth/react';
 
 
@@ -36,7 +33,7 @@ function Otp() {
         status: " ",
         bearer_toke: "",
     })
-    console.log(useSession())
+    // console.log(useSession())
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
@@ -54,7 +51,6 @@ function Otp() {
     let inputArray = []
     function handleInput(e) {
         let inputVal = e.target.value;
-
         if (inputVal != [] && inputVal.length == 1) {
             if (e.target.nextSibling != null) {
                 e.target.nextSibling.focus()
@@ -89,65 +85,29 @@ function Otp() {
             method: 'POST',
             headers: myHeaders,
             body: urlencoded,
-            redirect: 'follow'
+            // redirect: 'follow'
         };
         setLoading('loading')
         const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/otp", requestOptions)
         const data = await response.json()
         const status = response.status
         if (status == 200) {
-            const handleSubmit = async () => {
-                var urlencoded = new URLSearchParams();
-                urlencoded.append("email", email);
-                urlencoded.append("password", password);
-                var requestOptions = {
-                    method: 'POST',
-                    body: urlencoded,
-                };
-                const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/login", requestOptions)
-                const data = await response.json()
-                const details = data.message;
-                const bearer_tok = data.barear_token;
-                const status = response.status;
-                if (status == 200) {
-                    setUserDetails({
-                        ...userDetails,
-                        id: details.id,
-                        center_name: details.center_name,
-                        center_code: details.center_code,
-                        email: details.email,
-                        phone_number: details.phone_number,
-                        logo: details.logo,
-                        state_id: details.state_id,
-                        lga_id: details.lga_id,
-                        center_otp: details.center_otp,
-                        type: details.type,
-                        added_at: details.added_at,
-                        address: details.address,
-                        status: details.status,
-                        bearer_toke: bearer_tok,
-
-                    })
-                }
-            }
-            handleSubmit()
+            setNotify(' ')
+            Swal.fire({
+                title: 'OTP Verified Successfully',
+                icon: 'success',
+                confirmButtonText: 'close'
+            })
 
             const res = await signIn('credentials', {
                 token: 'verified',
+                redirect: false,
             })
-
             if (res.error == null && res.status == 200) {
-                setNotify(' ')
-                Swal.fire({
-                    title: 'OTP Verified Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-                // redirect()
-                // console.log('verified baby')
+                // console.log('move to next page');
+                redirect()
             }
         } else if (status == 201) {
-
             Swal.fire({
                 title: 'Incorrect OTP!',
                 text: 'kindly check your mail for the correct OTP',
