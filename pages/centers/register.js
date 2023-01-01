@@ -55,7 +55,6 @@ function RegisterStudents() {
                             </div>
                             <div className="col-10 p-lg-3">
                                 <StudentRegistration details={dets} bearer={bearer_key} />
-                                {/* <StudentsList /> */}
                             </div>
                         </div>
 

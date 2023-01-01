@@ -2,21 +2,25 @@ import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link'
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
 
-var requestOptions = {
-    method: 'GET',
-    // headers: myHeaders,
-    redirect: 'follow'
-};
-const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/1", requestOptions)
-    const data = await response.json()
-    return data.result
-}
 
-function AllLecturers() {
+function AllLecturers(props) {
+    const { details, bearer } = props
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${bearer}`);
+
+
+    var requestOptions = {
+        method: 'GET',
+        // headers: myHeaders,
+        redirect: 'follow'
+    };
+    const fetcher = async () => {
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/${details.id}`, requestOptions)
+        const data = await response.json()
+        return data.result
+    }
     const { data, error } = useSWR('register', fetcher)
     // console.log(data)
     if (error)

@@ -6,7 +6,8 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 
 
-function LecturerRegistration() {
+function LecturerRegistration(props) {
+    const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
 
     const [programs, setProgram] = useState([]);
@@ -67,8 +68,8 @@ function LecturerRegistration() {
         urlencoded.append("programme_id", lecturerInfo.programme_id);
         urlencoded.append("occupation", lecturerInfo.occupation);
         urlencoded.append("heighest_qualification", lecturerInfo.heighest_qualification);
-        urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
+        urlencoded.append("center_id", details.id);
+        urlencoded.append("Authorization", `Bearer ${bearer}`)
 
         var requestOptions = {
             method: 'POST',

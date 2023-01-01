@@ -8,18 +8,11 @@ import Link from 'next/link';
 
 
 // Main Func
-function StudentsList() {
-    const [bearer_key, setBearer_key] = useState(' ');
-
-
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
+function StudentsList(props) {
+    const { details, bearer } = props
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${bearer_key}`);
+    myHeaders.append("Authorization", `Bearer ${bearer}`);
 
     var requestOptions = {
         method: 'GET',
@@ -27,7 +20,7 @@ function StudentsList() {
         redirect: 'follow'
     };
     const fetcher = async () => {
-        const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/1634I6495442478", requestOptions)
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`, requestOptions)
         const data = await response.json()
         return data.students
     }

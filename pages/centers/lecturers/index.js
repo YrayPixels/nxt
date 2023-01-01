@@ -18,6 +18,14 @@ function Lecturers() {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
+    const [bearer_key, setBearer_key] = useState(' ');
+    const [dets, setDets] = useState({});
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setDets(JSON.parse(window.sessionStorage.getItem('dets')));
+        }
+    }, []);
 
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -34,16 +42,23 @@ function Lecturers() {
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 d-flex allNavSide` : `d-none`}>
                         <AllNavs />
                     </div>
-                    <div className="col-4 subNav row">
+                    <div className="col-1 subNav row">
                         <AllNavs />
                     </div>
-                    <div className="col-12 col-lg-8 regMain">
+                    <div className="col-12 col-lg-11 regMain">
                         <div className="p-2">
                             <TopPilsItems />
                         </div>
-                        <div className=" p-lg-3 ">
-                            <AllLecturers />
+                        <div className="row">
+                            <div className="col-2 border bg-info border-1">
+                                <Secondnav />
+                            </div>
+                            <div className="col-10 p-lg-3">
+                                <AllLecturers details={dets} bearer={bearer_key} />
+
+                            </div>
                         </div>
+
                     </div>
 
                 </div>

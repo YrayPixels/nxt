@@ -12,9 +12,16 @@ import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 
 
 function Students() {
-    const [bearer_key, setBearer_key] = useState(' ');
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
+    const [bearer_key, setBearer_key] = useState(' ');
+    const [dets, setDets] = useState({});
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setDets(JSON.parse(window.sessionStorage.getItem('dets')));
+        }
+    }, []);
     function navState(ClickedNav) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
@@ -49,7 +56,7 @@ function Students() {
                                 <Secondnav />
                             </div>
                             <div className="col-10 p-lg-3">
-                                <StudentsList />
+                                <StudentsList details={dets} bearer={bearer_key} />
                             </div>
                         </div>
                     </div>
