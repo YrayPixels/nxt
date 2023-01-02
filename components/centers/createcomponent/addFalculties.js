@@ -15,7 +15,7 @@ function AddFaculty(props) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
         }
     }, []);
-    console.log(details.id)
+    // console.log(details.id)
     const handleFacultyReg = async (e) => {
         e.preventDefault()
 

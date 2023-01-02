@@ -25,9 +25,8 @@ function NewtopNAv(props) {
             <div className="d-flex col-12 col-md-6 align-items-center justify-content-between">
                 <div className="d-flex align-items-center">
                     <div className="SecondNavLogo">
-                        <Image src={logo}
-                            alt='Logo Spesee'
-                        />
+                        <Image src={logo} />
+                        {/* <img src={logo} alt="" /> */}
                     </div>
                     <div>
                         <span className="fs-4 fw-bold">(SPESSE) Dashboard</span>

@@ -1,12 +1,51 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
+import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react';
 
 
 
 function AllCourses(props) {
     const { details, bearer } = props
+    const { activator, setActivator } = useState(' ')
+    // console.log(details.id)
 
+    function deleteModules(param) {
+        // console.log(param)
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
+
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        const deleteDep = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/HideCourse/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setActivator('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Module Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+
+        deleteDep()
+
+    }
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${bearer}`);
 
@@ -20,13 +59,18 @@ function AllCourses(props) {
         const data = await response.json()
         return data.result
     }
+    useEffect(() => {
+        fetcher()
 
-    const { data, error } = useSWR('register', fetcher)
+    }, [activator])
+    fetcher()
+    const { data, error } = useSWR('fetcher', fetcher)
     // console.log(data)
     if (error)
         return 'An error has occured'
     if (!data) return <CircularProgress />
     // console.log(data)
+
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
@@ -59,23 +103,30 @@ function AllCourses(props) {
                                     <td> {data.unit}</td>
                                     <td className='text-center'><div className='btn-group'>
 
-                                        <button className='btn btn-primary p-2'>
+                                        <button className='btn btn-primary btn-sm p-2'>
                                             <Link href={`/centers/courses/edit/${data.id}`}>
                                                 Edit
                                             </Link>
                                         </button>
-                                        <button className='btn btn-danger p-2'>
+                                        <button onClick={() => deleteModules(`${data.id}`)} className='btn btn-sm btn-danger p-2'>
                                             Delete
+                                        </button>
+                                        <button className='btn btn-sm btn-success'>
+                                            Start Course
+                                        </button>
+                                        <button className='btn btn-sm btn-dark'>
+                                            Add Attendees
                                         </button>
                                     </div></td>
                                 </tr>
                             )
                         })
                     }
-
                 </tbody>
             </table>
         </div>
     </div>);
+
+
 }
 export default AllCourses;

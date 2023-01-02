@@ -39,10 +39,10 @@ function StudentRegistration(props) {
         phone: " ",
         address: " ",
         faculty_id: "0",
-        department_id: "null",
+        department_id: "0",
         programme_id: " ",
         heighest_qualification: " ",
-        center_id: " ",
+        center_id: details.id,
         age: " ",
         sex: "",
         Nationality: " ",
@@ -52,6 +52,7 @@ function StudentRegistration(props) {
         employee: " ",
         employee_type: "",
         employment_status: " ",
+        nationality: " ",
     });
     const { session, status } = useSession();
     function looper() {
@@ -151,7 +152,6 @@ function StudentRegistration(props) {
     const handleStudentReg = async (e) => {
         e.preventDefault()
 
-
         var urlencoded = new URLSearchParams();
         urlencoded.append("name", userInfo.names);
         urlencoded.append("email", userInfo.email);
@@ -161,7 +161,7 @@ function StudentRegistration(props) {
         urlencoded.append("department_id", userInfo.department_id);
         urlencoded.append("programme_id", userInfo.programme_id);
         urlencoded.append("occupation", userInfo.occupation);
-        urlencoded.append("heighest_qualification", arrayys[0].qualification_name);
+        urlencoded.append("heighest_qualification", userInfo.heighest_qualification);
         urlencoded.append("center_id", details.id);
         urlencoded.append("Authorization", `Bearer ${bearer} `)
         urlencoded.append("sex", userInfo.sex);
@@ -169,10 +169,11 @@ function StudentRegistration(props) {
         urlencoded.append("Nationality", userInfo.Nationality);
         urlencoded.append("state", userInfo.state);
         urlencoded.append("lga", userInfo.lga);
-        urlencoded.append("heighest_qualification_year", arrayys[0].year);
+        urlencoded.append("heighest_qualification_year", userInfo.heighest_qualification_year);
         urlencoded.append("employee", userInfo.employee);
         urlencoded.append("employee_type", userInfo.employee_type);
         urlencoded.append("employment_status", userInfo.employment_status);
+        urlencoded.append('Nationality', userInfo.nationality);
 
         var requestOptions = {
             method: 'POST',
@@ -208,6 +209,7 @@ function StudentRegistration(props) {
         addStudent()
 
     };
+
     return (<>
         {
             notify == 'loading' && (
@@ -255,6 +257,24 @@ function StudentRegistration(props) {
                     </input>
                 </div>
                 <div className="col-6 mb-3">
+                    <label htmlFor="nationality">Nationality</label>
+                    <select required name="nationality" onChange={(e) => setUserInfo(
+                        { ...userInfo, Nationality: e.target.value })} class="form-select" aria-label="Default select example"  >
+
+                        <option selected value={0}>Select your State</option>
+                        {
+                            state.map(State => {
+                                return (
+                                    <option value={State.id}>{State.title}</option>
+
+                                )
+                            })
+
+                        }
+
+                    </select>
+                </div>
+                <div className="col-6 mb-3">
                     <label htmlFor="state">State of Origin</label>
                     <select required name="state" onChange={(e) => setUserInfo(
                         { ...userInfo, state: e.target.value })} class="form-select" aria-label="Default select example"  >
@@ -290,7 +310,7 @@ function StudentRegistration(props) {
 
                     </select>
                 </div>
-                <div className="mb-3">
+                <div className=" col-6 mb-3">
                     <label htmlFor="sex">Gender</label>
                     <select required onChange={(e) => setUserInfo(
                         { ...userInfo, sex: e.target.value })} type="text" name="address" className="form-control" >
@@ -336,7 +356,7 @@ function StudentRegistration(props) {
                         <select required name="department" onChange={(e) => setUserInfo(
                             { ...userInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
 
-                            <option selected>Select your Department</option>
+                            <option selected value={0}>Select your Department</option>
                             {
                                 department.map(department => {
                                     return (
@@ -370,6 +390,31 @@ function StudentRegistration(props) {
                     </div>
                     <form className="qualification date">
                         <fieldset><legend>Educational Qualifications</legend>
+                            <div className="row align-items-center">
+                                <div className="col-6 mb-3">
+                                    <label htmlFor="highest_qualifcation">Highest Qualifcation</label>
+                                    <select required name="highest_qualifcation" onChange={(e) => setUserInfo(
+                                        { ...userInfo, heighest_qualification: e.target.value }
+                                    )} class="form-select" aria-label="Default select example">
+
+                                        <option value={'None'}>Select your qualification</option>
+                                        <option value="SSCE">SSCE</option>
+                                        <option value="HND">HND</option>
+                                        <option value="PHD">PHD</option>
+                                        <option value="BSC">BSC</option>
+                                        <option value="MSC">MSC</option>
+
+
+                                    </select>
+                                </div>
+                                <div className="col-6 mb-3">
+                                    <label htmlFor="academic">Year Finished</label>
+                                    <input required onChange={(e) => setUserInfo(
+                                        { ...userInfo, heighest_qualification_year: e.target.value })} type='text' name="academic" className="form-control" />
+                                </div>
+
+
+                            </div>
                             <div className="row align-items-center">
                                 <div className="col-3 mb-3">
                                     <label htmlFor="qualification">Qualification</label>
@@ -411,7 +456,6 @@ function StudentRegistration(props) {
                                         }
                                     </select>
                                 </div>
-
                                 <div className="col-3 text-center"> <button onClick={handleQualAdd} className="btn  btn-dark"><Add /></button>
                                 </div>
 

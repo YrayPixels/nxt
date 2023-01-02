@@ -10,7 +10,6 @@ function AllDepartment(props) {
     const { details, bearer } = props
 
     function deleteDept(param) {
-        console.log(param)
         var urlencoded = new URLSearchParams();
         urlencoded.append("Authorization", `Bearer ${bearer}`);
 
@@ -60,9 +59,7 @@ function AllDepartment(props) {
         return data.result
     }
 
-    // useEffect(() => {
-    //     fetcher()
-    // }, [])
+    fetcher()
     const { data, error } = useSWR('register', fetcher)
     if (error)
         return 'An error has occured'

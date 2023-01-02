@@ -4,19 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 
-// var myHeaders = new Headers();
-// myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
 
-// var requestOptions = {
-//     method: 'GET',
-//     // headers: myHeaders,
-//     redirect: 'follow'
-// };
-// const fetcher = async () => {
-//     const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1", requestOptions)
-//     const data = await response.json()
-//     return data.result
-// }
 
 function AllFaculties(props) {
     const { details, bearer } = props;
@@ -32,8 +20,6 @@ function AllFaculties(props) {
             body: urlencoded,
             redirect: 'follow'
         };
-        // setLoading(true)
-        // setNotify('<p><CircularProgress /></p>');
         const deletefac = async () => {
             const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
             const data = await response.json()
@@ -54,13 +40,7 @@ function AllFaculties(props) {
             }
             return data;
 
-        }// const fetcher = async() = {
-        //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
-        //     const data = await response.json()
-        //     // .then(response => response.text())
-        //     // .then(result => console.log(result))
-        //     // .catch(error => console.log('error', error));
-        // }
+        }
 
         deletefac()
     }
@@ -71,11 +51,13 @@ function AllFaculties(props) {
         // headers: myHeaders,
         redirect: 'follow'
     };
+
     const fetcher = async () => {
         const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`, requestOptions)
         const data = await response.json()
         return data.result
     }
+    fetcher()
     const { data, error } = useSWR('faculty', fetcher)
     if (error)
         return 'An error has occured'

@@ -7,6 +7,7 @@ import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
 import AllNavs from "../../../components/allNavs"
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
 import TopPilsItems from "../../../components/centers/toppills"
+import Logo from '../../../public/image/spesee.png'
 
 
 function RegisterDepartment() {
@@ -33,7 +34,7 @@ function RegisterDepartment() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">

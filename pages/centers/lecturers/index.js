@@ -10,7 +10,7 @@ import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
 import TopPilsItems from "../../../components/centers/toppills";
 // import AllCourses from "../../../components/centers/dashboardtwo/courses";
-import Logos from '../../../public/image/spesee.png'
+import Logos from '../../../public/image/spesee.png';
 
 
 function Lecturers() {
@@ -29,6 +29,7 @@ function Lecturers() {
         }
     }, []);
 
+    // console.log(Logos)
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);

@@ -2,12 +2,13 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
-import AddCourses from "../../../components/centers/createcomponent/addCourses"
 
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
 import AllNavs from "../../../components/allNavs"
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
 import TopPilsItems from "../../../components/centers/toppills"
+import Logo from '../../../public/image/spesee.png'
+import AddCoursesComp from "../../../components/centers/createcomponent/addCourses"
 
 
 function RegisterCourses() {
@@ -34,7 +35,7 @@ function RegisterCourses() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">
@@ -53,7 +54,7 @@ function RegisterCourses() {
                                 <Secondnav />
                             </div>
                             <div className="col-10 p-lg-3">
-                                <AddCourses details={dets} bearer={bearer_key} />
+                                <AddCoursesComp details={dets} bearer={bearer_key} />
                             </div>
                         </div>
                     </div>

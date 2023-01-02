@@ -4,8 +4,9 @@ import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
+import Swal from "sweetalert2";
 
-function AddCourses(props) {
+function AddCoursesComp(props) {
     const { details, bearer } = props
     const [notify, setNotify] = useState(' ');
     const [department, setDepartment] = useState([]);
@@ -14,7 +15,9 @@ function AddCourses(props) {
         coursecode: " ",
         unit: " ",
         department_id: " ",
+        node_id: " ",
     });
+    // console.log(department)
     const fetchData = () => {
         const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/${details.id}`
         const getAllDept = axios.get(allDept);
@@ -25,7 +28,6 @@ function AddCourses(props) {
             })
         )
     }
-
     useEffect(() => {
         fetchData()
     }, [courseInfo.coursetitle])
@@ -39,6 +41,7 @@ function AddCourses(props) {
         urlencoded.append("department_id", courseInfo.department_id);
         urlencoded.append("unit", courseInfo.unit);
         urlencoded.append("center_id", details.id);
+        urlencoded.append("node_id", courseInfo.node_id);
         urlencoded.append("Authorization", `Bearer ${bearer}`)
 
         var requestOptions = {
@@ -53,9 +56,9 @@ function AddCourses(props) {
             const data = await response.json()
             const status = response.status;
             if (status == 200) {
-                setNotify('Course Added Succesfully')
+                setNotify('Module Added Succesfully')
                 Swal.fire({
-                    title: 'Course Added Successfully',
+                    title: 'Module Added Successfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
@@ -73,9 +76,9 @@ function AddCourses(props) {
     // Pleae read this comment to understand my Code
     /*
     Courses was changed to modules in the UI, However the Api calls still calls to the courses routes. I had already designed the courses interface and states so instead of changing all to modules I only Improvised.
-    
+
     this same thing also happes with programmes which now became courses, this you will see in launch program pages
-    
+
     */
     return (<>
         {
@@ -107,6 +110,25 @@ function AddCourses(props) {
                     { ...courseInfo, unit: e.target.value })} type="text" name="unit" className="form-control" />
             </div>
             <div className="mb-3">
+                <label htmlFor="node">Node</label>
+                <select name="node" onChange={(e) => setCourseInfo(
+                    { ...courseInfo, node_id: e.target.value })} class="form-select" aria-label="Default select example">
+
+                    <option selected>Select your Department</option>
+                    {
+                        department.map(department => {
+                            return (
+                                <option value={department.id}>{department.title}</option>
+
+                            )
+                        })
+
+
+                    }
+
+                </select>
+            </div>
+            <div className="mb-3">
                 <label htmlFor="department">Department</label>
                 <select name="department" onChange={(e) => setCourseInfo(
                     { ...courseInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
@@ -131,5 +153,4 @@ function AddCourses(props) {
         </form>
     </>);
 }
-
-export default AddCourses;
+export default AddCoursesComp;

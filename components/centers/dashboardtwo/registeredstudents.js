@@ -63,7 +63,7 @@ function StudentsList(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        {data == [] ? <p> No Student Data Yet</p> :
                             data.map(student => {
                                 return (
                                     <tr className='align-items-center '>
