@@ -8,7 +8,7 @@ import AllNavs from "../../../components/allNavs";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import TopPilsItems from "../../../components/centers/toppills";
-import Logo from '../../../public/image/spesee.png'
+// import Logo from '../../../public/image/spesee.png'
 
 function LecturerInfo(props) {
     const router = useRouter()
@@ -35,7 +35,7 @@ function LecturerInfo(props) {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv logo={Logo} naviState={navState} />
+                        <NewtopNAv logo={'../../../public/image/spesee.png'} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">

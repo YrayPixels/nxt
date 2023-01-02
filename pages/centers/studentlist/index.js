@@ -7,7 +7,7 @@ import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
 import TopPilsItems from "../../../components/centers/toppills";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
-import Logos from '../../../public/image/spesee.png'
+// import Logos from '../../../public/image/spesee.png'
 
 
 function Students() {
@@ -34,7 +34,7 @@ function Students() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv logo={Logos} naviState={navState} />
+                        <NewtopNAv logo={'../../../public/image/spesee.png'} naviState={navState} />
                     </div>
                 </div>
 
