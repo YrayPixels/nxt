@@ -6,7 +6,7 @@ import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
 import TopPilsItems from "../../../components/centers/toppills";
 import AllSession from "../../../components/centers/sessionComponents/allSession";
-// import Logo from '../../../public/image/spesee.png'
+import Logo from '../../../public/image/spesee.png'
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 
 function ViewSession() {
@@ -35,7 +35,7 @@ function ViewSession() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv logo={'../../../public/image/spesee.png'} naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
 

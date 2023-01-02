@@ -1,10 +1,10 @@
-import RightsideCenters from "/components/centers/loginComponent/rigthSide";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { CircularProgress } from '@mui/material';
 import { useSession } from 'next-auth/react';
+import RightsideCenters from '../../components/centers/loginComponent/rigthSide';
 
 
 function Otp() {

@@ -40,7 +40,7 @@ function StudentRegistration(props) {
         phone: " ",
         address: " ",
         faculty_id: "0",
-        department_id: " ",
+        department_id: "null",
         programme_id: " ",
         heighest_qualification: " ",
         center_id: " ",
@@ -289,6 +289,15 @@ function StudentRegistration(props) {
 
                         }
 
+                    </select>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="sex">Gender</label>
+                    <select required onChange={(e) => setUserInfo(
+                        { ...userInfo, sex: e.target.value })} type="text" name="address" className="form-control" >
+                        <option value="none" selected>Select your gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
                 </div>
                 <div className="mb-3">

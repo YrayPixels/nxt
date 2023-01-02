@@ -38,7 +38,7 @@ function AddNode() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv logo={'../../../public/image/spesee.png'} naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
 

@@ -13,7 +13,7 @@ import { CircularProgress } from "@mui/material"
 import NewtopNAv from "../../components/centers/dashboardtwo/newtopNav"
 import TopPilsItems from "../../components/centers/toppills"
 import Image from "next/image"
-// import Logos from '../../public/image/spesee.png'
+import Logos from '../../public/image/spesee.png'
 
 
 function Dashboard() {
@@ -39,7 +39,7 @@ function Dashboard() {
             <div className="container-fluid">
                 <div className="py-4 px-2">
 
-                    <NewtopNAv logo={'../../public/image/spesee.png'} naviState={navState} />
+                    <NewtopNAv logo={Logos} naviState={navState} />
                 </div>
                 <div className=" row dashboardCenters">
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 sidenav` : `d-none`}>

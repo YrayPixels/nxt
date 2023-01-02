@@ -39,14 +39,16 @@ function AllAttendees() {
 
 
         <div className='d-flex align-items-center justify-content-between py-4'>
-            <p>All Nodes</p>
-            {/* <Input fullWidth
-                classes={
-                    'form-control'
-                }
-                placeholder="Enter text here..." /> */}
+            <p>Get Attendees for Individual Modules</p>
+
             <input type="text" className='col-12 col-md-6 form-control w-50' placeholder='Enter Text Here...' />
         </div>
+
+        <div className="">
+
+        </div>
+
+
         <div className="bg-info p-4 shadow rounded-0 table-responsive">
             <table className="tableData table table-striped table-sm table-hover  ">
                 <thead>

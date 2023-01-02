@@ -191,12 +191,13 @@ function Sidenav() {
                     </li>
                 </ul>
             </div>
-            <div className="text-start">
-                <h6>
-                    Account Pages
-                </h6>
-            </div>
+
             <div >
+                <div className="">
+                    <h6>
+                        Account Pages
+                    </h6>
+                </div>
                 <ul>
                     <li>
                         <Link href={'/centers/profile'}>

@@ -3,7 +3,7 @@ import Link from "next/link";
 function Secondnav() {
 
     const path = window.location.pathname
-    if (path == "/centers/studentlist" || path.includes("studentlist") || path == "/centers/register")
+    if (path.includes('institution') || path.includes("studentlist") || path == "/centers/register")
         return (<>
             <div className="secondNav">
                 <ul>
@@ -15,6 +15,16 @@ function Secondnav() {
                     <Link href={'/centers/studentlist'}>
                         <li>
                             All Students
+                        </li>
+                    </Link>
+                    <Link href={'/centers/institution/add'}>
+                        <li>
+                            Add Students Institution
+                        </li>
+                    </Link>
+                    <Link href={'/centers/institution'}>
+                        <li>
+                            View Added Students Institution
                         </li>
                     </Link>
                 </ul>
@@ -37,7 +47,7 @@ function Secondnav() {
                 </ul>
             </div>
         </>)
-    if (path.includes("modules") || path == "/centers/modules")
+    if (path.includes("modules") || path.includes('attendance'))
         return (<>
             <div className="secondNav">
                 <ul>
@@ -49,6 +59,11 @@ function Secondnav() {
                     <Link href={'/centers/modules'}>
                         <li>
                             View all Modules
+                        </li>
+                    </Link>
+                    <Link href={'/centers/attendance/allattendees'}>
+                        <li>
+                            View Module Attendees
                         </li>
                     </Link>
                 </ul>
