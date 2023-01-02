@@ -8,6 +8,7 @@ import AllNavs from "../../../components/allNavs";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import TopPilsItems from "../../../components/centers/toppills";
+import Logo from '../../../public/image/spesee.png'
 
 function LecturerInfo(props) {
     const router = useRouter()
@@ -34,7 +35,7 @@ function LecturerInfo(props) {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">
@@ -159,13 +160,8 @@ function LecturerInfo(props) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
-
-
                 </div>
             </div>
         </>
@@ -184,7 +180,7 @@ export async function getServerSideProps(context) {
     const { params } = context;
     const { id } = params
     // let data = id;
-    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getLecturerById/1`)
+    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getLecturerById/${id}`)
     const data = await response.json()
     return {
         props: {

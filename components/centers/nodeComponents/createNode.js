@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
+import axios from "axios";
 
 
-function AddNodeComp() {
+function AddNodeComp(props) {
+    const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
+    const [courses, setCourses] = useState([])
 
     const [nodeInfo, setnodeInfo] = useState({
         center_id: " ",
@@ -13,21 +16,35 @@ function AddNodeComp() {
         session_start: " ",
         session_end: " ",
     });
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
 
+    const coursesdataFetcher = () => {
+        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes`
+
+        const getallCourse = axios.get(coursesInCenter);
+
+        axios.all([getallCourse]).then(
+            axios.spread((...allData) => {
+                const allcourses = allData[0].data;
+
+                setCourses(allcourses)
+            })
+        )
+
+    }
+    useEffect(() => {
+        coursesdataFetcher
+    }
+        , [])
+    console.log(courses)
     const handleAddSession = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("center_id", nodeInfo.center_id);
+        urlencoded.append("center_id", details.id);
         urlencoded.append("session", nodeInfo.session);
         urlencoded.append("session_start", nodeInfo.session_start);
         urlencoded.append("session_end", nodeInfo.session_end);
-        urlencoded.append("Authorization", `Bearer ${bearer_key}`);
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
         var requestOptions = {
             method: 'POST',
@@ -81,8 +98,20 @@ function AddNodeComp() {
             </div>
             <div className="mb-3">
                 <label htmlFor="programme_id">Course</label>
-                <input onChange={(e) => setnodeInfo(
-                    { ...nodeInfo, programme_id: e.target.value })} type="text" name="programme_id" className="form-control" />
+                <select onChange={(e) => setnodeInfo(
+                    { ...nodeInfo, programme_id: e.target.value })} type="text" name="programme_id" className="form-control" >
+
+                    <option value="">kindly select the course for this node</option>
+
+                    {
+                        courses.map(
+                            course => {
+                                <option value=""></option>
+                            }
+                        )
+                    }
+
+                </select>
             </div>
             <div className="mb-3">
                 <label htmlFor="date_announcement">Announcement Date</label>

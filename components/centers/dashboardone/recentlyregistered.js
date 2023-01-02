@@ -7,7 +7,7 @@ import axios from 'axios';
 function Recentregisterd(props) {
     const { details, bearer } = props
     const { students, setStudents } = useState(' ')
-    const { error, setError } = useState(' ')
+    const { error, setErrors } = useState({})
 
     var config = {
         method: 'get',
@@ -26,7 +26,7 @@ function Recentregisterd(props) {
                 return data;
             })
             .catch(function (error) {
-                setError(error);
+                // setErrors(error);
             });
     }
     fetchData()

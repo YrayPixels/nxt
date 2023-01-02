@@ -64,7 +64,6 @@ function LecturerRegistration(props) {
         urlencoded.append("email", lecturerInfo.email);
         urlencoded.append("phone", lecturerInfo.phone);
         urlencoded.append("address", lecturerInfo.address);
-        urlencoded.append("faculty_id", lecturerInfo.faculty_id);
         urlencoded.append("department_id", lecturerInfo.department_id);
         urlencoded.append("programme_id", lecturerInfo.programme_id);
         urlencoded.append("occupation", lecturerInfo.occupation);

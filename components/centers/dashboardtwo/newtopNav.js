@@ -1,10 +1,11 @@
 import { Menu, Notifications, NotificationsActiveOutlined, Settings } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function NewtopNAv(props) {
-    const { naviState, } = props;
+    const { naviState, logo } = props;
     const [navOpener, setNavOpener] = useState(false)
     function openNav() {
         // alert('clicked me')
@@ -22,10 +23,11 @@ function NewtopNAv(props) {
     return (<>
         <div className="row justify-content-between align-items-center">
             <div className="d-flex col-12 col-md-6 align-items-center justify-content-between">
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                     <div className="SecondNavLogo">
-
-                        <img className="img-fluid" src="/public/image/spesee.png" alt="logo" />
+                        <Image src={logo}
+                            alt='Logo Spesee'
+                        />
                     </div>
                     <div>
                         <span className="fs-4 fw-bold">(SPESSE) Dashboard</span>

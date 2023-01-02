@@ -22,6 +22,7 @@ function AllLecturers(props) {
         return data.result
     }
     const { data, error } = useSWR('register', fetcher)
+    console.log(data)
     if (error)
         return 'An error has occured'
     if (!data) return <CircularProgress />

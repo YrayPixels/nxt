@@ -8,6 +8,8 @@ import { CircularProgress } from "@mui/material"
 import NewtopNAv from "../../components/centers/dashboardtwo/newtopNav"
 import AllNavs from "../../components/allNavs"
 import TopPilsItems from "../../components/centers/toppills"
+import Logos from '../../public/image/spesee.png'
+
 
 
 function RegisterStudents() {
@@ -34,7 +36,7 @@ function RegisterStudents() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logos} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">

@@ -10,6 +10,8 @@ import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
 import TopPilsItems from "../../../components/centers/toppills";
 // import AllCourses from "../../../components/centers/dashboardtwo/courses";
+import Logos from '../../../public/image/spesee.png'
+
 
 function Lecturers() {
     const { status, data } = useSession();
@@ -35,7 +37,7 @@ function Lecturers() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logos} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">
@@ -55,10 +57,8 @@ function Lecturers() {
                             </div>
                             <div className="col-10 p-lg-3">
                                 <AllLecturers details={dets} bearer={bearer_key} />
-
                             </div>
                         </div>
-
                     </div>
 
                 </div>

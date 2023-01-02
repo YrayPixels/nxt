@@ -6,6 +6,8 @@ import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AllNavs from "../../../components/allNavs";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
+import Logos from '../../../../public/image/spesee.png'
+
 
 function StudentInfo(props) {
     const router = useRouter()
@@ -33,7 +35,7 @@ function StudentInfo(props) {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logos} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">

@@ -3,6 +3,7 @@ import TotalCourse from "./dashboardone/totalcourses";
 import Totalfaculty from "./dashboardone/totalfaculty";
 import Totalfemale from "./dashboardone/totalfemale";
 
+
 function TopPilsItems() {
     return (<>
         <div className="row g-2 pillTop justify-content-between align-items-center mt-3">

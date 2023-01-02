@@ -3,31 +3,26 @@ import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
 
 
-function AddSessionComp() {
+function AddSessionComp(props) {
+    const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
-    const [bearer_key, setBearer_key] = useState(' ');
-
     const [sesInfo, setsesInfo] = useState({
         center_id: " ",
         session: " ",
         session_start: " ",
         session_end: " ",
     });
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
+
 
     const handleAddSession = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("center_id", sesInfo.center_id);
+        urlencoded.append("center_id", details.id);
         urlencoded.append("session", sesInfo.session);
         urlencoded.append("session_start", sesInfo.session_start);
         urlencoded.append("session_end", sesInfo.session_end);
-        urlencoded.append("Authorization", `Bearer ${bearer_key}`);
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
         var requestOptions = {
             method: 'POST',

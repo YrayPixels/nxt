@@ -11,6 +11,10 @@ import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
 import NewtopNAv from "../../components/centers/dashboardtwo/newtopNav"
+import TopPilsItems from "../../components/centers/toppills"
+import Image from "next/image"
+import Logos from '../../public/image/spesee.png'
+
 
 function Dashboard() {
     const { status, data } = useSession();
@@ -27,7 +31,6 @@ function Dashboard() {
             setDets(JSON.parse(window.sessionStorage.getItem('dets')));
         }
     }, []);
-
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
@@ -35,11 +38,13 @@ function Dashboard() {
         return (
             <div className="container-fluid">
                 <div className="py-4 px-2">
-                    <NewtopNAv naviState={navState} />
+
+                    <NewtopNAv logo={Logos} naviState={navState} />
                 </div>
                 <div className=" row dashboardCenters">
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 sidenav` : `d-none`}>
                         <Sidenav></Sidenav>
+
                     </div>
                     <div className="d-none col-md-3 d-lg-block">
                         <Sidenav></Sidenav>
@@ -48,21 +53,7 @@ function Dashboard() {
                     <div className={`col-12 col-lg-9 dashmain p-4`}>
 
 
-                        <div className="row g-2 pillTop justify-content-between align-items-center mt-3">
-                            {/* Top Pills */}
-                            <div className="col-5 col-lg-3">
-                                <Totalfaculty />
-                            </div>
-                            <div className="col-5 col-lg-3">
-                                <TotalactiveUsers />
-                            </div>
-                            <div className="col-5 col-lg-3">
-                                <TotalCourse />
-                            </div>
-                            <div className="col-5 col-lg-3">
-                                <Totalfemale />
-                            </div>
-                        </div>
+                        <TopPilsItems />
                         {/* User Activity and feedback  */}
                         <div className="row  g-3 align-items-stretch  pt-4 overflow-hidden">
                             <div className="col-12 me-5 col-md-6 card border border-0 shadow ">
