@@ -33,9 +33,10 @@ function AllSession(props) {
                 console.log(error);
             });
     }
-    useEffect(() => {
-        fetchData()
-    })
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
+
     fetchData()
 
     // SetSession Current

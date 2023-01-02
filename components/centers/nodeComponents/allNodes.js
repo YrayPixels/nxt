@@ -21,17 +21,17 @@ function AllNodes(props) {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                console.log(session)
+                console.log(data)
                 return data;
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
-    // fetchData()
-    useEffect(() => {
-        fetchData()
-    }, [])
+    fetchData()
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
 
     console.log(nodes)
 
