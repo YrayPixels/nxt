@@ -25,7 +25,8 @@ function NewtopNAv(props) {
             <div className="d-flex col-12 col-md-6 align-items-center justify-content-between">
                 <div className="d-flex align-items-center">
                     <div className="SecondNavLogo">
-                        <Image src={logo} />
+                        <Image src={logo}
+                            alt="Logo Img" />
                         {/* <img src={logo} alt="" /> */}
                     </div>
                     <div>
