@@ -7,7 +7,6 @@ import { CircularProgress } from "@mui/material";
 import { Add, PlusOneOutlined, Remove, RemoveCircle } from "@mui/icons-material";
 import Home from "@mui/icons-material/Home";
 
-
 function StudentRegistration(props) {
     const { details, bearer } = props;
     const [bearer_key, setBearer_key] = useState(' ');

@@ -12,13 +12,14 @@ function AddNodeComp(props) {
 
     const [nodeInfo, setnodeInfo] = useState({
         center_id: " ",
-        session: " ",
-        session_start: " ",
-        session_end: " ",
+        node: " ",
+        programme_id: " ",
+        center_id: " ",
+        date_announced: " ",
     });
 
     const coursesdataFetcher = () => {
-        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes`
+        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
 
         const getallCourse = axios.get(coursesInCenter);
 
@@ -33,10 +34,9 @@ function AddNodeComp(props) {
     }
     useEffect(() => {
         coursesdataFetcher
-    }
-        , [])
+    }, [])
     console.log(courses)
-    const handleAddSession = async (e) => {
+    const handleAddNode = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
@@ -90,11 +90,11 @@ function AddNodeComp(props) {
         <h3 className="py-4">
             Add Node
         </h3>
-        <form className="card p-4" action="" onSubmit={handleAddSession}>
+        <form className="card p-4" action="" onSubmit={handleAddNode}>
             <div className="mb-3">
-                <label htmlFor="session">Node</label>
+                <label htmlFor="node">Node</label>
                 <input onChange={(e) => setnodeInfo(
-                    { ...nodeInfo, session: e.target.value })} type="text" name="session" className="form-control" />
+                    { ...nodeInfo, node: e.target.value })} type="text" name="node" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="programme_id">Course</label>
@@ -106,7 +106,7 @@ function AddNodeComp(props) {
                     {
                         courses.map(
                             course => {
-                                <option value=""></option>
+                                <option value={course.id}>{course.title}</option>
                             }
                         )
                     }
@@ -114,9 +114,9 @@ function AddNodeComp(props) {
                 </select>
             </div>
             <div className="mb-3">
-                <label htmlFor="date_announcement">Announcement Date</label>
+                <label htmlFor="date_announced">Announcement Date</label>
                 <input onChange={(e) => setnodeInfo(
-                    { ...nodeInfo, date_announcement: e.target.value })} type="date" name="date_announcement" className="form-control" />
+                    { ...nodeInfo, date_announced: e.target.value })} type="date" name="date_announced" className="form-control" />
             </div>
             <div className="col-5 m-auto singleSubmits">
                 <button type="submit" className="btn rounded-0  text-info w-100"> Add Node</button>

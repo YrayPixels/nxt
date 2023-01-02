@@ -1,6 +1,8 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 // var myHeaders = new Headers();
 // myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
@@ -17,8 +19,51 @@ import Link from 'next/link';
 // }
 
 function AllFaculties(props) {
-    const { details, bearer } = props
+    const { details, bearer } = props;
+    const { notify, setNotify } = useState(' ');
+    const { loading, setLoading } = useState(false);
 
+    function deleteFaculty(param) {
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
+
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        // setLoading(true)
+        // setNotify('<p><CircularProgress /></p>');
+        const deletefac = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Faculty Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }// const fetcher = async() = {
+        //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
+        //     const data = await response.json()
+        //     // .then(response => response.text())
+        //     // .then(result => console.log(result))
+        //     // .catch(error => console.log('error', error));
+        // }
+
+        deletefac()
+    }
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${bearer}`);
     var requestOptions = {
@@ -37,6 +82,10 @@ function AllFaculties(props) {
     if (!data) return <CircularProgress />
     // console.log(data)
     return (<div>
+        {
+            notify != ' ' ? <p>{notify}</p> : <CircularProgress />
+
+        }
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
 
@@ -72,7 +121,7 @@ function AllFaculties(props) {
                                             </Link>
                                         </button>
 
-                                        <button className='btn  btn-sm btn-danger p-2'>
+                                        <button onClick={() => deleteFaculty(`${data.id}`)} className='btn  btn-sm btn-danger p-2'>
                                             Delete
                                         </button>
                                     </div></td>

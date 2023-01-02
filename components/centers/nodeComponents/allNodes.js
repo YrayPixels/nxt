@@ -21,7 +21,7 @@ function AllNodes(props) {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                setNodes(data.session)
+                console.log(session)
                 return data;
             })
             .catch(function (error) {
