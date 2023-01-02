@@ -193,12 +193,10 @@ function Sidenav() {
             </div>
 
             <div >
-                <div className="">
-                    <h6>
-                        Account Pages
-                    </h6>
-                </div>
                 <ul>
+                    <li>
+                        Account Pages
+                    </li>
                     <li>
                         <Link href={'/centers/profile'}>
                             <span><Person2Outlined /></span>Profile
