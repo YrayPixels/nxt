@@ -6,25 +6,18 @@ import { useEffect, useState } from "react";
 import useSWR from 'swr';
 
 
-function AllSession() {
+function AllSession(props) {
+    const { details, bearer } = props;
 
-    const [bearer_key, setBearer_key] = useState(' ');
     const [sessiony, setSessiony] = useState(' ')
 
     const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
-
-
     var config = {
         method: 'get',
-        url: 'https://stockmgt.gapaautoparts.com/api/getAllSession/1634I6495442478',
+        url: `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`,
         headers: {
-            'Authorization': `Bearer ${bearer_key}`,
+            'Authorization': `Bearer ${bearer}`,
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
@@ -46,7 +39,7 @@ function AllSession() {
     function setSessionCont(param) {
         setLoading(true)
         var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer_key}`);
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
         var requestOptions = {
             method: 'POST',
@@ -69,7 +62,7 @@ function AllSession() {
         // console.log(bearer_key)
         setLoading(true)
         var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer_key}`);
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
         var requestOptions = {
             method: 'POST',
@@ -127,7 +120,7 @@ function AllSession() {
 
                                     </td>
                                     <td>
-                                        <Link href={'editsession'}>
+                                        <Link href={`/centers/session/edit/${session.id}`}>
                                             <button className="btn btn-primary btn-sm">
                                                 View Session
                                             </button>
