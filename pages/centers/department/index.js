@@ -6,6 +6,8 @@ import { CircularProgress } from "@mui/material"
 import AllDepartment from "../../../components/pagesIndex/alldept";
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../components/allNavs";
+import TopPilsItems from "../../../components/centers/toppills";
+import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 
 function ProgramsOffered() {
     const { status, data } = useSession();
@@ -14,6 +16,14 @@ function ProgramsOffered() {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
+    const [bearer_key, setBearer_key] = useState(' ');
+    const [dets, setDets] = useState({});
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setDets(JSON.parse(window.sessionStorage.getItem('dets')));
+        }
+    }, []);
 
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -30,11 +40,21 @@ function ProgramsOffered() {
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 d-flex allNavSide` : `d-none`}>
                         <AllNavs />
                     </div>
-                    <div className="col-4 subNav row">
+                    <div className="col-1 subNav row">
                         <AllNavs />
                     </div>
-                    <div className="col-12 col-lg-8  p-lg-5 regMain">
-                        <AllDepartment />
+                    <div className="col-12 col-lg-11 regMain">
+                        <div className="pb-4 px-2">
+                            <TopPilsItems />
+                        </div>
+                        <div className="row pt-3">
+                            <div className="col-2 border bg-info border-1">
+                                <Secondnav />
+                            </div>
+                            <div className="col-10 p-lg-3">
+                                <AllDepartment details={dets} bearer={bearer_key} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,21 +2,25 @@ import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
 
-var requestOptions = {
-    method: 'GET',
-    // headers: myHeaders,
-    redirect: 'follow'
-};
-const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/1", requestOptions)
-    const data = await response.json()
-    return data.result
-}
 
-function AllCourses() {
+function AllCourses(props) {
+    const { details, bearer } = props
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${bearer}`);
+
+    var requestOptions = {
+        method: 'GET',
+        // headers: myHeaders,
+        redirect: 'follow'
+    };
+    const fetcher = async () => {
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`, requestOptions)
+        const data = await response.json()
+        return data.result
+    }
+
     const { data, error } = useSWR('register', fetcher)
     // console.log(data)
     if (error)
@@ -32,7 +36,7 @@ function AllCourses() {
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Courses: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Modules: {data.length}</h6>
             </div>
             <table className="tableData table table-responsive table">
                 <thead>

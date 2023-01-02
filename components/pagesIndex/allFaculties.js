@@ -18,6 +18,7 @@ import Link from 'next/link';
 
 function AllFaculties(props) {
     const { details, bearer } = props
+
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${bearer}`);
     var requestOptions = {
@@ -30,9 +31,7 @@ function AllFaculties(props) {
         const data = await response.json()
         return data.result
     }
-    // const { details, bearer } = props
-    const { data, error } = useSWR('register', fetcher)
-    // console.log(data)
+    const { data, error } = useSWR('faculty', fetcher)
     if (error)
         return 'An error has occured'
     if (!data) return <CircularProgress />

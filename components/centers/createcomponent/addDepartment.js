@@ -6,7 +6,8 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import Swal from "sweetalert2";
 
-function AddDepartment() {
+function AddDepartment(props) {
+    const { details, bearer } = props
     const [notify, setNotify] = useState(' ');
     const [faculty, setFaculty] = useState([]);
     const [deptInfo, setdeptInfo] = useState({
@@ -15,7 +16,7 @@ function AddDepartment() {
         faculty_id: " ",
     });
     const fetchData = () => {
-        const allFaculty = "https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/1"
+        const allFaculty = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
         const getallFaculty = axios.get(allFaculty);
         axios.all([getallFaculty]).then(
             axios.spread((...allData) => {
@@ -27,7 +28,7 @@ function AddDepartment() {
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [deptInfo.depttitle])
 
     const handleDeptReg = async (e) => {
         e.preventDefault()
@@ -36,8 +37,8 @@ function AddDepartment() {
         urlencoded.append("title", deptInfo.depttitle);
         urlencoded.append("code", deptInfo.deptcode);
         urlencoded.append("faculty_id", deptInfo.faculty_id);
-        urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
+        urlencoded.append("center_id", details.id);
+        urlencoded.append("Authorization", `Bearer ${bearer}`)
 
         var requestOptions = {
             method: 'POST',

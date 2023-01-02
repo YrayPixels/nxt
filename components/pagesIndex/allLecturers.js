@@ -22,11 +22,9 @@ function AllLecturers(props) {
         return data.result
     }
     const { data, error } = useSWR('register', fetcher)
-    // console.log(data)
     if (error)
         return 'An error has occured'
     if (!data) return <CircularProgress />
-    // console.log(data)
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>

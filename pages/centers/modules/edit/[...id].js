@@ -13,6 +13,8 @@ import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
 
 function CourseEdit(props) {
     const [bearer_key, setBearer_key] = useState(' ');
+    const [dets, setDets] = useState({});
+
     const router = useRouter()
     const studentid = router.query.id
     const { datas, id } = props
@@ -24,6 +26,12 @@ function CourseEdit(props) {
         setShowNav(ClickedNav)
     }
     const [notify, setNotify] = useState(' ');
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setDets(JSON.parse(window.sessionStorage.getItem('dets')));
+        }
+    }, []);
 
     const [department, setDepartment] = useState([]);
     const [courseInfo, setCourseInfo] = useState({
@@ -45,11 +53,7 @@ function CourseEdit(props) {
     useEffect(() => {
         fetchData()
     }, [])
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
+
     const editCourse = async (e) => {
         e.preventDefault()
 
@@ -63,8 +67,8 @@ function CourseEdit(props) {
         urlencoded.append("code", courseInfo.coursecode);
         urlencoded.append("department_id", courseInfo.department_id);
         urlencoded.append("unit", courseInfo.unit);
-        urlencoded.append("center_id", 1);
-        urlencoded.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM")
+        urlencoded.append("center_id", dets.id);
+        urlencoded.append("Authorization", `Bearer ${bearer_key}`)
 
         var requestOptions = {
             method: 'POST',
@@ -74,7 +78,7 @@ function CourseEdit(props) {
         setNotify('loading')
 
         const addCourse = async () => {
-            const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/EditCourse/1", requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/EditCourse/${id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
             if (status == 200) {
