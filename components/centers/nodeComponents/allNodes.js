@@ -1,3 +1,4 @@
+import { CircularProgress, Link } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ function AllNodes(props) {
 
     var config = {
         method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`,
+        url: `https://stockmgt.gapaautoparts.com/api/getNodes/2`,
         headers: {
             'Authorization': `Bearer ${bearer}`,
             "Content-Type": "application/x-www-form-urlencoded",
@@ -21,7 +22,7 @@ function AllNodes(props) {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                console.log(data)
+                setNodes(data.Nodes)
                 return data;
             })
             .catch(function (error) {
@@ -51,31 +52,37 @@ function AllNodes(props) {
                     <tr>
                         <th>NODE</th>
                         <th>PROGRAMME</th>
-                        <th>CENTER</th>
-                        <th>ANNOUNCEMENT DATE</th>
+                        <th>CODE</th>
+                        <th>HOURS</th>
+                        <th>MODE OF DELIVERY</th>
+                        <th>START DATE</th>
+                        <th>END DATE</th>
+                        <th>ANOUNCEMENT DATE</th>
+
                         <th>ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {nodes.length <= 0 ? <p className='text-center'>No Nodes Yet Kindly add nodes from the menu on your left</p> : <p>omo this thing no want work o</p>
-                        // nodes.map(student => {
-                        //     return (
-                        //         <tr className='align-items-center '>
-                        //             <td><span><img src="" alt="" /></span> {student.name}</td>
-                        //             <td>{student.email}</td>
-                        //             <td>{student.phone}</td>
-                        //             <td>{student.departments_title} </td>
-                        //             <td>{student.programmes_title}</td>
-                        //             <td>{student.faculties_title}</td>
-                        //             <td>{student.occupation}</td>
-                        //             <td>
-                        //                 <Link href={`/centers/studentlist/${student.id}`} >
-                        //                     <button className='btn btn-primary'>View</button>
-                        //                 </Link>
-                        //             </td>
-                        //         </tr>
-                        //     )
-                        // })
+                    {nodes == ' ' ? <p className='text-center'><CircularProgress /></p> :
+                        nodes.map(node => {
+                            return (
+                                <tr className='align-items-center '>
+                                    <td><span><img src="" alt="" /></span> {node.node_id}</td>
+                                    <td>{node.node}</td>
+                                    <td>{node.programme_id}</td>
+                                    <td>{node.date_announced} </td>
+                                    <td>{node.programmes_title}</td>
+                                    <td>{node.faculties_title}</td>
+                                    <td>{node.occupation}</td>
+                                    <td>
+
+                                        <Link href={`/centers/studentlist/${node.node_id}`} >
+                                            <button className='btn btn-primary'>View</button>
+                                        </Link>
+                                    </td>
+                                </tr>
+                            )
+                        })
                     }
 
                 </tbody>

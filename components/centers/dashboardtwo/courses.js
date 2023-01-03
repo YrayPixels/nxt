@@ -3,12 +3,13 @@ import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 
 function AllCourses(props) {
     const { details, bearer } = props
-    const { activator, setActivator } = useState(' ')
+    const [course, setCourse] = useState(' ')
     // console.log(details.id)
 
     function deleteModules(param) {
@@ -46,31 +47,28 @@ function AllCourses(props) {
         deleteDep()
 
     }
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${bearer}`);
-
-    var requestOptions = {
-        method: 'GET',
-        // headers: myHeaders,
-        redirect: 'follow'
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
     };
-    const fetcher = async () => {
-        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`, requestOptions)
-        const data = await response.json()
-        return data.result
+
+    const fetchData = () => {
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setCourse(data.result)
+                return data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
-    useEffect(() => {
-        fetcher()
 
-    }, [activator])
-    fetcher()
-    const { data, error } = useSWR('fetcher', fetcher)
-    // console.log(data)
-    if (error)
-        return 'An error has occured'
-    if (!data) return <CircularProgress />
-    // console.log(data)
-
+    fetchData()
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
@@ -80,7 +78,7 @@ function AllCourses(props) {
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Modules: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Modules: {course.length}</h6>
             </div>
             <table className="tableData table table-responsive table">
                 <thead>
@@ -93,8 +91,8 @@ function AllCourses(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.map(data => {
+                    {course == ' ' ? <p><CircularProgress /></p> :
+                        course.map(data => {
                             return (
                                 <tr className='align-items-center '>
                                     <td><span><img src="" alt="" /></span> {data.id}</td>
@@ -112,7 +110,7 @@ function AllCourses(props) {
                                             Delete
                                         </button>
                                         <button className='btn btn-sm btn-success'>
-                                            Start Course
+                                            Start Module
                                         </button>
                                         <button className='btn btn-sm btn-dark'>
                                             Add Attendees

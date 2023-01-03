@@ -70,25 +70,7 @@ function AllDepartment(props) {
     }
 
     fetchData()
-    // var myHeaders = new Headers();
-    // myHeaders.append("Authorization", `Bearer ${bearer}`);
 
-    // var requestOptions = {
-    //     method: 'GET',
-    //     // headers: myHeaders,
-    //     redirect: 'follow'
-    // };
-    // const fetcher = async () => {
-    //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/${details.id}`, requestOptions)
-    //     const data = await response.json()
-    //     return data.result
-    // }
-
-    // fetcher()
-    // const { data, error } = useSWR('register', fetcher)
-    // if (error)
-    //     return 'An error has occured'
-    // if (!data) return <CircularProgress />
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>

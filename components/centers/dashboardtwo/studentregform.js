@@ -25,6 +25,7 @@ function StudentRegistration(props) {
         qualification_name: " ",
         year: " ",
         institution_id: " ",
+        institution_name: " ",
     })
     let ArraysQualification = [];
     const [arrayys, setArrayys] = useState([])
@@ -70,7 +71,7 @@ function StudentRegistration(props) {
         const allStates = "https://stockmgt.gapaautoparts.com/api/getAllStates"
         const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/${userInfo.state}`
         const allQual = `https://stockmgt.gapaautoparts.com/api/GetAllQualifications`
-        const allInstitutes = `https://stockmgt.gapaautoparts.com/api/GetAllQualifications`
+        const allInstitutes = `https://stockmgt.gapaautoparts.com/api/GetAllinstitutions`
 
 
         const getAllPrograms = axios.get(allPrograms);
@@ -138,6 +139,10 @@ function StudentRegistration(props) {
         setArrayys(filtered);
         // console.log(val)
     }
+    function setInstname(event, value) {
+        setQualArray(
+            { ...qaulArray, institution_name: value })
+    }
     function setQualname(event, value) {
         setQualArray(
             { ...qaulArray, qualification_name: value })
@@ -146,7 +151,7 @@ function StudentRegistration(props) {
         e.preventDefault()
         ArraysQualification.push(qaulArray)
         setArrayys(arrayys.concat(ArraysQualification))
-        console.log(arrayys)
+        // console.log(arrayys)
     }
 
     const handleStudentReg = async (e) => {
@@ -236,7 +241,7 @@ function StudentRegistration(props) {
                 <div className="col-6 mb-3">
                     <label htmlFor="phone">Telephone number</label>
                     <input onChange={(e) => setUserInfo(
-                        { ...userInfo, phone: e.target.value })} type="text" required name="phone" className="form-control" />
+                        { ...userInfo, phone: e.target.value })} type="number" required name="phone" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="email">Email</label>
@@ -260,18 +265,9 @@ function StudentRegistration(props) {
                     <label htmlFor="nationality">Nationality</label>
                     <select required name="nationality" onChange={(e) => setUserInfo(
                         { ...userInfo, Nationality: e.target.value })} class="form-select" aria-label="Default select example"  >
-
-                        <option selected value={0}>Select your State</option>
-                        {
-                            state.map(State => {
-                                return (
-                                    <option value={State.id}>{State.title}</option>
-
-                                )
-                            })
-
-                        }
-
+                        <option selected value={0}>Select your Nationality</option>
+                        <option value={'Nigeria'}>Nigeria</option>
+                        <option value={'Foreign'}>Foreign</option>
                     </select>
                 </div>
                 <div className="col-6 mb-3">
@@ -450,7 +446,7 @@ function StudentRegistration(props) {
                                         {
                                             Inst.map(Inst => {
                                                 return (
-                                                    <option value={Inst.id}>{Inst.qualification}</option>
+                                                    <option onClick={event => setInstname(event, Inst.name)} value={Inst.id}>{Inst.name}</option>
                                                 )
                                             })
                                         }
@@ -458,7 +454,6 @@ function StudentRegistration(props) {
                                 </div>
                                 <div className="col-3 text-center"> <button onClick={handleQualAdd} className="btn  btn-dark"><Add /></button>
                                 </div>
-
                             </div>
                             <hr />
                             {
@@ -472,7 +467,7 @@ function StudentRegistration(props) {
                                                 <input required value={array.year} type="text" name="academic" className="form-control" />
                                             </div>
                                             <div className="col-3 mb-3">
-                                                <input required value={array.institution_id} type="text" name="academic" className="form-control" />
+                                                <input required value={array.institution_name} type="text" name="academic" className="form-control" />
                                             </div>
                                             <div className="col-3 text-center">
                                                 <button onClick={e => removeQual(e, array)} className=" btn border border-0 text-danger"><RemoveCircle /></button>
@@ -494,7 +489,6 @@ function StudentRegistration(props) {
                     <label htmlFor="employmentStatus">Employment Status</label>
                     <select required name="employmentStatus" onChange={(e) => setUserInfo(
                         { ...userInfo, employment_status: e.target.value })} class="form-select" aria-label="employement status" >
-
                         <option selected  >What's your employent Status</option>
                         <option value={'Employed'}>Employed</option>
                         <option value={'Unemployed'} >Unemployed</option>
@@ -502,7 +496,6 @@ function StudentRegistration(props) {
                 </div>
                 {
                     userInfo.employment_status == 'Employed' &&
-
                     <div className="mb-3 row ">
                         <div className="col-6 mb-3">
                             <label htmlFor="Employee">Employee</label>
@@ -516,11 +509,8 @@ function StudentRegistration(props) {
                                 <option selected value={'None'}> What type of organization do you work for</option>
                                 <option value="Private">Private</option>
                                 <option value="Public">Public</option>
-
-
                             </select>
                         </div>
-
                     </div>
                 }
                 <div className="col-5 m-auto singleSubmits">
@@ -530,5 +520,4 @@ function StudentRegistration(props) {
         </form>
     </>);
 }
-
 export default StudentRegistration;

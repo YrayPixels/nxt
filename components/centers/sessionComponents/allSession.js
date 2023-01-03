@@ -126,7 +126,7 @@ function AllSession(props) {
                                     <td>
                                         <Link href={`/centers/session/edit/${session.id}`}>
                                             <button className="btn btn-primary btn-sm">
-                                                View Session
+                                                Edit Session
                                             </button>
                                         </Link>
                                     </td>

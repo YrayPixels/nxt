@@ -14,36 +14,33 @@ function AddNodeComp(props) {
         center_id: " ",
         node: " ",
         programme_id: " ",
-        center_id: " ",
         date_announced: " ",
     });
 
     const coursesdataFetcher = () => {
-        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
-
+        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/1634I6495442478`
         const getallCourse = axios.get(coursesInCenter);
 
         axios.all([getallCourse]).then(
             axios.spread((...allData) => {
-                const allcourses = allData[0].data;
-
+                const allcourses = allData[0].data.result;
                 setCourses(allcourses)
             })
         )
 
     }
     useEffect(() => {
-        coursesdataFetcher
-    }, [])
+        coursesdataFetcher()
+    }, [nodeInfo.node])
     console.log(courses)
     const handleAddNode = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("center_id", details.id);
-        urlencoded.append("session", nodeInfo.session);
-        urlencoded.append("session_start", nodeInfo.session_start);
-        urlencoded.append("session_end", nodeInfo.session_end);
+        urlencoded.append("node", nodeInfo.node);
+        urlencoded.append("programme_id", nodeInfo.programme_id);
+        urlencoded.append("date_announced", nodeInfo.date_announced);
         urlencoded.append("Authorization", `Bearer ${bearer}`);
 
         var requestOptions = {
@@ -102,13 +99,11 @@ function AddNodeComp(props) {
                     { ...nodeInfo, programme_id: e.target.value })} type="text" name="programme_id" className="form-control" >
 
                     <option value="">kindly select the course for this node</option>
+                    {courses.map(course => {
+                        return (
+                            <option value={course.id}>{course.title}</option>)
+                    })
 
-                    {
-                        courses.map(
-                            course => {
-                                <option value={course.id}>{course.title}</option>
-                            }
-                        )
                     }
 
                 </select>

@@ -67,11 +67,20 @@ function AllLecturers(props) {
                                     <td>programme</td>
                                     <td> {lecturer.occupation}</td>
 
-                                    <td>
-                                        <Link href={`/centers/lecturers/${lecturer.id}`} >
-                                            <button className='btn btn-sm btn-primary'>View</button>
+                                    <td >
+                                        <div className='btn-group'>
 
-                                        </Link>
+                                            <button className='btn btn-sm btn-primary'>
+                                                <Link href={`/centers/lecturers/${lecturer.id}`} >
+                                                    View
+                                                </Link>
+                                            </button>
+
+                                            <button className='btn btn-sm btn-danger'>
+                                                Delete
+                                            </button>
+                                        </div>
+
 
                                     </td>
                                 </tr>
