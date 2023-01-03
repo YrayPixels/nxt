@@ -3,6 +3,7 @@ import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 
 
@@ -10,6 +11,7 @@ function AllFaculties(props) {
     const { details, bearer } = props;
     const { notify, setNotify } = useState(' ');
     const { loading, setLoading } = useState(false);
+    const [faculty, setFaculty] = useState(' ')
 
     function deleteFaculty(param) {
         var urlencoded = new URLSearchParams();
@@ -44,25 +46,48 @@ function AllFaculties(props) {
 
         deletefac()
     }
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${bearer}`);
-    var requestOptions = {
-        method: 'GET',
-        // headers: myHeaders,
-        redirect: 'follow'
+
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
     };
 
-    const fetcher = async () => {
-        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`, requestOptions)
-        const data = await response.json()
-        return data.result
+    const fetchData = () => {
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setFaculty(data.result)
+                return data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
-    fetcher()
-    const { data, error } = useSWR('faculty', fetcher)
-    if (error)
-        return 'An error has occured'
-    if (!data) return <CircularProgress />
-    // console.log(data)
+
+    fetchData()
+    // var myHeaders = new Headers();
+    // myHeaders.append("Authorization", `Bearer ${bearer}`);
+    // var requestOptions = {
+    //     method: 'GET',
+    //     // headers: myHeaders,
+    //     redirect: 'follow'
+    // };
+
+    // const fetcher = async () => {
+    //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`, requestOptions)
+    //     const data = await response.json()
+    //     return data.result
+    // }
+    // fetcher()
+    // const { data, error } = useSWR('faculty', fetcher)
+    // if (error)
+    //     return 'An error has occured'
+    // if (!data) return <CircularProgress />
+    // // console.log(data)
     return (<div>
         {
             notify != ' ' ? <p>{notify}</p> : <CircularProgress />
@@ -76,7 +101,7 @@ function AllFaculties(props) {
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Faculties: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Faculties: {faculty.length}</h6>
             </div>
             <table className="tableData table table-striped table-sm table-responsive table">
                 <thead>
@@ -88,8 +113,8 @@ function AllFaculties(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.map(data => {
+                    {faculty == ' ' ? <p><CircularProgress /></p> :
+                        faculty.map(data => {
                             return (
                                 <tr className='align-items-start '>
                                     <td><span><img src="" alt="" /></span> {data.id}</td>

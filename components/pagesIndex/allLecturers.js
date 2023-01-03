@@ -1,31 +1,37 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link'
+import { useState } from 'react';
+import axios from 'axios';
 
 
 
 function AllLecturers(props) {
     const { details, bearer } = props
-
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${bearer}`);
-
-
-    var requestOptions = {
-        method: 'GET',
-        // headers: myHeaders,
-        redirect: 'follow'
+    const [lecturers, setLecturers] = useState(' ')
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/${details.id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
     };
-    const fetcher = async () => {
-        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getLecturerByCenterId/${details.id}`, requestOptions)
-        const data = await response.json()
-        return data.result
+
+    const fetchData = () => {
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setLecturers(data.result)
+                return data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
-    fetcher()
-    const { data, error } = useSWR('register', fetcher)
-    if (error)
-        return 'An error has occured'
-    if (!data) return <CircularProgress />
+
+    fetchData()
+
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
@@ -35,7 +41,7 @@ function AllLecturers(props) {
         <div className="bg-info p-4 shadow rounded-0 table-responsive">
 
             <div>
-                <h6 className="fw-bold">Total No of Lecturers: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Lecturers: {lecturers.length}</h6>
             </div>
             <table className="tableData table table-sm  table-striped table-hover">
                 <thead>
@@ -50,8 +56,8 @@ function AllLecturers(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.map(lecturer => {
+                    {lecturers == ' ' ? <p> <CircularProgress /></p> :
+                        lecturers.map(lecturer => {
                             return (
                                 <tr className='align-items-center '>
                                     <td><span><img src="" alt="" /></span> {lecturer.name}</td>

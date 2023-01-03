@@ -1,6 +1,7 @@
 import { CircularProgress, Input } from '@mui/material';
+import axios from 'axios';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr'
 // import { useSWR } from 'swr';
 
@@ -8,6 +9,7 @@ import useSWR from 'swr'
 
 function AllDepartment(props) {
     const { details, bearer } = props
+    const [department, setDepartment] = useState(' ');
 
     function deleteDept(param) {
         var urlencoded = new URLSearchParams();
@@ -45,25 +47,48 @@ function AllDepartment(props) {
 
 
     }
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${bearer}`);
 
-    var requestOptions = {
-        method: 'GET',
-        // headers: myHeaders,
-        redirect: 'follow'
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/${details.id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
     };
-    const fetcher = async () => {
-        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/${details.id}`, requestOptions)
-        const data = await response.json()
-        return data.result
+
+    const fetchData = () => {
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setDepartment(data.result)
+                return data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
-    fetcher()
-    const { data, error } = useSWR('register', fetcher)
-    if (error)
-        return 'An error has occured'
-    if (!data) return <CircularProgress />
+    fetchData()
+    // var myHeaders = new Headers();
+    // myHeaders.append("Authorization", `Bearer ${bearer}`);
+
+    // var requestOptions = {
+    //     method: 'GET',
+    //     // headers: myHeaders,
+    //     redirect: 'follow'
+    // };
+    // const fetcher = async () => {
+    //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/${details.id}`, requestOptions)
+    //     const data = await response.json()
+    //     return data.result
+    // }
+
+    // fetcher()
+    // const { data, error } = useSWR('register', fetcher)
+    // if (error)
+    //     return 'An error has occured'
+    // if (!data) return <CircularProgress />
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
@@ -73,7 +98,7 @@ function AllDepartment(props) {
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Departments: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Departments: {department.length}</h6>
             </div>
             <table className="tableData table table-sm table-striped table-responsive table">
                 <thead>
@@ -85,8 +110,8 @@ function AllDepartment(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.map(data => {
+                    {department == ' ' ? <p><CircularProgress /> </p> :
+                        department.map(data => {
                             return (
                                 <tr className='align-items-center '>
                                     <td><span><img src="" alt="" /></span> {data.id}</td>
