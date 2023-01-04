@@ -47,7 +47,6 @@ function StudentsList(props) {
         }
 
         deleteStudent()
-        console.log(param)
     }
 
     var config = {

@@ -2,6 +2,7 @@ import { CircularProgress, Input } from '@mui/material';
 import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import useSWR from 'swr'
 // import { useSWR } from 'swr';
 
@@ -12,14 +13,38 @@ function AllDepartment(props) {
     const [department, setDepartment] = useState(' ');
 
     function deleteDept(param) {
+        console.log(param)
         var urlencoded = new URLSearchParams();
         urlencoded.append("Authorization", `Bearer ${bearer}`);
-
         var requestOptions = {
             method: 'POST',
             body: urlencoded,
             redirect: 'follow'
         };
+
+        const deleteDept = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/HideDepartment/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Department Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+
+        deleteDept()
 
         // const deleteDep = async () => {
         //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
@@ -96,7 +121,7 @@ function AllDepartment(props) {
                         department.map(data => {
                             return (
                                 <tr className='align-items-center '>
-                                    <td><span><img src="" alt="" /></span> {data.id}</td>
+                                    <td><span><img src="" alt="" /></span> {department.indexOf(data) + 1}</td>
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
                                     <td className='text-center'><div className='btn-group'>

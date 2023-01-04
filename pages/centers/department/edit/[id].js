@@ -13,14 +13,13 @@ import TopPilsItems from "../../../../components/centers/toppills";
 
 
 
-function DepartmentEdit(props) {
+function DepartmentEdit() {
+    const router = useRouter()
+    const { id } = router.query
     const [bearer_key, setBearer_key] = useState(' ');
     const [dets, setDets] = useState({});
-    const router = useRouter()
     // const studentid = router.query.id
-    const { datas, id } = props
-    const { result } = datas
-    console.log(result[0].id)
+    const [deptData, setDeptData] = useState(' ');
     const [faculty, setFaculty] = useState([]);
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
@@ -28,18 +27,46 @@ function DepartmentEdit(props) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
+
+    // console.log(deptData)
     const [notify, setNotify] = useState(' ');
     const [deptInfo, setdeptInfo] = useState({
         depttitle: " ",
         deptcode: " ",
         faculty_id: " ",
     });
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer_key}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    };
+
+    const fetchDept = () => {
+        axios(config)
+            .then(function (response) {
+                // console.log(response)
+                const data = response.data;
+                setDeptData(data.result)
+                return data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    fetchDept()
+
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
             setDets(JSON.parse(window.sessionStorage.getItem('dets')));
         }
     }, []);
+
+
     const fetchData = () => {
         const allFaculty = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${dets.id}`
         const getallFaculty = axios.get(allFaculty);
@@ -74,7 +101,7 @@ function DepartmentEdit(props) {
         setNotify('loading')
 
         const addDepartment = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/EditDepartment/${result[0].id}`, requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/EditDepartment/${id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
 
@@ -139,12 +166,12 @@ function DepartmentEdit(props) {
                                 <form className="card p-4" action="" onSubmit={handleDeptReg}>
                                     <div className="mb-3">
                                         <label htmlFor="depttitle">Department Name</label>
-                                        <input defaultValue={result[0].title} onChange={(e) => setdeptInfo(
+                                        <input defaultValue={deptData[0].title} onChange={(e) => setdeptInfo(
                                             { ...deptInfo, depttitle: e.target.value })} type="text" name="depttitle" className="form-control" />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="deptcode">Department Code</label>
-                                        <input defaultValue={result[0].code} onChange={(e) => setdeptInfo(
+                                        <input defaultValue={deptData[0].code} onChange={(e) => setdeptInfo(
                                             { ...deptInfo, deptcode: e.target.value })} type="text" name="deptcode" className="form-control" />
                                     </div>
                                     <div className="mb-3">
@@ -183,15 +210,3 @@ function DepartmentEdit(props) {
 
 export default DepartmentEdit;
 
-export async function getServerSideProps(context) {
-    const { params } = context;
-    const { id } = params
-    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getDepartmentById/${id}`)
-    const data = await response.json()
-    const student = data.students
-    return {
-        props: {
-            datas: data,
-        },
-    }
-}
