@@ -12,12 +12,14 @@ import TopPilsItems from "../../../components/centers/toppills";
 // import Logos from '../../../public/image/spesee.ng'
 
 
-function StudentInfo(props) {
+function StudentInfo() {
     const router = useRouter()
+    const { id } = router.query
     // const studentid = router.query.id
-    const { id } = props
+    // const { id } = props
     // const { students } = datas
     // console.log(props)
+    console.log(id)
     const [bearer_key, setBearer_key] = useState(' ');
     const [dets, setDets] = useState({});
     useEffect(() => {
@@ -30,7 +32,6 @@ function StudentInfo(props) {
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
-        // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
 
@@ -48,7 +49,6 @@ function StudentInfo(props) {
             .then(function (response) {
                 const data = response.data;
                 setStdData(data.students)
-                console.log(data.students)
                 return data;
             })
             .catch(function (error) {
@@ -57,11 +57,6 @@ function StudentInfo(props) {
     }
 
     fetchData()
-
-    // function fetchData() {
-    //     console.log('this would work')
-    // }
-
 
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -92,9 +87,7 @@ function StudentInfo(props) {
                                         <Secondnav />
                                     </div>
                                     <div className="col-10  regMain">
-
                                         <div className="p-5  bg-info shadow">
-
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div>
                                                     <Avatar
@@ -132,7 +125,6 @@ function StudentInfo(props) {
                                                     <h6>Address</h6>
                                                     <p>{stdData.address}</p>
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div className="bg-info mt-4 p-5 shadow">
@@ -203,18 +195,18 @@ function StudentInfo(props) {
 
 export default StudentInfo;
 
-export async function getServerSideProps(context) {
-    const { params } = context;
-    const { id } = params
-    // const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/ViewStudent/${id}`)
-    // const data = await response.json()
-    // const student = data.students
-    return {
-        props: {
-            id: id,
-        },
-    }
-}
+// export async function getServerSideProps(context) {
+//     const { params } = context;
+//     const { id } = params
+//     // const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/ViewStudent/${id}`)
+//     // const data = await response.json()
+//     // const student = data.students
+//     return {
+//         props: {
+//             id: id,
+//         },
+//     }
+// }
 
 // export async function getStaticProps(context) {
 //     const { params } = context;
