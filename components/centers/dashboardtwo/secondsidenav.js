@@ -9,7 +9,7 @@ function Secondnav() {
                 <ul>
                     <Link href={'/centers/register'}>
                         <li className={(path == '/centers/register' ? 'activated' : '')}>
-                            Add New Student
+                            Add Student
                         </li>
                     </Link>
                     <Link href={'/centers/studentlist'}>
@@ -19,12 +19,12 @@ function Secondnav() {
                     </Link>
                     <Link href={'/centers/institution/add'}>
                         <li className={(path == '/centers/institution/add' ? 'activated' : '')}>
-                            Add Students Institution
+                            Add Institution
                         </li>
                     </Link>
                     <Link href={'/centers/institution'}>
                         <li className={(path == '/centers/institution' ? 'activated' : '')}>
-                            View Added Students Institution
+                            View Institutions
                         </li>
                     </Link>
                 </ul>

@@ -12,7 +12,6 @@ function EditStudents() {
     // const { id } = props
     // const { students } = datas
     // console.log(props)
-    console.log(id)
 
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)

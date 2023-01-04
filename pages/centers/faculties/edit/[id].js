@@ -1,5 +1,6 @@
 import { Edit, Email, Phone } from "@mui/icons-material";
 import { Avatar, CircularProgress } from "@mui/material";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
@@ -12,15 +13,13 @@ import TopPilsItems from "../../../../components/centers/toppills";
 
 
 
-function FacultyEdit(props) {
-    const [bearer_key, setBearer_key] = useState(' ');
+function FacultyEdit() {
     const router = useRouter()
-    const studentid = router.query.id
-    const { datas, id } = props
-    const { result } = datas
-    console.log(result[0].id)
+    const { id } = router.query
+    const [bearer_key, setBearer_key] = useState(' ');
     const { status, data } = useSession();
-    const [showNav, setShowNav] = useState(false)
+    const [oldData, setOldData] = useState(' ');
+    const [showNav, setShowNav] = useState(false);
     function navState(ClickedNav) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
@@ -30,6 +29,30 @@ function FacultyEdit(props) {
         facultyTitle: " ",
         facultyCode: " ",
     });
+
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer_key}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    };
+
+    const fetchData = () => {
+        axios(config)
+            .then(function (response) {
+                // console.log(response)
+                const data = response.data;
+                setOldData(data.result)
+                return data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    fetchData()
 
     useEffect(() => {
         if (window) {
@@ -54,7 +77,7 @@ function FacultyEdit(props) {
         setNotify('loading')
 
         const addFaculty = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/EditFaculty/${result[0].id}`, requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/EditFaculty/${id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
             if (status == 200) {
@@ -75,7 +98,6 @@ function FacultyEdit(props) {
         }
         addFaculty()
     };
-
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
@@ -118,14 +140,15 @@ function FacultyEdit(props) {
                                 <form className="card p-4" action="" onSubmit={handleEditFaculty}>
                                     <div className="mb-3">
                                         <label htmlFor="facultyTitle">Faculty Name</label>
-                                        <input
-                                            defaultValue={result[0].title} onChange={(e) => setdeptInfo(
+                                        <input defaultValue={oldData[0].title}
+                                            onChange={(e) => setdeptInfo(
                                                 { ...deptInfo, facultyTitle: e.target.value })} type="text" name="facultyTitle" className="form-control" />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="facultyCode">Faculty Code</label>
-                                        <input defaultValue={result[0].code} onChange={(e) => setdeptInfo(
-                                            { ...deptInfo, facultyCode: e.target.value })} type="text" name="facultyCode" className="form-control" />
+                                        <input
+                                            defaultValue={oldData[0].code} onChange={(e) => setdeptInfo(
+                                                { ...deptInfo, facultyCode: e.target.value })} type="text" name="facultyCode" className="form-control" />
                                     </div>
                                     <div className="col-5 m-auto singleSubmits">
                                         <button type="submit" className="btn rounded-0  text-info w-100">Save</button>
@@ -136,7 +159,6 @@ function FacultyEdit(props) {
                     </div>
                 </div>
             </div>
-
         </>
     return (
         <div className="justify-content-center">
@@ -148,16 +170,3 @@ function FacultyEdit(props) {
 }
 
 export default FacultyEdit;
-
-export async function getServerSideProps(context) {
-    const { params } = context;
-    const { id } = params
-    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`)
-    const data = await response.json()
-    const student = data.students
-    return {
-        props: {
-            datas: data,
-        },
-    }
-}
