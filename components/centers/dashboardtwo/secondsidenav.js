@@ -3,27 +3,27 @@ import Link from "next/link";
 function Secondnav() {
 
     const path = window.location.pathname
-    if (path.includes('institution') || path.includes("studentlist") || path == "/centers/register")
+    if (path.includes('institution') || path.includes("studentlist") || path.includes('register'))
         return (<>
             <div className="secondNav">
                 <ul>
                     <Link href={'/centers/register'}>
-                        <li>
+                        <li className={(path == '/centers/register' ? 'activated' : '')}>
                             Add New Student
                         </li>
                     </Link>
                     <Link href={'/centers/studentlist'}>
-                        <li>
+                        <li className={(path.includes('studentlist') ? 'activated' : '')}>
                             All Students
                         </li>
                     </Link>
                     <Link href={'/centers/institution/add'}>
-                        <li>
+                        <li className={(path == '/centers/institution/add' ? 'activated' : '')}>
                             Add Students Institution
                         </li>
                     </Link>
                     <Link href={'/centers/institution'}>
-                        <li>
+                        <li className={(path == '/centers/institution' ? 'activated' : '')}>
                             View Added Students Institution
                         </li>
                     </Link>

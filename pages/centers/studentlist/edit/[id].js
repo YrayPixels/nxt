@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import AllNavs from "../../../../components/allNavs";
 import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
 
-function EditStudents(props) {
+function EditStudents() {
     const router = useRouter()
-    const studentid = router.query.id
-    const { datas, id } = props
-    const { students } = datas
+    const { id } = router.query
+    // const studentid = router.query.id
+    // const { id } = props
+    // const { students } = datas
+    // console.log(props)
+    console.log(id)
+
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -31,10 +35,11 @@ function EditStudents(props) {
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 d-flex allNavSide` : `d-none`}>
                         <AllNavs />
                     </div>
-                    <div className="col-4 subNav row">
+                    <div className="col-1 subNav row">
                         <AllNavs />
                     </div>
-                    <div className="col-12 col-lg-8  p-lg-5 regMain">
+                    <div className="col-12 col-lg-11 p-lg-5 regMain">
+
 
                     </div>
                 </div>
@@ -50,15 +55,3 @@ function EditStudents(props) {
 }
 
 export default EditStudents;
-export async function getServerSideProps(context) {
-    const { params } = context;
-    const { id } = params
-    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/ViewStudent/${id}`)
-    const data = await response.json()
-    const student = data.students
-    return {
-        props: {
-            datas: data,
-        },
-    }
-}

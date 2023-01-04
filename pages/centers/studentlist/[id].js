@@ -19,7 +19,6 @@ function StudentInfo() {
     // const { id } = props
     // const { students } = datas
     // console.log(props)
-    console.log(id)
     const [bearer_key, setBearer_key] = useState(' ');
     const [dets, setDets] = useState({});
     useEffect(() => {

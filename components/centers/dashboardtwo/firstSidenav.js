@@ -13,7 +13,7 @@ function FirstsideNav() {
                     <span><HomeIcon /></span>
                 </Link>
             </li>
-            <li className={(path.includes('studentlist') ? 'activated' : '')}>
+            <li className={(path.includes('studentlist') || path.includes('institution') || path.includes('register') ? 'activated' : '')}>
                 <Link href='/centers/studentlist'><span><PeopleOutlineOutlined /></span>
                 </Link>
             </li>
