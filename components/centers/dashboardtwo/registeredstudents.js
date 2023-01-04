@@ -55,7 +55,6 @@ function StudentsList(props) {
 
                 <div>
                     <h6 className="fw-bold">Total No of Students:  {datali.length}</h6>
-                    <p>Done this month</p>
                 </div>
                 <table className="tableData table table-striped table-sm table-hover  ">
                     <thead>

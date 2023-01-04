@@ -8,13 +8,14 @@ import { Add, PlusOneOutlined, Remove, RemoveCircle } from "@mui/icons-material"
 import Home from "@mui/icons-material/Home";
 
 function StudentRegistration(props) {
+    const router = useRouter()
     const { details, bearer } = props;
     const [bearer_key, setBearer_key] = useState(' ');
     const [notify, setNotify] = useState(' ');
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
     const [department, setDepartment] = useState([]);
-    let looperArray = [];
+    const [loope, setLooper] = useState('');
     const [qual, setqual] = useState([]);
     const [Inst, setInst] = useState([]);
 
@@ -27,6 +28,8 @@ function StudentRegistration(props) {
         institution_id: " ",
         institution_name: " ",
     })
+
+
     let ArraysQualification = [];
     const [arrayys, setArrayys] = useState([])
     const [lga, setLga] = useState([]);
@@ -49,6 +52,7 @@ function StudentRegistration(props) {
         Nationality: " ",
         state: "0",
         lga: " ",
+        level: " ",
         heighest_qualification_year: " ",
         employee: " ",
         employee_type: "",
@@ -56,11 +60,16 @@ function StudentRegistration(props) {
         nationality: " ",
     });
     const { session, status } = useSession();
+    let looperArray = []
     function looper() {
-        for (let i = 0; i <= 90; i++) {
-            looperArray.push(i)
+        if (looperArray.length >= 53) {
+            setLooper(looperArray)
+        } else {
+            for (let i = 1970; i <= 2023; i++) {
+                looperArray.push({ i })
+                setLooper(looperArray)
+            }
         }
-        console.log(looperArray)
     }
 
     const fetchData = () => {
@@ -73,7 +82,6 @@ function StudentRegistration(props) {
         const allQual = `https://stockmgt.gapaautoparts.com/api/GetAllQualifications`
         const allInstitutes = `https://stockmgt.gapaautoparts.com/api/GetAllinstitutions`
 
-
         const getAllPrograms = axios.get(allPrograms);
         const getAllCourse = axios.get(allCourses);
         const getAllFaculties = axios.get(allFaculties);
@@ -82,11 +90,6 @@ function StudentRegistration(props) {
         const getAllLga = axios.get(allLga);
         const getAllQual = axios.get(allQual);
         const getAllInstitutes = axios.get(allInstitutes);
-
-
-
-
-
 
         axios.all([getAllPrograms, getAllCourse, getAllFaculties, getAllDept, getAllStates, getAllLga, getAllQual, getAllInstitutes]).then(
             axios.spread((...allData) => {
@@ -98,10 +101,6 @@ function StudentRegistration(props) {
                 const allLgaData = allData[5].data.result;
                 const allQualData = allData[6].data.result;
                 const allInstitutesData = allData[7].data.result;
-
-
-
-
 
                 setProgram(allProgramsData)
                 setCourses(allCoursesData)
@@ -119,17 +118,6 @@ function StudentRegistration(props) {
         fetchData()
     }, [userInfo.state, userInfo.faculty_id])
 
-    // function selectLga() {
-    //     const allLga = `https://stockmgt.gapaautoparts.com/api/getLGA/${userInfo.state}`
-    //     const getAllLga = axios.get(allLga);
-    //     axios.all([getAllLga]).then(
-    //         axios.spread((...allData) => {
-    //             const allLgaData = allData[0].data.result;
-    //             setLga(allLgaData)
-    //         })
-    //     )
-
-    // }
     function removeQual(e, val) {
         e.preventDefault()
 
@@ -137,7 +125,6 @@ function StudentRegistration(props) {
             return ele != val
         })
         setArrayys(filtered);
-        // console.log(val)
     }
     function setInstname(event, value) {
         setQualArray(
@@ -151,7 +138,8 @@ function StudentRegistration(props) {
         e.preventDefault()
         ArraysQualification.push(qaulArray)
         setArrayys(arrayys.concat(ArraysQualification))
-        // console.log(arrayys)
+
+        console.log(arrayys)
     }
 
     const handleStudentReg = async (e) => {
@@ -168,7 +156,7 @@ function StudentRegistration(props) {
         urlencoded.append("occupation", userInfo.occupation);
         urlencoded.append("heighest_qualification", userInfo.heighest_qualification);
         urlencoded.append("center_id", details.id);
-        urlencoded.append("Authorization", `Bearer ${bearer} `)
+        urlencoded.append("Authorization", `Bearer ${bearer}`)
         urlencoded.append("sex", userInfo.sex);
         urlencoded.append("age", userInfo.age);
         urlencoded.append("Nationality", userInfo.Nationality);
@@ -179,18 +167,21 @@ function StudentRegistration(props) {
         urlencoded.append("employee_type", userInfo.employee_type);
         urlencoded.append("employment_status", userInfo.employment_status);
         urlencoded.append('Nationality', userInfo.nationality);
+        urlencoded.append('level', userInfo.level);
 
         var requestOptions = {
             method: 'POST',
             body: urlencoded,
             redirect: 'follow'
         };
+
         setNotify('loading')
-        // console.log(urlencoded)
         const addStudent = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddNewStudent", requestOptions)
             const data = await response.json()
             const status = response.status;
+            let student = data.student;
+            console.log(data)
             if (status == 200) {
                 setNotify('Student Added Succesfully')
                 Swal.fire({
@@ -199,6 +190,30 @@ function StudentRegistration(props) {
                     confirmButtonText: 'close'
                 })
 
+                arrayys.map(qual => {
+                    var urlencoded = new URLSearchParams();
+                    urlencoded.append("student_id", student.id);
+                    urlencoded.append("qualification_id", qual.qualification_id);
+                    urlencoded.append("year", qual.year);
+                    urlencoded.append("institution_id", qual.institution_id);
+
+                    var requestOptions = {
+                        method: 'POST',
+                        body: urlencoded,
+                        redirect: 'follow'
+                    };
+
+                    fetch("https://stockmgt.gapaautoparts.com/api/center/addStudentQualification", requestOptions)
+                        .then(response => response.text())
+                        .then(result => console.log(result))
+                        .catch(error => console.log('error', error));
+                    return 0
+
+                })
+
+
+
+                router.push('/centers/studentlist')
             } else if (status == 202) {
                 setNotify('Student Already Registered')
                 Swal.fire({
@@ -209,10 +224,8 @@ function StudentRegistration(props) {
             } else {
                 setNotify('Error Occured!!!')
             }
-
         }
         addStudent()
-
     };
 
     return (<>
@@ -235,7 +248,6 @@ function StudentRegistration(props) {
                     <label htmlFor="fullname">Student Name</label>
                     <input onChange={(e) => setUserInfo(
                         { ...userInfo, names: e.target.value })}
-
                         required type="text" name="fullname" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
@@ -252,7 +264,6 @@ function StudentRegistration(props) {
                     <label htmlFor="age">Age</label>
                     <input required onChange={(e) => setUserInfo(
                         { ...userInfo, age: e.target.value })} type="number" name="age" className="form-control" max={90} min={10} >
-
                         {/* <option value="option your age"> option your age</option>
                         {
                             looperArray.map(age => {
@@ -292,18 +303,14 @@ function StudentRegistration(props) {
                     <label htmlFor="lga">LGA</label>
                     <select required name="lga" onChange={(e) => setUserInfo(
                         { ...userInfo, lga: e.target.value })} class="form-select" aria-label="Default select example"  >
-
                         <option selected>Select your LGA</option>
                         {
                             lga.map(lga => {
                                 return (
                                     <option value={lga.id}>{lga.Lga}</option>
-
                                 )
                             })
-
                         }
-
                     </select>
                 </div>
                 <div className=" col-6 mb-3">
@@ -384,30 +391,59 @@ function StudentRegistration(props) {
 
                         </select>
                     </div>
+                    <div className="col-6 mb-3">
+                        <label htmlFor="level">Level </label>
+                        <select required onChange={(e) => setUserInfo(
+                            { ...userInfo, level: e.target.value })} type='text' name="level" className="form-control" >
+
+                            <option value={'2020'}>Kindly select your level</option>
+                            <option value="100">Year 1</option>
+                            <option value="200">Year 2</option>
+                            <option value="300">Year 3</option>
+                            <option value="400">Year 4</option>
+                            <option value="500">Year 5</option>
+
+                        </select>
+                    </div>
                     <form className="qualification date">
                         <fieldset><legend>Educational Qualifications</legend>
                             <div className="row align-items-center">
                                 <div className="col-6 mb-3">
                                     <label htmlFor="highest_qualifcation">Highest Qualifcation</label>
-                                    <select required name="highest_qualifcation" onChange={(e) => setUserInfo(
+                                    <select onClick={looper} required name="highest_qualifcation" onChange={(e) => setUserInfo(
                                         { ...userInfo, heighest_qualification: e.target.value }
                                     )} class="form-select" aria-label="Default select example">
 
                                         <option value={'None'}>Select your qualification</option>
                                         <option value="SSCE">SSCE</option>
                                         <option value="HND">HND</option>
-                                        <option value="PHD">PHD</option>
                                         <option value="BSC">BSC</option>
                                         <option value="MSC">MSC</option>
+                                        <option value="PHD">PHD</option>
+
 
 
                                     </select>
                                 </div>
                                 <div className="col-6 mb-3">
-                                    <label htmlFor="academic">Year Finished</label>
-                                    <input required onChange={(e) => setUserInfo(
-                                        { ...userInfo, heighest_qualification_year: e.target.value })} type='text' name="academic" className="form-control" />
+                                    <label htmlFor="year_finished">Year Finished</label>
+                                    <select required onChange={(e) => setUserInfo(
+                                        { ...userInfo, heighest_qualification_year: e.target.value })} type='text' name="year_finished" className="form-control" >
+
+                                        <option value={'2020'}>Select Year Finished</option>
+                                        <option value={'2021'} >2021</option>
+                                        {/* {loope == ' ' ? <p>empty</p> :
+                                            loope.map(program => {
+                                                return (
+                                                    <option value={program.id}>{program.i}</option>
+
+                                                )
+                                            })
+
+                                        } */}
+                                    </select>
                                 </div>
+
 
 
                             </div>
@@ -424,24 +460,25 @@ function StudentRegistration(props) {
 
                                                 return (
                                                     <option onClick={event => setQualname(event, qual.qualification)} value={qual.id}>{qual.qualification}</option>
-
                                                 )
                                             })
-
                                         }
-
                                     </select>
                                 </div>
                                 <div className="col-3 mb-3">
                                     <label htmlFor="academic">Year Finished</label>
-                                    <input required onChange={(e) => setQualArray(
-                                        { ...qaulArray, year: e.target.value })} type="date" name="academic" className="form-control" />
+                                    <select required onChange={(e) => setQualArray(
+                                        { ...qaulArray, year: e.target.value })} type='text' name="year_finished" className="form-control">
+                                        <option value='2020'>Select Year Finished</option>
+                                        <option value='2021' >2021</option>
+                                    </select>
+                                    {/* <input required onChange={(e) => setQualArray(
+                                            { ...qaulArray, year: e.target.value })} type="date" name="academic" className="form-control" /> */}
                                 </div>
                                 <div className="col-3 mb-3">
                                     <label htmlFor="institute">Institution</label>
                                     <select required name="institute" onChange={(e) => setQualArray(
                                         { ...qaulArray, institution_id: e.target.value })} class="form-select" aria-label="Default select example">
-
                                         <option selected>Select your institution</option>
                                         {
                                             Inst.map(Inst => {

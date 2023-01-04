@@ -27,7 +27,6 @@ function RegisterStudents() {
             setDets(JSON.parse(window.sessionStorage.getItem('dets')));
         }
     }, []);
-
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
