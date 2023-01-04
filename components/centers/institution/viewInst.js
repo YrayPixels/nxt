@@ -80,12 +80,12 @@ function ViewInstitutes(props) {
 
             <input type="text" className='form-control w-50' placeholder='Enter Text Here...' />
         </div>
-        <div className="bg-info p-4 shadow rounded-0">
+        <div className="bg-info p-4 table-responsive  shadow rounded-0">
 
             <div>
                 <h6 className="fw-bold">Total No of Institutions: {faculty.length}</h6>
             </div>
-            <table className="tableData table table-striped table-sm table-responsive table">
+            <table className="tableData table table-striped table-sm table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
