@@ -119,21 +119,21 @@ function StudentInfo(props) {
                                                 </div>
                                             </div>
                                             <hr />
-                                            {/* <div className="d-flex justify-content-between">
-                                    <div className="col">
-                                        <h6>Gender</h6>
-                                        <p>{stdData.sex}</p>
-                                    </div>
-                                    <div className="col">
-                                        <h6>Age</h6>
-                                        <p>{stdData.age}</p>
-                                    </div>
-                                    <div className="col">
-                                        <h6>Address</h6>
-                                        <p>{stdData.address}</p>
-                                    </div>
+                                            <div className="d-flex justify-content-between">
+                                                <div className="col">
+                                                    <h6>Gender</h6>
+                                                    <p>{stdData.sex}</p>
+                                                </div>
+                                                <div className="col">
+                                                    <h6>Age</h6>
+                                                    <p>{stdData.age}</p>
+                                                </div>
+                                                <div className="col">
+                                                    <h6>Address</h6>
+                                                    <p>{stdData.address}</p>
+                                                </div>
 
-                                </div> */}
+                                            </div>
                                         </div>
                                         <div className="bg-info mt-4 p-5 shadow">
                                             <div className="row">
@@ -215,3 +215,16 @@ export async function getServerSideProps(context) {
         },
     }
 }
+
+// export async function getStaticProps(context) {
+//     const { params } = context;
+//     const { id } = params
+//     // const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/ViewStudent/${id}`)
+//     // const data = await response.json()
+//     // const student = data.students
+//     return {
+//         props: {
+//             id: id,
+//         },
+//     }
+// }

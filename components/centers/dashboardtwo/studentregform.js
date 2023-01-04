@@ -15,7 +15,6 @@ function StudentRegistration(props) {
     const [programs, setProgram] = useState([]);
     const [faculties, setFaculties] = useState([]);
     const [department, setDepartment] = useState([]);
-    const [loope, setLooper] = useState('');
     const [qual, setqual] = useState([]);
     const [Inst, setInst] = useState([]);
 
@@ -60,6 +59,8 @@ function StudentRegistration(props) {
         nationality: " ",
     });
     const { session, status } = useSession();
+    const [loope, setLooper] = useState(' ');
+
     let looperArray = []
     function looper() {
         if (looperArray.length >= 53) {
@@ -429,18 +430,15 @@ function StudentRegistration(props) {
                                     <label htmlFor="year_finished">Year Finished</label>
                                     <select required onChange={(e) => setUserInfo(
                                         { ...userInfo, heighest_qualification_year: e.target.value })} type='text' name="year_finished" className="form-control" >
-
-                                        <option value={'2020'}>Select Year Finished</option>
-                                        <option value={'2021'} >2021</option>
-                                        {/* {loope == ' ' ? <p>empty</p> :
+                                        {loope == ' ' ? <option > none </option> :
                                             loope.map(program => {
                                                 return (
-                                                    <option value={program.id}>{program.i}</option>
+                                                    <option value={`${program.i}`}>{program.i}</option>
 
                                                 )
                                             })
 
-                                        } */}
+                                        }
                                     </select>
                                 </div>
 
@@ -469,8 +467,16 @@ function StudentRegistration(props) {
                                     <label htmlFor="academic">Year Finished</label>
                                     <select required onChange={(e) => setQualArray(
                                         { ...qaulArray, year: e.target.value })} type='text' name="year_finished" className="form-control">
-                                        <option value='2020'>Select Year Finished</option>
-                                        <option value='2021' >2021</option>
+                                        {loope == ' ' ?
+                                            <option value='2020'>Select Year Finished</option> :
+                                            loope.map(program => {
+                                                return (
+                                                    <option value={`${program.i}`}>{program.i}</option>
+
+                                                )
+                                            })
+
+                                        }
                                     </select>
                                     {/* <input required onChange={(e) => setQualArray(
                                             { ...qaulArray, year: e.target.value })} type="date" name="academic" className="form-control" /> */}

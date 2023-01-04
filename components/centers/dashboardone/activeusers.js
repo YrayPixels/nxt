@@ -11,7 +11,7 @@ function TotalactiveUsers() {
     const { data, error } = useSWR('totalUsers', fetcher)
 
     if (error)
-        return 'An error has occured'
+        return <CircularProgress />
     if (!data) return <CircularProgress />
 
     return (

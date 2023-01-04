@@ -11,7 +11,7 @@ function TotalCourse() {
     const { data, error } = useSWR('totalCourses', fetcher)
 
     if (error)
-        return 'An error has occured'
+        return <CircularProgress />
     if (!data) return <CircularProgress />
     return (
         <div className="row align-items-center shadow topPills">

@@ -12,7 +12,7 @@ function Totalfemale() {
     const { data, error } = useSWR('totalFemales', fetcher)
 
     if (error)
-        return 'An error has occured'
+        return <CircularProgress />
     if (!data) return <CircularProgress />
     return (
         <div className="row align-items-center shadow text-center text-md-start topPills">

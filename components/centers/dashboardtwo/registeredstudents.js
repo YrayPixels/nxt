@@ -6,6 +6,7 @@ import axios from 'axios';
 import { EmailOutlined } from '@mui/icons-material';
 import Link from 'next/link';
 import { useQuery } from 'react-query';
+import Swal from 'sweetalert2';
 
 // Main Func
 function StudentsList(props) {
@@ -15,6 +16,37 @@ function StudentsList(props) {
     const [datali, setData] = useState(' ');
     // console.log(datali)
     function deleteStud(param) {
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
+
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        const deleteStudent = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideStudent/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Student Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+
+        deleteStudent()
         console.log(param)
     }
 

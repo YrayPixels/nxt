@@ -10,7 +10,7 @@ function Totalfaculty() {
     const { data, error } = useSWR('totalFaculty', fetcher)
 
     if (error)
-        return 'An error has occured'
+        return <CircularProgress />
     if (!data) return <CircularProgress />
     return (
         <div className="row topPills shadow  align-items-center">

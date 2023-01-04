@@ -13,7 +13,7 @@ function ViewInstitutes(props) {
     const { loading, setLoading } = useState(false);
     const [faculty, setFaculty] = useState(' ')
 
-    function deleteFaculty(param) {
+    function deleteInst(param) {
         var urlencoded = new URLSearchParams();
         urlencoded.append("Authorization", `Bearer ${bearer}`);
 
@@ -22,14 +22,14 @@ function ViewInstitutes(props) {
             body: urlencoded,
             redirect: 'follow'
         };
-        const deletefac = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
+        const deleteInstitute = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideInstitution/${param}`, requestOptions)
             const data = await response.json()
             // console.log(response.status)
             if (response.status == 200) {
                 // setNotify('Faculty Deleted Successfully')
                 Swal.fire({
-                    title: 'Faculty Deleted Succesfully',
+                    title: 'Institution Deleted Succesfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
@@ -44,7 +44,7 @@ function ViewInstitutes(props) {
 
         }
 
-        deletefac()
+        deleteInstitute()
     }
 
     var config = {
@@ -108,7 +108,7 @@ function ViewInstitutes(props) {
                                             </Link>
                                         </button>
 
-                                        <button onClick={() => deleteFaculty(`${data.id}`)} className='btn  btn-sm btn-danger p-2'>
+                                        <button onClick={() => deleteInst(`${data.id}`)} className='btn  btn-sm btn-danger p-2'>
                                             Delete
                                         </button>
                                     </div></td>
