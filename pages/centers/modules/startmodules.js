@@ -2,16 +2,16 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
-import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
-import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
+
 import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
-import Programlaunching from "../../../components/pagesIndex/launch"
 import AllNavs from "../../../components/allNavs"
+import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
 import TopPilsItems from "../../../components/centers/toppills"
+import Logo from '../../../public/image/spesee.png'
+import StartModules from "../../../components/centers/modules/startmodulesComp"
 
 
-function LaunchProgram
-    () {
+function StartM() {
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -26,6 +26,7 @@ function LaunchProgram
             setDets(JSON.parse(window.sessionStorage.getItem('dets')));
         }
     }, []);
+
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
@@ -34,7 +35,7 @@ function LaunchProgram
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">
@@ -53,15 +54,13 @@ function LaunchProgram
                                 <Secondnav />
                             </div>
                             <div className="col-10 p-lg-3">
-                                <Programlaunching details={dets} bearer={bearer_key} />
+                                <StartModules details={dets} bearer={bearer_key} />
                             </div>
                         </div>
                     </div>
-                    {/* <div className="col-12 col-lg-8  p-lg-5 regMain">
-                        <Programlaunching />
-                    </div> */}
                 </div>
             </div>
+
         </>
     return (
         <div className="justify-content-center">
@@ -72,4 +71,4 @@ function LaunchProgram
     )
 }
 
-export default LaunchProgram
+export default StartM

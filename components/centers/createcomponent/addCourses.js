@@ -28,9 +28,10 @@ function AddCoursesComp(props) {
             })
         )
     }
-    useEffect(() => {
-        fetchData()
-    }, [courseInfo.coursetitle])
+    fetchData()
+
+    // useEffect(() => {
+    // }, [courseInfo.coursetitle])
 
     const handleCourseReg = async (e) => {
         e.preventDefault()
@@ -95,21 +96,6 @@ function AddCoursesComp(props) {
         </h3>
         <form className="card p-4" action="" onSubmit={handleCourseReg}>
             <div className="mb-3">
-                <label htmlFor="coursetitle">Module Title</label>
-                <input onChange={(e) => setCourseInfo(
-                    { ...courseInfo, coursetitle: e.target.value })} type="text" name="coursetitle" className="form-control" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="coursecode">Module Code</label>
-                <input onChange={(e) => setCourseInfo(
-                    { ...courseInfo, coursecode: e.target.value })} type="text" name="coursecode" className="form-control" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="unit">Unit</label>
-                <input onChange={(e) => setCourseInfo(
-                    { ...courseInfo, unit: e.target.value })} type="text" name="unit" className="form-control" />
-            </div>
-            <div className="mb-3">
                 <label htmlFor="node">Node</label>
                 <select name="node" onChange={(e) => setCourseInfo(
                     { ...courseInfo, node_id: e.target.value })} class="form-select" aria-label="Default select example">
@@ -146,6 +132,21 @@ function AddCoursesComp(props) {
                     }
 
                 </select>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="coursetitle">Module Title</label>
+                <input onChange={(e) => setCourseInfo(
+                    { ...courseInfo, coursetitle: e.target.value })} type="text" name="coursetitle" className="form-control" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="coursecode">Module Code</label>
+                <input onChange={(e) => setCourseInfo(
+                    { ...courseInfo, coursecode: e.target.value })} type="text" name="coursecode" className="form-control" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="unit">Unit</label>
+                <input onChange={(e) => setCourseInfo(
+                    { ...courseInfo, unit: e.target.value })} type="text" name="unit" className="form-control" />
             </div>
             <div className="col-5 m-auto singleSubmits">
                 <button type="submit" className="btn rounded-0  text-info w-100"> Add Course</button>

@@ -1,28 +1,57 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link'
+import { useState } from 'react';
+import Swal from 'sweetalert2';
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 1864|w9UGxb7vazHXFkv6Z9zs60jfrch48emobrIN6alM");
 
-var requestOptions = {
-    method: 'GET',
-    // headers: myHeaders,
-    redirect: 'follow'
-};
-const fetcher = async () => {
-    const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/1", requestOptions)
-    const data = await response.json()
-    return data.result
-}
 
-function AllLaunchedProg() {
-    const { data, error } = useSWR('launched', fetcher)
-    // console.log(data)
-    if (error)
-        return 'An error has occured'
-    if (!data) return <CircularProgress />
-    // console.log(data)
+function AllLaunchedProg(props) {
+    const { details, bearer } = props
+    const [launchedCourse, setLaunchedCourse] = useState(' ')
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${bearer}`);
+
+    var requestOptions = {
+        method: 'GET',
+        // headers: myHeaders,
+        redirect: 'follow'
+    };
+    const fetcher = async () => {
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`, requestOptions)
+        const data = await response.json()
+        setLaunchedCourse(data.result)
+        return data.result
+    }
+    function hideSession(param) {
+        console.log(param)
+        // console.log(bearer_key)
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        const fetcher = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideLunchedProgramme/${param}`, requestOptions)
+            const data = await response.json()
+            // setLoading(false)
+            if (response.status == 200) {
+                Swal.fire({
+                    title: 'Courses Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+        fetcher()
+    }
+
+    fetcher()
+
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All Launched Courses</p>
@@ -32,39 +61,43 @@ function AllLaunchedProg() {
         <div className="bg-info p-4 shadow rounded-0  table-responsive ">
 
             <div>
-                <h6 className="fw-bold">Total No of Launched Courses: {data.length}</h6>
+                <h6 className="fw-bold">Total No of Launched Courses: {launchedCourse.length}</h6>
             </div>
             <table className="tableData table-hover table-striped table">
                 <thead>
                     <tr>
+                        <th>S/N</th>
                         <th>COURSES NAME</th>
                         <th>START DATE</th>
                         <th>END DATE</th>
                         <th>ANNOUNCEMENT DATE</th>
                         <th>ANNOUNCEMENT LINK</th>
                         <th>OTHER MEDIA LINK</th>
-                        <th>SESSION ID</th>
+                        <th>SESSION</th>
                         <th>ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.map(programme => {
+                    {launchedCourse == ' ' ? <p><CircularProgress /></p> :
+                        launchedCourse.map(programme => {
                             return (
                                 <tr className='align-items-center '>
-                                    <td><span><img src="" alt="" /></span> {programme.programme_id}</td>
+                                    <td>{launchedCourse.indexOf(programme) + 1}</td>
+                                    <td>{programme.title}</td>
                                     <td>{programme.start_date}</td>
                                     <td>{programme.end_date}</td>
                                     <td>{programme.announcement_date} </td>
                                     <td>{programme.announcement_link}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{programme.other_media_link}</td>
+                                    <td>{programme.session}</td>
+                                    <td>{programme.programme_lunched_id}</td>
                                     <td>
                                         <div className='btn-group'>
                                             <button className='btn btn-primary p-2'>
                                                 Edit
                                             </button>
-                                            <button className='btn btn-danger p-2'>
+                                            <button onClick={() =>
+                                                hideSession(`${programme.programme_lunched_id}`)} className='btn btn-danger p-2'>
                                                 Delete
                                             </button>
                                         </div>

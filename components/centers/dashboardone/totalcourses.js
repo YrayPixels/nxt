@@ -10,14 +10,14 @@ const fetcher = async () => {
 function TotalCourse() {
     const { data, error } = useSWR('totalCourses', fetcher)
 
-    if (error)
-        return <CircularProgress />
-    if (!data) return <CircularProgress />
     return (
-        <div className="row align-items-center shadow topPills">
+        <div className="row topPills shadow  align-items-center">
             <div className="col-12 col-md-8">
-                <p>Total No of Courses</p>
-                <p className="fw-bold num">{data.result}</p>
+                <p>Total Courses</p>
+                <p className="fw-bold num">{
+                    error ? '---' :
+
+                        !data ? '---' : data.result}</p>
             </div>
             <div className="col-12 col-md-4 text-center ">
                 <span className='text-center shadow-sm '><Book /></span>
@@ -25,5 +25,6 @@ function TotalCourse() {
             </div>
         </div>
     );
+
 }
 export default TotalCourse;

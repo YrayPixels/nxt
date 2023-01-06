@@ -102,18 +102,12 @@ function AllCourses(props) {
                                     <td className='text-center'><div className='btn-group'>
 
                                         <button className='btn btn-primary btn-sm p-2'>
-                                            <Link href={`/centers/courses/edit/${data.id}`}>
+                                            <Link href={`/centers/modules/edit/${data.id}`}>
                                                 Edit
                                             </Link>
                                         </button>
                                         <button onClick={() => deleteModules(`${data.id}`)} className='btn btn-sm btn-danger p-2'>
                                             Delete
-                                        </button>
-                                        <button className='btn btn-sm btn-success'>
-                                            Start Module
-                                        </button>
-                                        <button className='btn btn-sm btn-dark'>
-                                            Add Attendees
                                         </button>
                                     </div></td>
                                 </tr>

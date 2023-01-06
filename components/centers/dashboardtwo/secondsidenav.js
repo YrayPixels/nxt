@@ -35,12 +35,12 @@ function Secondnav() {
             <div className="secondNav">
                 <ul>
                     <Link href={'/centers/lecturers/register'}>
-                        <li>
-                            Add New Lecturer
+                        <li className={(path.includes('lecturers/register') ? 'activated' : '')}>
+                            Add Lecturer
                         </li>
                     </Link>
                     <Link href={'/centers/lecturers'}>
-                        <li>
+                        <li className={(path == '/centers/lecturers' ? 'activated' : '')}>
                             All Lecturers
                         </li>
                     </Link>
@@ -52,18 +52,28 @@ function Secondnav() {
             <div className="secondNav">
                 <ul>
                     <Link href={'/centers/modules/addmodules'}>
-                        <li>
+                        <li className={(path == '/centers/modules/addmodules' ? 'activated' : '')}>
                             Add Modules
                         </li>
                     </Link>
                     <Link href={'/centers/modules'}>
-                        <li>
-                            View all Modules
+                        <li className={(path == '/centers/modules' ? 'activated' : '')}>
+                            View Modules
+                        </li>
+                    </Link>
+                    <Link href={'/centers/modules/startmodules'}>
+                        <li className={(path == '/centers/modules/startmodules' ? 'activated' : '')}>
+                            Start Modules
+                        </li>
+                    </Link>
+                    <Link href={'/centers/attendance/addattendees'}>
+                        <li className={(path == '/centers/attendance/addattendees' ? 'activated' : '')}>
+                            Add Attendees
                         </li>
                     </Link>
                     <Link href={'/centers/attendance/allattendees'}>
-                        <li>
-                            View Module Attendees
+                        <li className={(path == '/centers/attendance/allattendees' ? 'activated' : '')}>
+                            View Attendees
                         </li>
                     </Link>
                 </ul>
@@ -74,13 +84,13 @@ function Secondnav() {
             <div className="secondNav">
                 <ul>
                     <Link href={'/centers/node/addnode'}>
-                        <li>
+                        <li className={(path == '/centers/node/addnode' ? 'activated' : '')}>
                             Add Nodes
                         </li>
                     </Link>
                     <Link href={'/centers/node'}>
-                        <li>
-                            View all Nodes
+                        <li className={(path == '/centers/node' ? 'activated' : '')}>
+                            View Nodes
                         </li>
                     </Link>
                 </ul>
@@ -91,13 +101,13 @@ function Secondnav() {
             <div className="secondNav">
                 <ul>
                     <Link href={'/centers/session/addsession'}>
-                        <li>
+                        <li className={(path == '/centers/session/addsession' ? 'activated' : '')}>
                             Add Session
                         </li>
                     </Link>
                     <Link href={'/centers/session'}>
-                        <li>
-                            View all Session
+                        <li className={(path == '/centers/session' ? 'activated' : '')}>
+                            View Session
                         </li>
                     </Link>
                 </ul>
@@ -108,13 +118,13 @@ function Secondnav() {
             <div className="secondNav">
                 <ul>
                     <Link href={'/centers/faculties/addfaculty'}>
-                        <li>
+                        <li className={(path == '/centers/faculties/addfaculty' ? 'activated' : '')}>
                             Add Faculties
                         </li>
                     </Link>
                     <Link href={'/centers/faculties'}>
-                        <li>
-                            View all Faculties
+                        <li className={(path == '/centers/faculties' ? 'activated' : '')}>
+                            View Faculties
                         </li>
                     </Link>
                 </ul>
@@ -124,13 +134,13 @@ function Secondnav() {
         return (<>
             <div className="secondNav">
                 <Link href={'/centers/department/adddept'}>
-                    <li>
+                    <li className={(path == '/centers/department/adddept' ? 'activated' : '')}>
                         Add Department
                     </li>
                 </Link>
                 <Link href={'/centers/department'}>
-                    <li>
-                        View all Department
+                    <li className={(path == '/centers/department' ? 'activated' : '')}>
+                        View Department
                     </li>
                 </Link>
             </div>
@@ -139,12 +149,12 @@ function Secondnav() {
         return (<>
             <div className="secondNav">
                 <Link href={'/centers/launchcourse'}>
-                    <li>
+                    <li className={(path == '/centers/launchcourse' ? 'activated' : '')}>
                         Launch Course
                     </li>
                 </Link>
                 <Link href={'/centers/launchcourse/launchedcourses'}>
-                    <li>
+                    <li className={(path == '/centers/launchcourse/launchedcourses' ? 'activated' : '')}>
                         Courses Launched
                     </li>
                 </Link>

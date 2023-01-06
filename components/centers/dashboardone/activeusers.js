@@ -10,15 +10,14 @@ const fetcher = async () => {
 function TotalactiveUsers() {
     const { data, error } = useSWR('totalUsers', fetcher)
 
-    if (error)
-        return <CircularProgress />
-    if (!data) return <CircularProgress />
-
     return (
-        <div className="row align-items-center shadow topPills">
+        <div className="row topPills shadow  align-items-center">
             <div className="col-12 col-md-8">
-                <p>Active Users</p>
-                <p className="fw-bold num">{data.result}</p>
+                <p>Total Active Users</p>
+                <p className="fw-bold num">{
+                    error ? '---' :
+
+                        !data ? '---' : data.result}</p>
             </div>
             <div className="col-12 col-md-4 text-center ">
                 <span className='text-center shadow-sm '><People /></span>
@@ -26,5 +25,6 @@ function TotalactiveUsers() {
             </div>
         </div>
     );
+
 }
 export default TotalactiveUsers;

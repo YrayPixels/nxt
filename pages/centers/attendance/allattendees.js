@@ -2,22 +2,15 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import Router from "next/router"
 import { CircularProgress } from "@mui/material"
-import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav"
-import FirstsideNav from "../../../components/centers/dashboardtwo/firstSidenav"
-import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav"
-import Programlaunching from "../../../components/pagesIndex/launch"
-import AllNavs from "../../../components/allNavs"
-import TopPilsItems from "../../../components/centers/toppills"
+import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
+import AllNavs from "../../../components/allNavs";
+import TopPilsItems from "../../../components/centers/toppills";
 
+import AddAttendanceComp from "../../../components/centers/attendance/addAttendance";
+import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
+import AllAttendees from "../../../components/centers/attendance/allAttendees";
 
-function LaunchProgram
-    () {
-    const { status, data } = useSession();
-    const [showNav, setShowNav] = useState(false)
-    function navState(ClickedNav) {
-        // alert(ClickedNav)
-        setShowNav(ClickedNav)
-    }
+function ModulesAttendees() {
     const [bearer_key, setBearer_key] = useState(' ');
     const [dets, setDets] = useState({});
     useEffect(() => {
@@ -26,6 +19,13 @@ function LaunchProgram
             setDets(JSON.parse(window.sessionStorage.getItem('dets')));
         }
     }, []);
+    const { status, data } = useSession();
+    const [showNav, setShowNav] = useState(false)
+    function navState(ClickedNav) {
+        // alert(ClickedNav)
+        setShowNav(ClickedNav)
+    }
+
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
     }, [status]);
@@ -37,6 +37,7 @@ function LaunchProgram
                         <NewtopNAv naviState={navState} />
                     </div>
                 </div>
+
                 <div className="row ">
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 d-flex allNavSide` : `d-none`}>
                         <AllNavs />
@@ -45,21 +46,19 @@ function LaunchProgram
                         <AllNavs />
                     </div>
                     <div className="col-12 col-lg-11 regMain">
-                        <div className="pb-4 px-2">
+                        <div className="p-2">
                             <TopPilsItems />
                         </div>
                         <div className="row pt-3">
                             <div className="col-2 border bg-info border-1">
                                 <Secondnav />
                             </div>
+
                             <div className="col-10 p-lg-3">
-                                <Programlaunching details={dets} bearer={bearer_key} />
+                                <AllAttendees details={dets} bearer={bearer_key} />
                             </div>
                         </div>
                     </div>
-                    {/* <div className="col-12 col-lg-8  p-lg-5 regMain">
-                        <Programlaunching />
-                    </div> */}
                 </div>
             </div>
         </>
@@ -72,4 +71,12 @@ function LaunchProgram
     )
 }
 
-export default LaunchProgram
+export default ModulesAttendees;
+
+
+
+
+
+
+
+
