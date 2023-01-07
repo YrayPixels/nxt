@@ -37,6 +37,9 @@
     height: 1vh;
 }
 
+.filter {
+    list-style-type: none;
+}
 
 /* Admin Page */
 .sideNav {

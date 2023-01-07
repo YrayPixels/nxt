@@ -18,7 +18,7 @@ function AddNodeComp(props) {
     });
 
     const coursesdataFetcher = () => {
-        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/1634I6495442478`
+        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
         const getallCourse = axios.get(coursesInCenter);
 
         axios.all([getallCourse]).then(

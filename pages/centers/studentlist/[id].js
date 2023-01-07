@@ -28,6 +28,8 @@ function StudentInfo() {
         }
     }, []);
     const [stdData, setStdData] = useState(' ')
+    const [stdQual, setStdQual] = useState(' ')
+
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -48,7 +50,10 @@ function StudentInfo() {
             .then(function (response) {
                 const data = response.data;
                 setStdData(data.students)
+                setStdQual(data.qualifications)
+                console.log(data)
                 return data;
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -79,13 +84,16 @@ function StudentInfo() {
                         <div className="p-2">
                             <TopPilsItems />
                         </div>
-                        {
-                            stdData == ' ' ? <p><CircularProgress /></p> :
-                                <div className="row pt-3">
-                                    <div className="col-2 border bg-info border-1">
-                                        <Secondnav />
-                                    </div>
-                                    <div className="col-10  regMain">
+
+                        <div className="row pt-3">
+                            <div className="col-2 border bg-info border-1">
+                                <Secondnav />
+                            </div>
+
+                            <div className="col-10  regMain">
+
+                                {stdData == null ? <p><CircularProgress /></p> :
+                                    <>
                                         <div className="p-5  bg-info shadow">
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div>
@@ -176,9 +184,37 @@ function StudentInfo() {
                                                 </div>
 
                                             </div>
+
+                                            <div>
+                                                <hr />
+                                                <h6>Qualifications</h6>
+                                                <div>
+                                                    {
+                                                        stdQual == null ? <p>No Qualifications yet</p>
+                                                            :
+                                                            <div>
+                                                                llll
+                                                            </div>
+                                                        //         stdData.map(std => {
+                                                        //             return (
+                                                        //                 <div>
+                                                        //                     {/* <h6>
+                                                        //                         Qualification
+                                                        //                         </h6> */}
+
+
+
+                                                        //                 </div>
+                                                        //             )
+                                                        //         })
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>}
+                                    </>
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

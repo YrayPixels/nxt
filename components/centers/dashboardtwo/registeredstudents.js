@@ -1,9 +1,8 @@
-import useSWR from 'swr';
 import { Avatar, CircularProgress, Input } from '@mui/material';
-import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { EmailOutlined } from '@mui/icons-material';
+import { Add, EmailOutlined, FiveG } from '@mui/icons-material';
 import Link from 'next/link';
 import { useQuery } from 'react-query';
 import Swal from 'sweetalert2';
@@ -11,10 +10,40 @@ import Swal from 'sweetalert2';
 // Main Func
 function StudentsList(props) {
     const { details, bearer } = props
+    const [programs, setProgram] = useState([]);
+    const [faculties, setFaculties] = useState([]);
+    const [department, setDepartment] = useState([]);
+    const [filter, setfilter] = useState(false);
+    const [Inst, setInst] = useState([]);
     // const [dets, setDets] = useState({});
     // console.log(data)
     const [datali, setData] = useState(' ');
     // console.log(datali)
+    const fetchFillables = () => {
+        const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
+        const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
+        const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/${'2'}`
+
+
+        const getAllPrograms = axios.get(allPrograms);
+        const getAllFaculties = axios.get(allFaculties);
+        const getAllDept = axios.get(allDept);
+
+
+        axios.all([getAllPrograms, getAllFaculties, getAllDept,]).then(
+            axios.spread((...allData) => {
+                const allProgramsData = allData[0].data.result;
+                const allFacultiesData = allData[1].data.result;
+                const allDeptData = allData[2].data.result;
+
+
+                setProgram(allProgramsData)
+                // setCourses(allCoursesData)
+                setFaculties(allFacultiesData)
+                setDepartment(allDeptData)
+            })
+        )
+    }
     function deleteStud(param) {
         var urlencoded = new URLSearchParams();
         urlencoded.append("Authorization", `Bearer ${bearer}`);
@@ -49,6 +78,75 @@ function StudentsList(props) {
         deleteStudent()
     }
 
+    function filterStud(std_id, filterby) {
+        if (filterby == 'program') {
+            var config = {
+                method: 'get',
+                url: `https://stockmgt.gapaautoparts.com/api/GetAllStudentsByProgrammeId/${std_id}`,
+                headers: {
+                    'Authorization': `Bearer ${bearer}`,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            };
+            const fetchData = () => {
+                axios(config)
+                    .then(function (response) {
+                        const data = response.data;
+                        setData(data.students)
+                        return data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+            fetchData()
+        } else if (filterby == 'department') {
+            var config = {
+                method: 'get',
+                url: `https://stockmgt.gapaautoparts.com/api/GetAllStudentsByDepartmentId/${std_id}`,
+                headers: {
+                    'Authorization': `Bearer ${bearer}`,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            };
+            const fetchData = () => {
+                axios(config)
+                    .then(function (response) {
+                        const data = response.data;
+                        setData(data.students)
+                        return data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+            fetchData()
+
+
+        } else if (filterby == 'faculty') {
+            var config = {
+                method: 'get',
+                url: `https://stockmgt.gapaautoparts.com/api/GetAllStudentsByFacultyId/${std_id}`,
+                headers: {
+                    'Authorization': `Bearer ${bearer}`,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            };
+            const fetchData = () => {
+                axios(config)
+                    .then(function (response) {
+                        const data = response.data;
+                        setData(data.students)
+                        return data;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+            fetchData()
+        }
+    }
+    // useEffect(() => {
     var config = {
         method: 'get',
         url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`,
@@ -57,7 +155,6 @@ function StudentsList(props) {
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
-
     const fetchData = () => {
         axios(config)
             .then(function (response) {
@@ -70,17 +167,73 @@ function StudentsList(props) {
             });
     }
 
-    fetchData()
+    useEffect(() => {
+        fetchData()
+        fetchFillables()
+    }, [])
+    function showFilters() {
+        setfilter(!filter)
+    }
     // console.log(datali)
-
+    // console.log(programs)
     return (
-
-
         <div>
             <div className='d-flex align-items-center justify-content-between py-4'>
                 <p>Registered Students</p>
+                <div className='text-end'>
+                    <input type="text" className='col-12 text-end col-md-6 form-control w-50' placeholder='Enter Text Here...' />
+                    <div className='d-flex p-2'>
+                        <button onClick={showFilters} className='bg-info shadow btn btn-sm'> filter by<Add size={1} /></button>
+                        <div className={filter ? '' : 'd-none'}>
+                            <ul className='filter d-flex justify-content-around'>
+                                <li>
+                                    <select className='form-select' name="" id="">
+                                        <option selected>course</option>
 
-                <input type="text" className='col-12 col-md-6 form-control w-50' placeholder='Enter Text Here...' />
+                                        {
+                                            programs.map(program => {
+                                                return (
+                                                    <option onClick={() => {
+                                                        filterStud(`${program.id}`, `program`)
+                                                    }} value={program.id}>{program.title}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                </li>
+                                <li>
+                                    <select className='form-select' name="" id="">
+                                        <option value="">department</option>
+                                        {
+                                            department.map(department => {
+                                                return (
+                                                    <option onClick={() => {
+                                                        filterStud(`${department.id}`, `department`)
+                                                    }} value={department.id}>{department.title}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                </li>
+                                <li>
+                                    <select className='form-select' name="" id="">
+                                        <option value="">faculty</option>
+                                        {
+                                            faculties.map(faculties => {
+                                                return (
+                                                    <option onClick={() => {
+                                                        filterStud(`${faculties.id}`, `faculty`)
+                                                    }} value={faculties.id}>{faculties.title}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div className="bg-info p-4 shadow rounded-0 table-responsive">
 
@@ -90,6 +243,7 @@ function StudentsList(props) {
                 <table className="tableData table table-striped table-sm table-hover  ">
                     <thead>
                         <tr>
+                            <th>S/N</th>
                             <th>STUDENT'S NAME</th>
                             <th>EMAIl</th>
                             <th>PHONE</th>
@@ -101,10 +255,11 @@ function StudentsList(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {datali == ' ' ? <CircularProgress /> :
+                        {datali == ' ' || datali == null ? <CircularProgress /> :
                             datali.map(student => {
                                 return (
                                     <tr className='align-items-center '>
+                                        <td>{datali.indexOf(student) + 1}</td>
                                         <td><span><img src="" alt="" /></span> {student.name}</td>
                                         <td>{student.email}</td>
                                         <td>{student.phone}</td>

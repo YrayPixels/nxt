@@ -1,5 +1,6 @@
 import { Delete, Edit, Email, Phone } from "@mui/icons-material";
 import { Avatar, CircularProgress } from "@mui/material";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
@@ -10,9 +11,9 @@ import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import TopPilsItems from "../../../components/centers/toppills";
 import Logo from '../../../public/image/spesee.png'
 
-function LecturerInfo(props) {
+function LecturerInfo() {
     const router = useRouter()
-    const { result, id } = props
+    const { id } = router.query
     // const { result } = datas
     // console.log(result)
     const { status, data } = useSession();
@@ -21,6 +22,47 @@ function LecturerInfo(props) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
+
+    const [bearer_key, setBearer_key] = useState(' ');
+    const [dets, setDets] = useState({});
+    useEffect(() => {
+        if (window) {
+            setBearer_key(window.sessionStorage.getItem("bearer_token"));
+            setDets(JSON.parse(window.sessionStorage.getItem('dets')));
+        }
+    }, []);
+    const [Lecturer, setLecturer] = useState(' ')
+    const [stdQual, setStdQual] = useState(' ')
+
+    function navState(ClickedNav) {
+        setShowNav(ClickedNav)
+    }
+
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/getLecturerById/${id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer_key}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    };
+
+    const fetchData = () => {
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setLecturer(data.result)
+                setStdQual(data.qualifications)
+                console.log(data)
+                return data;
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    fetchData()
 
     // function fetchData() {
     //     console.log('this would work')
@@ -54,35 +96,34 @@ function LecturerInfo(props) {
                                 <Secondnav />
                             </div>
                             <div className="px-lg-3 col-10 ">
-
                                 <div className="col-12">
                                     <div className="bg-info p-5 shadow">
 
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <Avatar
-                                                    alt={result.name}
+                                                    alt={Lecturer.name}
                                                     src="/static/images/avatar/1.jpg"
                                                     sx={{ width: 100, height: 100 }}
                                                 />
                                             </div>
                                             <div>
                                                 <h2 className="">
-                                                    {result.name}
+                                                    {Lecturer.name}
                                                 </h2>
                                                 <p><Email
-                                                /> {result.email}</p>
-                                                <p><Phone /> {result.phone}</p>
+                                                /> {Lecturer.email}</p>
+                                                <p><Phone /> {Lecturer.phone}</p>
 
                                                 <div className="mb-2">
-                                                    <Link href={`/centers/studentlist/edit/${result.id}`}>
+                                                    <Link href={`/centers/studentlist/edit/${Lecturer.id}`}>
                                                         <button className="btn btn-sm btn-primary">
                                                             <Edit /> Edit Profile
                                                         </button>
                                                     </Link>
                                                 </div>
                                                 <div className="mb-2">
-                                                    <Link href={`/centers/studentlist/edit/${result.id}`}>
+                                                    <Link href={`/centers/studentlist/edit/${Lecturer.id}`}>
                                                         <button className="btn btn-sm btn-danger">
                                                             <Delete /> Delete Profile
                                                         </button>
@@ -94,15 +135,15 @@ function LecturerInfo(props) {
                                         <div className="d-flex justify-content-between">
                                             <div className="col">
                                                 <h6>Gender</h6>
-                                                <p>{result.sex}</p>
+                                                <p>{Lecturer.sex}</p>
                                             </div>
                                             <div className="col">
                                                 <h6>Age</h6>
-                                                <p>{result.age}</p>
+                                                <p>{Lecturer.age}</p>
                                             </div>
                                             <div className="col">
                                                 <h6>Address</h6>
-                                                <p>{result.address}</p>
+                                                <p>{Lecturer.address}</p>
                                             </div>
 
                                         </div>
@@ -111,49 +152,49 @@ function LecturerInfo(props) {
                                         <div className="row">
                                             <div className="col-3">
                                                 <h6>Faculty</h6>
-                                                <p>{result.faculties_title}</p>
+                                                <p>{Lecturer.faculties_title}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Department</h6>
-                                                <p>{result.departments_title}</p>
+                                                <p>{Lecturer.departments_title}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Program</h6>
-                                                <p>{result.programmes_title}</p>
+                                                <p>{Lecturer.programmes_title}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>State</h6>
-                                                <p>{result.state_title}</p>
+                                                <p>{Lecturer.state_title}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>LGA</h6>
-                                                <p>{result.lga}</p>
+                                                <p>{Lecturer.lga}</p>
                                             </div>
 
 
                                             <div className="col-3">
                                                 <h6>Center</h6>
-                                                <p>{result.center_id}</p>
+                                                <p>{Lecturer.center_id}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Employee</h6>
-                                                <p>{result.employee}</p>
+                                                <p>{Lecturer.employee}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Employee Type</h6>
-                                                <p>{result.employee_type}</p>
+                                                <p>{Lecturer.employee_type}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Employment Status</h6>
-                                                <p>{result.employment_status}</p>
+                                                <p>{Lecturer.employment_status}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Highest Qualification</h6>
-                                                <p>{result.heighest_qualification}</p>
+                                                <p>{Lecturer.heighest_qualification}</p>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Highest Qualification Year</h6>
-                                                <p>{result.heighest_qualification_year}</p>
+                                                <p>{Lecturer.heighest_qualification_year}</p>
                                             </div>
 
                                         </div>
@@ -176,15 +217,15 @@ function LecturerInfo(props) {
 
 export default LecturerInfo;
 
-export async function getServerSideProps(context) {
-    const { params } = context;
-    const { id } = params
-    // let data = id;
-    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getLecturerById/${id}`)
-    const data = await response.json()
-    return {
-        props: {
-            result: data.result[0],
-        },
-    }
-}
+// export async function getServerSideProps(context) {
+//     const { params } = context;
+//     const { id } = params
+//     // let data = id;
+//     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getLecturerById/${id}`)
+//     const data = await response.json()
+//     return {
+//         props: {
+//             Lecturer: data.result[0],
+//         },
+//     }
+// }

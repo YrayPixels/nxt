@@ -7,9 +7,9 @@ import { CircularProgress } from "@mui/material";
 import { Add, PlusOneOutlined, Remove, RemoveCircle } from "@mui/icons-material";
 import Home from "@mui/icons-material/Home";
 
-function StudentRegistration(props) {
+function EditStudentComp(props) {
     const router = useRouter()
-    const { details, bearer } = props;
+    const { details, bearer, id } = props;
     const [bearer_key, setBearer_key] = useState(' ');
     const [notify, setNotify] = useState(' ');
     const [programs, setProgram] = useState([]);
@@ -27,12 +27,11 @@ function StudentRegistration(props) {
         institution_id: " ",
         institution_name: " ",
     })
-
-
     let ArraysQualification = [];
     const [arrayys, setArrayys] = useState([])
     const [lga, setLga] = useState([]);
     const [state, setStateDa] = useState([]);
+    const [stdData, setStdData] = useState(' ');
     const [faculty_id, setFaculty_id] = useState([]);
     // const [nationality, setNationality] = useState([])
     const [courses, setCourses] = useState([]);
@@ -60,8 +59,34 @@ function StudentRegistration(props) {
     });
     const { session, status } = useSession();
     const [loope, setLooper] = useState(' ');
-
     let looperArray = []
+
+
+    const stdDataS = () => {
+        var config = {
+            method: 'get',
+            url: `https://stockmgt.gapaautoparts.com/api/center/ViewStudent/${id}`,
+            headers: {
+                'Authorization': `Bearer ${bearer_key}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setStdData(data.students)
+                // setStdQual(data.qualifications)
+                // console.log(data)
+                return data;
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    stdDataS()
+
+
     function looper() {
         if (looperArray.length >= 53) {
             setLooper(looperArray)
@@ -72,7 +97,6 @@ function StudentRegistration(props) {
             }
         }
     }
-
     const fetchData = () => {
         const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
@@ -117,7 +141,6 @@ function StudentRegistration(props) {
     useEffect(() => {
         fetchData()
     }, [userInfo.state, userInfo.faculty_id])
-
     function removeQual(e, val) {
         e.preventDefault()
 
@@ -177,15 +200,15 @@ function StudentRegistration(props) {
 
         setNotify('loading')
         const addStudent = async () => {
-            const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/AddNewStudent", requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/editStudent/1`, requestOptions)
             const data = await response.json()
             const status = response.status;
             let student = data.student;
             console.log(data)
             if (status == 200) {
-                setNotify('Student Added Succesfully')
+                setNotify('Student Details Edited Succesfully')
                 Swal.fire({
-                    title: 'Student Added Succesfully',
+                    title: 'Student Details Edited Succesfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
@@ -210,9 +233,6 @@ function StudentRegistration(props) {
                     return 0
 
                 })
-
-
-
                 router.push('/centers/studentlist')
             } else if (status == 202) {
                 setNotify('Student Already Registered')
@@ -239,30 +259,30 @@ function StudentRegistration(props) {
                 <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4 d-flex align-items-center">
-            Student Registration Information
+            Edit Student Details Information
         </h3>
         <form className="card p-4" action="" onSubmit={handleStudentReg} >
             <fieldset className="row">
                 <legend>Personal Data</legend>
                 <div className="col-6 mb-3">
                     <label htmlFor="fullname">Student Name</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input value={stdData.name} onChange={(e) => setUserInfo(
                         { ...userInfo, names: e.target.value })}
                         required type="text" name="fullname" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="phone">Telephone number</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input value={stdData.phone} onChange={(e) => setUserInfo(
                         { ...userInfo, phone: e.target.value })} type="number" required name="phone" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="email">Email</label>
-                    <input onChange={(e) => setUserInfo(
+                    <input value={stdData.email} onChange={(e) => setUserInfo(
                         { ...userInfo, email: e.target.value })} type="text" required name="email" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="age">Age</label>
-                    <input required onChange={(e) => setUserInfo(
+                    <input value={stdData.age} required onChange={(e) => setUserInfo(
                         { ...userInfo, age: e.target.value })} type="number" name="age" className="form-control" max={90} min={10} >
                         {/* <option value="option your age"> option your age</option>
                         {
@@ -274,7 +294,7 @@ function StudentRegistration(props) {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="nationality">Nationality</label>
-                    <select required name="nationality" onChange={(e) => setUserInfo(
+                    <select value={stdData.nationality} required name="nationality" onChange={(e) => setUserInfo(
                         { ...userInfo, Nationality: e.target.value })} class="form-select" aria-label="Default select example"  >
                         <option selected value={0}>Select your Nationality</option>
                         <option value={'Nigeria'}>Nigeria</option>
@@ -283,7 +303,7 @@ function StudentRegistration(props) {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="state">State of Origin</label>
-                    <select required name="state" onChange={(e) => setUserInfo(
+                    <select value={stdData.state_tile} required name="state" onChange={(e) => setUserInfo(
                         { ...userInfo, state: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                         <option selected value={0}>Select your State</option>
@@ -301,7 +321,7 @@ function StudentRegistration(props) {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="lga">LGA</label>
-                    <select required name="lga" onChange={(e) => setUserInfo(
+                    <select value={stdData.lga} required name="lga" onChange={(e) => setUserInfo(
                         { ...userInfo, lga: e.target.value })} class="form-select" aria-label="Default select example"  >
                         <option selected>Select your LGA</option>
                         {
@@ -315,7 +335,7 @@ function StudentRegistration(props) {
                 </div>
                 <div className=" col-6 mb-3">
                     <label htmlFor="sex">Gender</label>
-                    <select required onChange={(e) => setUserInfo(
+                    <select value={stdData.sex} required onChange={(e) => setUserInfo(
                         { ...userInfo, sex: e.target.value })} type="text" name="address" className="form-control" >
                         <option value="none" selected>Select your gender</option>
                         <option value="Male">Male</option>
@@ -337,7 +357,7 @@ function StudentRegistration(props) {
                 <div className="mb-3 row ">
                     <div className="col-6 mb-3">
                         <label htmlFor="falculty">Faculty</label>
-                        <select required name="department" onChange={(e) => setUserInfo(
+                        <select value={'none'} required name="department" onChange={(e) => setUserInfo(
                             { ...userInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                             <option selected value={0}>Select your Faculty</option>
@@ -356,7 +376,7 @@ function StudentRegistration(props) {
 
                     <div className="col-6 mb-3">
                         <label htmlFor="department">Department</label>
-                        <select required name="department" onChange={(e) => setUserInfo(
+                        <select value={stdData.departments_title} required name="department" onChange={(e) => setUserInfo(
                             { ...userInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                             <option selected value={0}>Select your Department</option>
@@ -364,17 +384,21 @@ function StudentRegistration(props) {
                                 department.map(department => {
                                     return (
                                         <option value={department.id}>{department.title}</option>
+
                                     )
                                 })
+
+
                             }
+
                         </select>
                     </div>
                     <div className="col-6 mb-3">
-                        <label htmlFor="programme">Course</label>
-                        <select required name="programme" onChange={(e) => setUserInfo(
+                        <label htmlFor="programme">Programme</label>
+                        <select value={stdData.programmes_title} required name="programme" onChange={(e) => setUserInfo(
                             { ...userInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
 
-                            <option selected>Select your course</option>
+                            <option selected>Select your program</option>
                             {
                                 programs.map(program => {
                                     return (
@@ -406,7 +430,7 @@ function StudentRegistration(props) {
                             <div className="row align-items-center">
                                 <div className="col-6 mb-3">
                                     <label htmlFor="highest_qualifcation">Highest Qualifcation</label>
-                                    <select onClick={looper} required name="highest_qualifcation" onChange={(e) => setUserInfo(
+                                    <select value={stdData.heighest_qualification} onClick={looper} required name="highest_qualifcation" onChange={(e) => setUserInfo(
                                         { ...userInfo, heighest_qualification: e.target.value }
                                     )} class="form-select" aria-label="Default select example">
 
@@ -423,7 +447,7 @@ function StudentRegistration(props) {
                                 </div>
                                 <div className="col-6 mb-3">
                                     <label htmlFor="year_finished">Year Finished</label>
-                                    <select required onChange={(e) => setUserInfo(
+                                    <select value={stdData.heighest_qualification_year} required onChange={(e) => setUserInfo(
                                         { ...userInfo, heighest_qualification_year: e.target.value })} type='text' name="year_finished" className="form-control" >
                                         {loope == ' ' ? <option > none </option> :
                                             loope.map(program => {
@@ -453,7 +477,6 @@ function StudentRegistration(props) {
 
                                                 return (
                                                     <option onClick={event => setQualname(event, qual.qualification)} value={qual.id}>{qual.qualification}</option>
-
                                                 )
                                             })
                                         }
@@ -559,4 +582,4 @@ function StudentRegistration(props) {
         </form>
     </>);
 }
-export default StudentRegistration;
+export default EditStudentComp;

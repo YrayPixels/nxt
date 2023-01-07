@@ -31,7 +31,7 @@ function AllLecturers(props) {
     }
 
     fetchData()
-
+    console.log(lecturers)
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
