@@ -9,8 +9,8 @@ import axios from 'axios';
 
 function AllCourses(props) {
     const { details, bearer } = props
-    const [course, setCourse] = useState(' ')
-    // console.log(details.id)
+    const [course, setCourse] = useState(' ');
+    var [delay, setDelay] = useState(' ');
 
     function deleteModules(param) {
         // console.log(param)
@@ -41,26 +41,24 @@ function AllCourses(props) {
                 })
             }
             return data;
-
         }
-
         deleteDep()
-
     }
-    var config = {
-        method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`,
-        headers: {
-            'Authorization': `Bearer ${bearer}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-    };
+
 
     const fetchData = () => {
+        var config = {
+            method: 'get',
+            url: `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`,
+            headers: {
+                'Authorization': `Bearer ${bearer}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        };
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                setCourse(data.result)
+                setCourse(data.result.reverse())
                 return data;
             })
             .catch(function (error) {
@@ -68,7 +66,13 @@ function AllCourses(props) {
             });
     }
 
-    fetchData()
+    setInterval(function SetDelay() {
+        setDelay(Math.random())
+    }, 1000)
+
+    useEffect(() => {
+        fetchData()
+    }, [delay])
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
@@ -95,7 +99,7 @@ function AllCourses(props) {
                         course.map(data => {
                             return (
                                 <tr className='align-items-center '>
-                                    <td><span><img src="" alt="" /></span> {data.id}</td>
+                                    <td><span><img src="" alt="" /></span> {course.indexOf(data) + 1}</td>
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
                                     <td> {data.unit}</td>

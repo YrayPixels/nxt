@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
@@ -9,6 +9,8 @@ import { Add, RemoveCircle } from "@mui/icons-material";
 
 
 function LecturerRegistration(props) {
+    const router = useRouter()
+
     const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
 
@@ -56,15 +58,17 @@ function LecturerRegistration(props) {
         // console.log(arrayys)
     }
 
-
     let looperArray = []
+
     function looper() {
         if (looperArray.length >= 53) {
             setLooper(looperArray)
+            // fetchData()
         } else {
             for (let i = 1970; i <= 2023; i++) {
                 looperArray.push({ i })
                 setLooper(looperArray)
+                // fetchData()
             }
         }
     }
@@ -95,9 +99,6 @@ function LecturerRegistration(props) {
         const getAllFaculties = axios.get(allFaculties);
         const getAllQual = axios.get(allQual);
         const getAllInstitutes = axios.get(allInstitutes);
-
-
-
         axios.all([getAllPrograms, getAllDepartment, getAllFaculties, getAllQual, getAllInstitutes]).then(
             axios.spread((...allData) => {
                 const allProgramsData = allData[0].data.result;
@@ -114,11 +115,6 @@ function LecturerRegistration(props) {
             })
         )
     }
-
-    useEffect(() => {
-        fetchData()
-    }, [lecturerInfo.faculty_id])
-
     const handleLecturerReg = async (e) => {
         e.preventDefault()
 
@@ -152,6 +148,8 @@ function LecturerRegistration(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                router.push('/centers/lecturers')
+
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -163,6 +161,11 @@ function LecturerRegistration(props) {
         }
         addLecturer()
     };
+
+    useEffect(() => {
+        fetchData()
+    }, [lecturerInfo.faculty_id])
+
     return (<>
         {
             notify == 'loading' && (
@@ -176,7 +179,7 @@ function LecturerRegistration(props) {
         <h3 className="py-4">
             Lecturer Registration Information
         </h3>
-        <form className="card p-4" action="" onSubmit={handleLecturerReg} >
+        <form className="card p-4" action="" onClick={looper} onSubmit={handleLecturerReg} >
             <div className="row">
                 <div className=" col-6 mb-3">
                     <label htmlFor="fullname">Lecturer Name</label>

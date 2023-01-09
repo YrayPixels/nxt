@@ -102,11 +102,11 @@ function ViewInstitutes(props) {
                                     <td>{data.name}</td>
                                     <td className='text-center'><div className='btn-group '>
 
-                                        <button className='btn btn-primary btn-sm p-2'>
+                                        {/* <button className='btn btn-primary btn-sm p-2'>
                                             <Link href={`/centers/faculties/edit/${data.id}`}>
                                                 Edit
                                             </Link>
-                                        </button>
+                                        </button> */}
 
                                         <button onClick={() => deleteInst(`${data.id}`)} className='btn  btn-sm btn-danger p-2'>
                                             Delete

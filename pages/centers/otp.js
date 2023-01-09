@@ -6,6 +6,11 @@ import { CircularProgress } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import RightsideCenters from '../../components/centers/loginComponent/rigthSide';
 
+import speseeLogo from '../../public/image/spesee.png'
+import worldbank from '../../public/image/worldBank.png'
+import nuc from '../../public/image/nuclogo.png'
+
+
 
 function Otp() {
     const router = useRouter();
@@ -184,7 +189,9 @@ function Otp() {
                                     </button>
                                 </div>
                             </div>
-                            <RightsideCenters />
+                            <div className="col-12 Right col-lg-6 order-0 order-lg-2">
+                                <RightsideCenters spesee={speseeLogo} nuclogo={nuc} worldBank={worldbank} />
+                            </div>
                         </div>
                     </div>
                 </div>

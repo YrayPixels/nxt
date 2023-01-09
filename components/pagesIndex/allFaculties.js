@@ -60,7 +60,7 @@ function AllFaculties(props) {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                setFaculty(data.result)
+                setFaculty(data.result.reverse())
                 return data;
             })
             .catch(function (error) {
@@ -106,7 +106,7 @@ function AllFaculties(props) {
             <table className="tableData table table-striped table-sm table-responsive table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>S/N</th>
                         <th>TITLE</th>
                         <th>CODE</th>
                         <th className='text-center'>ACTIONS</th>
@@ -117,7 +117,8 @@ function AllFaculties(props) {
                         faculty.map(data => {
                             return (
                                 <tr className='align-items-start '>
-                                    <td><span><img src="" alt="" /></span> {data.id}</td>
+
+                                    <td><span><img src="" alt="" /></span>  {faculty.indexOf(data) + 1}</td>
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
                                     <td className='text-center'><div className='btn-group '>
@@ -127,7 +128,6 @@ function AllFaculties(props) {
                                                 Edit
                                             </Link>
                                         </button>
-
                                         <button onClick={() => deleteFaculty(`${data.id}`)} className='btn  btn-sm btn-danger p-2'>
                                             Delete
                                         </button>

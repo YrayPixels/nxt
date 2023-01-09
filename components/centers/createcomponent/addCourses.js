@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 function AddCoursesComp(props) {
     const { details, bearer } = props
     const [notify, setNotify] = useState(' ');
+    const [delay, setDelay] = useState(' ');
     const [department, setDepartment] = useState([]);
     const [courseInfo, setCourseInfo] = useState({
         coursetitle: " ",
@@ -28,7 +29,12 @@ function AddCoursesComp(props) {
             })
         )
     }
-    fetchData()
+    setInterval(function SetDelay() {
+        setDelay('active')
+    }, 1000)
+    useEffect(() => {
+        fetchData()
+    }, [delay])
 
     // useEffect(() => {
     // }, [courseInfo.coursetitle])
@@ -63,6 +69,7 @@ function AddCoursesComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                Router.push('/centers/modules')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({

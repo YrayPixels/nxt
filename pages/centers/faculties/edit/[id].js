@@ -20,15 +20,15 @@ function FacultyEdit() {
     const { status, data } = useSession();
     const [oldData, setOldData] = useState(' ');
     const [showNav, setShowNav] = useState(false);
+    const [deptInfo, setdeptInfo] = useState({
+        facultyTitle: " ",
+        facultyCode: " ",
+    });
     function navState(ClickedNav) {
         // alert(ClickedNav)
         setShowNav(ClickedNav)
     }
     const [notify, setNotify] = useState(' ');
-    const [deptInfo, setdeptInfo] = useState({
-        facultyTitle: " ",
-        facultyCode: " ",
-    });
 
     var config = {
         method: 'get',
@@ -44,7 +44,11 @@ function FacultyEdit() {
             .then(function (response) {
                 // console.log(response)
                 const data = response.data;
-                setOldData(data.result)
+                setdeptInfo({
+                    facultyTitle: data.result[0].title,
+                    facultyCode: data.result[0].code,
+                })
+                // setOldData(data.result)
                 return data;
             })
             .catch(function (error) {
@@ -52,13 +56,18 @@ function FacultyEdit() {
             });
     }
 
-    fetchData()
+    useEffect(() => {
+        fetchData()
+    }, []);
+
 
     useEffect(() => {
         if (window) {
+
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
         }
     }, []);
+
     const handleEditFaculty = async (e) => {
         e.preventDefault()
         var myHeaders = new Headers();
@@ -87,6 +96,7 @@ function FacultyEdit() {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                router.push('/centers/faculties')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -140,14 +150,14 @@ function FacultyEdit() {
                                 <form className="card p-4" action="" onSubmit={handleEditFaculty}>
                                     <div className="mb-3">
                                         <label htmlFor="facultyTitle">Faculty Name</label>
-                                        <input defaultValue={oldData[0].title}
+                                        <input value={deptInfo.facultyTitle}
                                             onChange={(e) => setdeptInfo(
                                                 { ...deptInfo, facultyTitle: e.target.value })} type="text" name="facultyTitle" className="form-control" />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="facultyCode">Faculty Code</label>
-                                        <input
-                                            defaultValue={oldData[0].code} onChange={(e) => setdeptInfo(
+                                        <input value={deptInfo.facultyCode}
+                                            onChange={(e) => setdeptInfo(
                                                 { ...deptInfo, facultyCode: e.target.value })} type="text" name="facultyCode" className="form-control" />
                                     </div>
                                     <div className="col-5 m-auto singleSubmits">

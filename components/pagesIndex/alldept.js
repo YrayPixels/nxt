@@ -10,10 +10,10 @@ import useSWR from 'swr'
 
 function AllDepartment(props) {
     const { details, bearer } = props
-    const [department, setDepartment] = useState(' ');
+    const [faculty, setFaculty] = useState(' ');
 
     function deleteDept(param) {
-        console.log(param)
+        // console.log(param)
         var urlencoded = new URLSearchParams();
         urlencoded.append("Authorization", `Bearer ${bearer}`);
         var requestOptions = {
@@ -86,7 +86,7 @@ function AllDepartment(props) {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                setDepartment(data.result)
+                setFaculty(data.result.reverse())
                 return data;
             })
             .catch(function (error) {
@@ -105,7 +105,7 @@ function AllDepartment(props) {
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Departments: {department.length}</h6>
+                <h6 className="fw-bold">Total No of Departments: {faculty.length}</h6>
             </div>
             <table className="tableData table table-sm table-striped table-responsive table">
                 <thead>
@@ -117,11 +117,11 @@ function AllDepartment(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {department == ' ' ? <p><CircularProgress /> </p> :
-                        department.map(data => {
+                    {faculty == ' ' ? <p><CircularProgress /> </p> :
+                        faculty.map(data => {
                             return (
                                 <tr className='align-items-center '>
-                                    <td><span><img src="" alt="" /></span> {department.indexOf(data) + 1}</td>
+                                    <td><span><img src="" alt="" /></span> {faculty.indexOf(data) + 1}</td>
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>
                                     <td className='text-center'><div className='btn-group'>

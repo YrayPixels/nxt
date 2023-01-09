@@ -8,17 +8,17 @@ import { createRef, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import AllNavs from "../../../../components/allNavs";
 import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
+import Secondnav from "../../../../components/centers/dashboardtwo/secondsidenav";
+import TopPilsItems from "../../../../components/centers/toppills";
 
 
 
-function CourseEdit(props) {
+function CourseEdit() {
     const [bearer_key, setBearer_key] = useState(' ');
     const [dets, setDets] = useState({});
-
+    const [delay, setDelay] = useState(' ')
     const router = useRouter()
-    const studentid = router.query.id
-    const { datas, id } = props
-    const { result } = datas
+    const { id } = router.query
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -41,18 +41,33 @@ function CourseEdit(props) {
         department_id: " ",
     });
     const fetchData = () => {
-        const allDept = "https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/1"
+        const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/${dets.id}`
+        const allModules = `https://stockmgt.gapaautoparts.com/api/center/getCourseById/${id}`
+
         const getAllDept = axios.get(allDept);
-        axios.all([getAllDept]).then(
+        const getAllMod = axios.get(allModules);
+        axios.all([getAllDept, getAllMod]).then(
             axios.spread((...allData) => {
                 const allDeptData = allData[0].data.result;
+                const allModData = allData[1].data.result;
+                // console.log(allModData)
                 setDepartment(allDeptData)
+                setCourseInfo({
+                    coursetitle: allModData.title,
+                    coursecode: allModData.code,
+                    unit: allModData.unit,
+                    department_id: allModData.department_id,
+
+                })
             })
         )
     }
+    setInterval(function SetDelay() {
+        setDelay('active')
+    }, 1000)
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [delay])
 
     const editCourse = async (e) => {
         e.preventDefault()
@@ -84,10 +99,11 @@ function CourseEdit(props) {
             if (status == 200) {
                 setNotify('Course Edited Succesfully')
                 Swal.fire({
-                    title: 'Course EDited Successfully',
+                    title: 'Course Edited Successfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                Router.push('/centers/modules')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -116,61 +132,92 @@ function CourseEdit(props) {
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 d-flex allNavSide` : `d-none`}>
                         <AllNavs />
                     </div>
-                    <div className="col-4 subNav row">
+                    <div className="col-1 subNav row">
                         <AllNavs />
                     </div>
-                    <div className="col-12 col-lg-8  p-lg-5 regMain">
-                        {
-                            notify == 'loading' && (
-                                <p className="text-success text-center fw-bold"><CircularProgress /></p>
-                            )
-                        }
-                        {
-                            notify != ' ' && (
-                                <p className="text-success text-center fw-bold">{notify}</p>)
-                        }
-                        <h3 className="py-4">
-                            Edit Course
-                        </h3>
-                        <form className="card p-4" action="" onSubmit={editCourse}>
-                            <div className="mb-3">
-                                <label htmlFor="coursetitle">Course Title</label>
-                                <input onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, coursetitle: e.target.value })} type="text" name="coursetitle" className="form-control" />
+                    <div className="col-12 col-lg-11 regMain">
+                        <div className="pb-4 px-2">
+                            <TopPilsItems />
+                        </div>
+                        <div className="row pt-3">
+                            <div className="col-2 border bg-info border-1">
+                                <Secondnav />
                             </div>
-                            <div className="mb-3">
-                                <label htmlFor="coursecode">Course Code</label>
-                                <input onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, coursecode: e.target.value })} type="text" name="coursecode" className="form-control" />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="unit">Unit</label>
-                                <input onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, unit: e.target.value })} type="text" name="unit" className="form-control" />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="department">Department</label>
-                                <select name="department" onChange={(e) => setCourseInfo(
-                                    { ...courseInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
 
-                                    <option selected>Select your Department</option>
-                                    {
-                                        department.map(department => {
-                                            return (
-                                                <option value={department.id}>{department.title}</option>
+                            <div className="col-10 p-lg-3">
 
-                                            )
-                                        })
+                                {
+                                    notify == 'loading' && (
+                                        <p className="text-success text-center fw-bold"><CircularProgress /></p>
+                                    )
+                                }
+                                {
+                                    notify != ' ' && (
+                                        <p className="text-success text-center fw-bold">{notify}</p>)
+                                }
+                                <h3 className="py-4">
+                                    Edit Course
+                                </h3>
+                                <form className="card p-4" action="" onSubmit={editCourse}>
+                                    <div className="mb-3">
+                                        <label htmlFor="node">Node</label>
+                                        <select name="node" onChange={(e) => setCourseInfo(
+                                            { ...courseInfo, node_id: e.target.value })} class="form-select" aria-label="Default select example">
+
+                                            <option selected>Select your Department</option>
+                                            {
+                                                department.map(department => {
+                                                    return (
+                                                        <option value={department.id}>{department.title}</option>
+
+                                                    )
+                                                })
 
 
-                                    }
+                                            }
 
-                                </select>
+                                        </select>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="department">Department</label>
+                                        <select name="department" onChange={(e) => setCourseInfo(
+                                            { ...courseInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
+
+                                            <option selected>Select your Department</option>
+                                            {
+                                                department.map(department => {
+                                                    return (
+                                                        <option value={department.id}>{department.title}</option>
+
+                                                    )
+                                                })
+
+
+                                            }
+
+                                        </select>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="coursetitle">Module Title</label>
+                                        <input value={courseInfo.coursetitle} onChange={(e) => setCourseInfo(
+                                            { ...courseInfo, coursetitle: e.target.value })} type="text" name="coursetitle" className="form-control" />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="coursecode">Module Code</label>
+                                        <input value={courseInfo.coursecode} onChange={(e) => setCourseInfo(
+                                            { ...courseInfo, coursecode: e.target.value })} type="text" name="coursecode" className="form-control" />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="unit">Unit</label>
+                                        <input value={courseInfo.unit} onChange={(e) => setCourseInfo(
+                                            { ...courseInfo, unit: e.target.value })} type="text" name="unit" className="form-control" />
+                                    </div>
+                                    <div className="col-5 m-auto singleSubmits">
+                                        <button type="submit" className="btn rounded-0  text-info w-100"> Save</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div className="col-5 m-auto singleSubmits">
-                                <button type="submit" className="btn rounded-0  text-info w-100"> Save</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -187,15 +234,15 @@ function CourseEdit(props) {
 
 export default CourseEdit;
 
-export async function getServerSideProps(context) {
-    const { params } = context;
-    const { id } = params
-    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`)
-    const data = await response.json()
-    const student = data.students
-    return {
-        props: {
-            datas: data,
-        },
-    }
-}
+// export async function getServerSideProps(context) {
+//     const { params } = context;
+//     const { id } = params
+//     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`)
+//     const data = await response.json()
+//     const student = data.students
+//     return {
+//         props: {
+//             datas: data,
+//         },
+//     }
+// }

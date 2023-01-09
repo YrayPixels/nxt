@@ -135,40 +135,8 @@
     width: 200px;
 }
 
-.loginCont {
-    /* height: 400px; */
-    overflow: hidden;
-}
-
-.backgroundCenter {
-    /* border-radius: 68% 0% 0% 13% / 85% 10% 46% 15%; */
-    position: absolute;
-    height: 1000px;
-    width: 1000px;
-    background-color: #A6CE34;
-    top: -400px;
-    border-radius: 100px;
-    right: -100px;
-    z-index: -2;
-
-}
-
-.backgroundCent {
-    /* left: 0; */
-    z-index: -1;
-    top: -200px;
-    right: 200px;
-
-    transform: rotateX(180deg);
-    position: absolute;
-    height: 100px;
-    /* width: 400px; */
-    /* overflow: ; */
-    /* background-color: white; */
-    /* border: 1px solid black; */
-    border-bottom: 1550px solid white;
-    border-right: 1500px solid transparent;
-
+.conttt {
+    background: url('../public//image/Mockups.png');
 }
 
 

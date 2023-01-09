@@ -139,7 +139,6 @@ function StudentRegistration(props) {
         ArraysQualification.push(qaulArray)
         setArrayys(arrayys.concat(ArraysQualification))
 
-        console.log(arrayys)
     }
 
     const handleStudentReg = async (e) => {
@@ -181,7 +180,6 @@ function StudentRegistration(props) {
             const data = await response.json()
             const status = response.status;
             let student = data.student;
-            console.log(data)
             if (status == 200) {
                 setNotify('Student Added Succesfully')
                 Swal.fire({
@@ -210,9 +208,6 @@ function StudentRegistration(props) {
                     return 0
 
                 })
-
-
-
                 router.push('/centers/studentlist')
             } else if (status == 202) {
                 setNotify('Student Already Registered')

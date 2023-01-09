@@ -28,7 +28,6 @@ function DepartmentEdit() {
         setShowNav(ClickedNav)
     }
 
-    // console.log(deptData)
     const [notify, setNotify] = useState(' ');
     const [deptInfo, setdeptInfo] = useState({
         depttitle: " ",
@@ -37,7 +36,7 @@ function DepartmentEdit() {
     });
     var config = {
         method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`,
+        url: `https://stockmgt.gapaautoparts.com/api/getDepartmentById/${id}`,
         headers: {
             'Authorization': `Bearer ${bearer_key}`,
             "Content-Type": "application/x-www-form-urlencoded",
@@ -47,18 +46,21 @@ function DepartmentEdit() {
     const fetchDept = () => {
         axios(config)
             .then(function (response) {
-                // console.log(response)
                 const data = response.data;
-                setDeptData(data.result)
+                setdeptInfo({
+                    faculty_id: data.result[0].faculty_id,
+                    depttitle: data.result[0].title,
+                    code: data.result[0].code
+                })
                 return data;
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
-
-    fetchDept()
-
+    useEffect(() => {
+        fetchDept()
+    }, [])
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
@@ -112,6 +114,7 @@ function DepartmentEdit() {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                Router.push('/centers/department')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -166,12 +169,12 @@ function DepartmentEdit() {
                                 <form className="card p-4" action="" onSubmit={handleDeptReg}>
                                     <div className="mb-3">
                                         <label htmlFor="depttitle">Department Name</label>
-                                        <input defaultValue={deptData[0].title} onChange={(e) => setdeptInfo(
+                                        <input value={deptInfo.depttitle} onChange={(e) => setdeptInfo(
                                             { ...deptInfo, depttitle: e.target.value })} type="text" name="depttitle" className="form-control" />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="deptcode">Department Code</label>
-                                        <input defaultValue={deptData[0].code} onChange={(e) => setdeptInfo(
+                                        <input value={deptInfo.deptcode} onChange={(e) => setdeptInfo(
                                             { ...deptInfo, deptcode: e.target.value })} type="text" name="deptcode" className="form-control" />
                                     </div>
                                     <div className="mb-3">

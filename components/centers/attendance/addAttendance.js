@@ -6,7 +6,9 @@ import { CircularProgress } from "@mui/material";
 function AddAttendanceComp() {
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
-
+    const [added, setAdded] = useState(' ');
+    const [delay, setDelay] = useState(' ');
+    const [studentList, setStudentList] = useState(' ')
     const [attendanceInf, setattendanceInf] = useState({
         center_id: " ",
         session_id: " ",
@@ -18,48 +20,41 @@ function AddAttendanceComp() {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
         }
     }, []);
-
-    const handleEditSession = async (e) => {
-        e.preventDefault()
-
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("center_id", attendanceInf.center_id);
-        urlencoded.append("session", attendanceInf.session_id);
-        urlencoded.append("session_start", attendanceInf.course_id);
-        urlencoded.append("session_end", attendanceInf.student_id);
-        urlencoded.append("Authorization", `Bearer ${bearer_key}`);
-
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
+    function fetchStud() {
+        var config = {
+            method: 'get',
+            url: `https://stockmgt.gapaautoparts.com/api/GetAllStudentsByProgrammeId/${std_id}`,
+            headers: {
+                'Authorization': `Bearer ${bearer}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
         };
-        setNotify('loading')
-
-        const editSession = async () => {
-            const response = await fetch("https://stockmgt.gapaautoparts.com/api/AddSession", requestOptions)
-            const data = await response.json()
-            const status = response.status;
-            if (status == 200) {
-                setNotify('Session Added Succesfully')
-                Swal.fire({
-                    title: 'Session Added Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
+        const fetchData = () => {
+            axios(config)
+                .then(function (response) {
+                    const data = response.data;
+                    setStudentList(data.students)
+                    // setData(' ')
+                    return data;
                 })
-            } else {
-                setNotify('Error Occured!!!')
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
-            }
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
-        editSession()
-    };
+        fetchData()
+    }
+    function removeStudent() {
 
+    }
+    function addStudent() {
 
+    }
+    function AddAttendees() {
+
+    }
+    setInterval(function SetDelay() {
+        setDelay(Math.random())
+    }, 1000)
     return (<>
         {
             notify == 'loading' && (
@@ -71,9 +66,32 @@ function AddAttendanceComp() {
                 <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
+            {delay}
             Add Attendees
         </h3>
-        <form className="card p-4" action="" onSubmit={handleEditSession}>
+        <div className="row">
+            <div className="table-responsive col-6 ">
+                Students
+                <table className="table table-striped table-hover table-sm">
+                    <tr>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Department</th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Micheal Adedosun
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div className="col-6">
+                Attendees Selected
+
+            </div>
+        </div>
+        {/* <form className="card p-4" action="" onSubmit={handleEditSession}>
             <div className="mb-3">
                 <label htmlFor="session_id">Session</label>
                 <input onChange={(e) => setattendanceInf(
@@ -92,7 +110,7 @@ function AddAttendanceComp() {
             <div className="col-5 m-auto singleSubmits">
                 <button type="submit" className="btn rounded-0  text-info w-100"> Add Attendant</button>
             </div>
-        </form>
+        </form> */}
     </>);
 }
 

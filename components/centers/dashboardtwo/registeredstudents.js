@@ -17,6 +17,7 @@ function StudentsList(props) {
     const [Inst, setInst] = useState([]);
     // const [dets, setDets] = useState({});
     // console.log(data)
+    const [filterData, setFilterData] = useState(' ');
     const [datali, setData] = useState(' ');
     // console.log(datali)
     const fetchFillables = () => {
@@ -92,7 +93,8 @@ function StudentsList(props) {
                 axios(config)
                     .then(function (response) {
                         const data = response.data;
-                        setData(data.students)
+                        setFilterData(data.students)
+                        // setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -113,7 +115,8 @@ function StudentsList(props) {
                 axios(config)
                     .then(function (response) {
                         const data = response.data;
-                        setData(data.students)
+                        setFilterData(data.students)
+                        // setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -136,7 +139,8 @@ function StudentsList(props) {
                 axios(config)
                     .then(function (response) {
                         const data = response.data;
-                        setData(data.students)
+                        setFilterData(data.students)
+                        // setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -166,11 +170,8 @@ function StudentsList(props) {
                 console.log(error);
             });
     }
-
-    useEffect(() => {
-        fetchData()
-        fetchFillables()
-    }, [])
+    fetchData()
+    fetchFillables()
     function showFilters() {
         setfilter(!filter)
     }
@@ -255,8 +256,31 @@ function StudentsList(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {datali == ' ' || datali == null ? <CircularProgress /> :
-                            datali.map(student => {
+                        {filterData == " " ?
+                            datali == ' ' || datali == null ? <CircularProgress /> :
+                                datali.map(student => {
+                                    return (
+                                        <tr className='align-items-center '>
+                                            <td>{datali.indexOf(student) + 1}</td>
+                                            <td><span><img src="" alt="" /></span> {student.name}</td>
+                                            <td>{student.email}</td>
+                                            <td>{student.phone}</td>
+                                            <td>{student.departments_title} </td>
+                                            <td>{student.programmes_title}</td>
+                                            <td>{student.faculties_title}</td>
+                                            <td>{student.occupation}</td>
+                                            <td className='btn-group'>
+                                                <Link href={`/centers/studentlist/${student.id}`} >
+                                                    <button className='btn btn-sm btn-primary'>View</button>
+                                                </Link>
+                                                <button onClick={() => deleteStud(`${student.id}`)} className="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            : filterData.map(student => {
                                 return (
                                     <tr className='align-items-center '>
                                         <td>{datali.indexOf(student) + 1}</td>

@@ -1,8 +1,10 @@
 import { CircularProgress } from "@mui/material";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
 function AddFaculty(props) {
+    const router = useRouter()
     const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
@@ -43,6 +45,8 @@ function AddFaculty(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                router.push('/centers/faculties')
+
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({

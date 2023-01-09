@@ -17,7 +17,6 @@ function AllLecturers(props) {
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
-
     const fetchData = () => {
         axios(config)
             .then(function (response) {
@@ -29,9 +28,8 @@ function AllLecturers(props) {
                 console.log(error);
             });
     }
-
     fetchData()
-    console.log(lecturers)
+    // console.log(lecturers)
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>
@@ -63,7 +61,7 @@ function AllLecturers(props) {
                                     <td><span><img src="" alt="" /></span> {lecturer.name}</td>
                                     <td>{lecturer.email}</td>
                                     <td>{lecturer.phone}</td>
-                                    <td>department </td>
+                                    <td>department</td>
                                     <td>programme</td>
                                     <td> {lecturer.occupation}</td>
 

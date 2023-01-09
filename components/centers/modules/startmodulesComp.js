@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 function StartModules(props) {
     const { details, bearer } = props
     const [notify, setNotify] = useState(' ');
+    const [delay, setDelay] = useState(' ');
     const [session, setSession] = useState([]);
     const [module, setModule] = useState([]);
     const [startsesion, setstartsesion] = useState({
@@ -34,7 +35,14 @@ function StartModules(props) {
             })
         )
     }
-    fetchData()
+    setInterval(function SetDelay() {
+        setDelay('active')
+    }, 1000)
+
+    useEffect(() => {
+        fetchData()
+    }, [delay])
+    // fetchData()
 
     // useEffect(() => {
     // }, [startsesion.coursetitle])

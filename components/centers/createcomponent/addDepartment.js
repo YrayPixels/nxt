@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import useSWR from 'swr';
 import axios from "axios";
@@ -59,6 +59,7 @@ function AddDepartment(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                Router.push('/centers/department')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
