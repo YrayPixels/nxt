@@ -1,15 +1,19 @@
 import { CChart } from "@coreui/react-chartjs";
 import { CircularProgress } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Studentfeedback = () => {
     const [date, setDate] = useState(' ');
-    // setDate(new Date());
+    useEffect(() => {
+        const d = new Date();
+        setDate(`${d.getUTCDate()}-${d.getMonth() + 1}-${d.getFullYear()} -- ${d.getSeconds()}`);
+    }, [])
+    console.log(date)
     // let dates = getMonth()
     return (<div className="">
         <div className="p-5">
             <p className=" fw-bold fs-4">Student Feedback</p>
-            <p>LAST UPDATED ON: </p>
+            <p>LAST UPDATED ON: {date} </p>
             <div className="">
                 <CChart
 

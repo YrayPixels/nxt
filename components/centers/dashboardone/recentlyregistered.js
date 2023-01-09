@@ -6,8 +6,9 @@ import axios from 'axios';
 
 function Recentregisterd(props) {
     const { details, bearer } = props
-    const { students, setStudents } = useState(' ')
+    const [students, setStudents] = useState(' ')
     const { error, setErrors } = useState({})
+
 
     var config = {
         method: 'get',
@@ -22,7 +23,7 @@ function Recentregisterd(props) {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                setStudents(data.session)
+                setStudents(data.students)
                 return data;
             })
             .catch(function (error) {
@@ -30,19 +31,15 @@ function Recentregisterd(props) {
             });
     }
     fetchData()
-
-    if (error != '')
-        return 'An error has occured'
     if (students == ' ') return <CircularProgress />
     // console.log(data)
     return (<div>
 
         <div className="bg-info p-4 shadow rounded-3 table-responsive">
             <div>
-                <h6 className="fw-bold">Recent Registered  Students</h6>
-                <p>Done this month</p>
+                <h6 className="fw-bold">Recent Registered  Students: {students.length}</h6>
             </div>
-            <table className="tableData table table-hover  table-striped  table-borderless">
+            <table className="tableData table table-hover table-sm table-striped  table-borderless">
                 <thead>
                     <tr>
                         <th>STUDENT'S NAME</th>
@@ -51,7 +48,7 @@ function Recentregisterd(props) {
                         <th>DEPARTMENT</th>
                         <th>PROGRAMME</th>
                         <th>FACULTY</th>
-                        <th>OCCUPATION</th>
+                        {/* <th>OCCUPATION</th> */}
 
 
                     </tr>
@@ -67,7 +64,6 @@ function Recentregisterd(props) {
                                     <td>{data.departments_title} </td>
                                     <td>{data.programmes_title}</td>
                                     <td>{data.faculties_title}</td>
-                                    {/* <td> {data.occupation}</td> */}
                                 </tr>
                             )
                         })

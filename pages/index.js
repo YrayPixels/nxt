@@ -81,7 +81,7 @@ function LoginComponent() {
                 <div className="container-fluid container-lg">
 
                     <div className="center_login p-2 p-lg-5">
-                        <div className="row">
+                        <div className="row align-items-center">
                             <div className="col-12 col-lg-6 order-1 order-lg-0">
                                 <h3 className="mb-5 fw-bold">CENTER FOR EXCELLENCE PORTAL (SPESSE)</h3>
                                 {
