@@ -171,7 +171,7 @@ function AddAttendanceComp(props) {
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [delay])
 
     return (<>
         {
