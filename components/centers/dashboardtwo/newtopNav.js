@@ -48,7 +48,7 @@ function NewtopNAv(props) {
                     </div>
                 </div>
                 <div className="col-2">
-                    <Link href={'/centers/profile/settings'}>
+                    <Link href={'/centers/settings'}>
                         <span><Settings /></span>
                     </Link>
                 </div>

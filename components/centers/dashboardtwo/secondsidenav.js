@@ -160,5 +160,20 @@ function Secondnav() {
                 </Link>
             </div>
         </>)
+    if (path.includes('settings') || path.includes('graduatinglist'))
+        return (<>
+            <div className="secondNav">
+                <Link href={'/centers/graduatinglist/create'}>
+                    <li className={(path == '/centers/graduatinglist/create' ? 'activated' : '')}>
+                        Create Graduating List
+                    </li>
+                </Link>
+                <Link href={'/centers/graduatinglist/all'}>
+                    <li className={(path == '/centers/graduatinglist/all' ? 'activated' : '')}>
+                        View Graduating List
+                    </li>
+                </Link>
+            </div>
+        </>)
 }
 export default Secondnav;

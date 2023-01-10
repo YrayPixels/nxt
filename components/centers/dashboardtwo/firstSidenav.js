@@ -64,7 +64,9 @@ function FirstsideNav() {
                 <Person3Sharp />
             </li>
             <li className={(path.includes('dashboard') ? 'activated settings' : 'settings')}>
-                <Settings />
+                <Link href="/centers/settings">
+                    <Settings />
+                </Link>
             </li>
         </ul>
     </>);
