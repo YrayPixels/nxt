@@ -57,6 +57,9 @@ function AddAttendeesSt() {
                                 <div className="col-10 p-lg-3">
                                     <AddAttendanceComp details={dets} bearer={bearer_key} />
                                 </div>
+                                <div className="container text-center mt5  pt-5">
+                                    <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
+                                </div>
                             </div>
                         </div>
 

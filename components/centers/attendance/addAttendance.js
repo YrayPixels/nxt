@@ -1,25 +1,48 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
+import axios from "axios";
+import { Add, Remove, RemoveCircle, } from "@mui/icons-material";
 
 
-function AddAttendanceComp() {
+function AddAttendanceComp(props) {
+    const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
-    const [bearer_key, setBearer_key] = useState(' ');
     const [added, setAdded] = useState(' ');
     const [delay, setDelay] = useState(' ');
     const [studentList, setStudentList] = useState(' ')
+    const [moduleList, setModuleList] = useState(' ')
+    const [sessionList, setSessionList] = useState(' ')
+    const [arrays, setArrays] = useState([])
     const [attendanceInf, setattendanceInf] = useState({
         center_id: " ",
         session_id: " ",
         course_id: " ",
         student_id: " ",
     });
-    useEffect(() => {
-        if (window) {
-            setBearer_key(window.sessionStorage.getItem("bearer_token"));
-        }
-    }, []);
+
+    const fetchData = () => {
+        const allModules = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
+        const allSession = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
+        const allStudents = `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`
+
+        const getAllModules = axios.get(allModules);
+        const getAllSession = axios.get(allSession);
+        const getAllStudent = axios.get(allStudents);
+
+        axios.all([getAllModules, getAllSession, getAllStudent]).then(
+            axios.spread((...allData) => {
+                const allModulesData = allData[0].data.result;
+                const allSessionData = allData[1].data.session;
+                const allStudentData = allData[2].data.students.reverse();
+
+                setStudentList(allStudentData)
+                setSessionList(allSessionData)
+                setModuleList(allModulesData)
+            })
+        )
+    }
+    let attendanceArray = [];
     function fetchStud() {
         var config = {
             method: 'get',
@@ -43,18 +66,113 @@ function AddAttendanceComp() {
         }
         fetchData()
     }
-    function removeStudent() {
-
+    function removeStud(student) {
+        let filtered = arrays.filter(function (ele) {
+            return ele != student
+        })
+        setArrays(filtered);
     }
-    function addStudent() {
+    function addStudent(id, name, course, faculty) {
+        const student_data = {
+            std_id: id,
+            std_name: name,
+            std_course: course,
+            std_faculty: faculty,
+        }
+
+        const student = arrays.find(stud => {
+            if (stud.std_id === student_data.std_id) {
+                return true;
+            }
+
+            return false;
+        });
+        // console.log(student)
+        if (student != undefined) {
+            Swal.fire({
+                title: 'Student Added Already',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
+
+        } else {
+            setArrays(arrays.concat(student_data))
+
+        }
+        // console.log(student_data)
+        // console.log(arrays.indexOf(student_data))
+
 
     }
     function AddAttendees() {
+        // console.log(arrays)
+        if (arrays.length == 0) {
+            Swal.fire({
+                title: 'No Student on List',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
+        } else if (attendanceInf.session_id == ' ') {
+            Swal.fire({
+                title: 'Kindly Select a Session',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
+        } else if (attendanceInf.course_id == ' ') {
+            Swal.fire({
+                title: 'Kindly Select a Course',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
+        } else {
+            arrays.map(student => {
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("center_id", details.id);
+                urlencoded.append("session_id", attendanceInf.session_id);
+                urlencoded.append("course_id", attendanceInf.course_id);
+                urlencoded.append("student_id", student.std_id);
+                urlencoded.append("Authorization", `Bearer ${bearer}`);
+
+
+                var requestOptions = {
+                    method: 'POST',
+                    body: urlencoded,
+                    redirect: 'follow'
+                };
+
+                const addst = async () => {
+                    const response = fetch("https://stockmgt.gapaautoparts.com/api/AddAttendees", requestOptions)
+                    const data = await response;
+                    const status = data.status
+                    if (status) {
+                        Swal.fire({
+                            title: 'Attendees added Successfully',
+                            icon: 'success',
+                            confirmButtonText: 'close'
+                        })
+                    }
+                    return status
+
+                }
+
+                addst()
+
+
+
+            })
+        }
 
     }
+    // console.log(arrays)
+    // console.log(arrays.indexOf(Student))
     setInterval(function SetDelay() {
         setDelay(Math.random())
-    }, 1000)
+    }, 5000)
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     return (<>
         {
             notify == 'loading' && (
@@ -65,30 +183,114 @@ function AddAttendanceComp() {
             notify != ' ' && (
                 <p className="text-success text-center fw-bold">{notify}</p>)
         }
-        <h3 className="py-4">
-            {delay}
+        <h3 className="py-4 ">
             Add Attendees
         </h3>
-        <div className="row">
-            <div className="table-responsive col-6 ">
-                Students
-                <table className="table table-striped table-hover table-sm">
-                    <tr>
-                        <th>Name</th>
-                        <th>Course</th>
-                        <th>Department</th>
-                    </tr>
+        <div>
+            Select session and module to add attendees
 
-                    <tr>
-                        <td>
-                            Micheal Adedosun
-                        </td>
-                    </tr>
+            <div className="mb-3 row">
+                <div className="col-6 p-1 tableData">
+                    <select type="text" onChange={(e) => setattendanceInf(
+                        { ...attendanceInf, course_id: e.target.value })} placeholder="select course" className="form-select" >
+                        <option value="">Select Module</option>
+                        {moduleList == " " ? <span><CircularProgress /></span> :
+                            moduleList.map(data => {
+                                return (<option value={data.id}>
+                                    {data.title}
+                                </option>)
+                            })
+                        }
+                    </select>
+                </div>
+                <div className="col-6 p-1 tableData">
+                    <select type="text" onChange={(e) => setattendanceInf(
+                        { ...attendanceInf, session_id: e.target.value })} className="form-select" >
+                        <option value="">Select Session</option>
+                        {sessionList == " " ? <span><CircularProgress /></span> :
+                            sessionList.map(session => {
+                                return (<option value={session.id}>
+                                    {session.session}
+                                </option>)
+                            })
+                        }
+                    </select>
+                </div>
+
+            </div>
+        </div>
+        <div className="row bg-info shadow-sm pt-3">
+            <div className="table-responsive col-6 borer border-1 ">
+                Student List
+                <table className="tableData table table-striped table-sm table-hover ">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {studentList == ' ' ? <p><CircularProgress /></p> :
+                            studentList.map(student => {
+
+                                return (<>
+                                    <tr>
+                                        <td onClick={() => {
+                                            addStudent(`${student.id}`, `${student.name}`, `${student.programmes_title}`, `${student.faculties_title}`,)
+                                        }}>
+                                            <Add className="text-primary" />
+                                        </td>
+                                        <td>
+                                            {student.name}
+                                        </td>
+                                        <td>{student.programmes_title}</td>
+                                        <td>{student.faculties_title}</td>
+                                    </tr></>)
+                            })
+                        }
+                    </tbody>
                 </table>
             </div>
             <div className="col-6">
                 Attendees Selected
+                <table className="tableData table table-striped table-sm table-hover ">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Department</th>
+                            <th></th>
 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {arrays == [] ? <p><CircularProgress /></p> :
+                            arrays.map(student => {
+
+                                return (<>
+                                    <tr>                                        <td>
+                                        {student.std_name}
+                                    </td>
+                                        <td>{student.std_course}</td>
+                                        <td>{student.std_faculty}</td>
+                                        <td onClick={() => {
+                                            removeStud(student)
+                                        }}>
+                                            <RemoveCircle className="text-danger" />
+                                        </td>
+                                    </tr></>)
+                            })
+                        }
+                    </tbody>
+
+                    <div className=" text-center pt-3 singleSubmits">
+                        <button onClick={AddAttendees} className="btn w-100 text-info rounded-0">
+                            Add Attedees
+                        </button>
+                    </div>
+                </table>
             </div>
         </div>
         {/* <form className="card p-4" action="" onSubmit={handleEditSession}>
