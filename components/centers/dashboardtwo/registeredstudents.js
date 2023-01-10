@@ -19,6 +19,7 @@ function StudentsList(props) {
     // console.log(data)
     const [filterData, setFilterData] = useState(' ');
     const [datali, setData] = useState(' ');
+    const [delay, setDelay] = useState(' ')
     // console.log(datali)
     const fetchFillables = () => {
         const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
@@ -159,19 +160,29 @@ function StudentsList(props) {
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
+    
     const fetchData = () => {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                setData(data.students)
+                setData(data.students.reverse())
                 return data;
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
-    fetchData()
-    fetchFillables()
+
+    setInterval(function setTimer() {
+        setDelay(Math.random())
+
+    }, 5000)
+
+    useEffect(() => {
+        fetchData()
+        fetchFillables()
+    }, [delay])
+
     function showFilters() {
         setfilter(!filter)
     }
@@ -257,7 +268,7 @@ function StudentsList(props) {
                     </thead>
                     <tbody>
                         {filterData == " " ?
-                            datali == ' ' || datali == null ? <CircularProgress /> :
+                            datali == ' ' || datali == null ? <p><CircularProgress /></p> :
                                 datali.map(student => {
                                     return (
                                         <tr className='align-items-center '>
