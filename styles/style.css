@@ -135,9 +135,10 @@
     width: 200px;
 }
 
-/* .conttt {
-    background: url('../public//image/Mockups.png');
-} */
+.conttt {
+    background: url('../public//image/bg.png');
+    background-size: cover;
+}
 
 
 .loginCont h2 {

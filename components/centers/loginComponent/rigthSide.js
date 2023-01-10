@@ -5,18 +5,18 @@ function RightsideCenters(props) {
     const { spesee, nuclogo, worldBank } = props
 
     return (<>
-        <div className="row justify-content-between align-items-center py-3">
+        <div className="row justify-content-between align-items-center py-sm-0 py-lg-3">
             <CCarousel className="text-center" interval={1000}>
                 <CCarouselItem>
-                    <Image width={200} src={worldBank} className="" alt="World Bank Logo" />
+                    <Image width={200} src={worldBank} className="img-fluid" alt="World Bank Logo" />
 
                 </CCarouselItem>
                 <CCarouselItem>
-                    <Image width={200} src={nuclogo} className="" alt="NUC logo" />
+                    <Image width={200} src={nuclogo} className="img-fluid" alt="NUC logo" />
 
                 </CCarouselItem>
                 <CCarouselItem>
-                    <Image width={200} src={spesee} className="" alt="SPESSE logo" />
+                    <Image width={200} src={spesee} className="img-fluid" alt="SPESSE logo" />
 
                 </CCarouselItem>
             </CCarousel>

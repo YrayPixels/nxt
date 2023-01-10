@@ -74,12 +74,13 @@
 
 @media screen and (max-width: 992px) {
     .sidenav {
-        position: absolute;
+        position: fixed;
         color: white;
+        top: 0;
         background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
         width: 85%;
         z-index: 999999999999;
-        height: 1000px;
+        height: 100%;
     }
 
 
@@ -102,7 +103,7 @@
         background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
         width: 85%;
         z-index: 999999999999;
-        height: 1000px;
+        height: 100%;
     }
 
     .subNav {

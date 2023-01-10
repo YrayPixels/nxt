@@ -148,60 +148,57 @@ function Otp() {
 
     return (
         <>
-            {/* <LoginComponent /> */}
-            <div className="loginCont">
-                <div className="backgroundCent">
+            <div className="conttt">
 
-                </div>
-                <div className="backgroundCenter">
+                <div className="loginCont container py-sm-0 py-lg-5">
 
-                </div>
-                <div className="container">
-                    <div className="center_otp p-5">
-                        <div className="row">
-                            <div className="col-6">
-                                <h3 className="mb-5 fw-bold">CENTER FOR EXCELLENCE PORTAL (SPESSE)</h3>
-                                {
-                                    notify != " " && (
-                                        <p className="text-danger fw-bold">{notify}</p>)
-                                }
-                                <h1>Enter OTP</h1>
+                    <div className="container py-sm-0 py-lg-5">
+                        <div className="center_otp p-5">
+                            <div className="row">
+                                <div className="col-12 col-lg-6 order-1 ">
+                                    <h3 className="mb-5 fw-bold">CENTER FOR EXCELLENCE PORTAL (SPESSE)</h3>
+                                    {
+                                        notify != " " && (
+                                            <p className="text-danger fw-bold">{notify}</p>)
+                                    }
+                                    <h1>Enter OTP</h1>
 
-                                <div className="">
-                                    <div className="d-flex OtpComponent">
-                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
-                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
-                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
-                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
-                                        <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                    <div className="">
+                                        <div className="d-flex OtpComponent">
+                                            <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                            <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                            <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                            <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                            <input maxLength={1} onChange={handleInput} className="" type="text" />
+                                        </div>
+                                    </div>
+
+                                    <div className='btn-group mt-3 p-2 '>
+                                        <button onClick={verifyOtp} className='btn btn-dark align-items-center justify-content-center d-flex p-2'>
+                                            {
+                                                loading == 'loading' && (<CircularProgress size='1.5rem' color="inherit" />)
+                                            }
+                                            verify Otp
+                                        </button>
+                                        <button onClick={resendOtp} className='btn btn-light p-2'>
+                                            Resend Otp
+                                        </button>
                                     </div>
                                 </div>
-
-                                <div className='btn-group mt-3 p-2 '>
-                                    <button onClick={verifyOtp} className='btn btn-dark align-items-center justify-content-center d-flex p-2'>
-                                        {
-                                            loading == 'loading' && (<CircularProgress size='1.5rem' color="inherit" />)
-                                        }
-                                        verify Otp
-                                    </button>
-                                    <button onClick={resendOtp} className='btn btn-light p-2'>
-                                        Resend Otp
-                                    </button>
+                                <div className="col-12 Right col-lg-6 order-0 order-lg-2">
+                                    <RightsideCenters spesee={speseeLogo} nuclogo={nuc} worldBank={worldbank} />
                                 </div>
-                            </div>
-                            <div className="col-12 Right col-lg-6 order-0 order-lg-2">
-                                <RightsideCenters spesee={speseeLogo} nuclogo={nuc} worldBank={worldbank} />
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="container text-center mt-5 pt-5">
-                    <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
-                </div>
+                    <div className="container text-center mt5  pt-5">
+                        <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
+                    </div>
 
 
 
-            </div >
+                </div >
+            </div>
         </ >
     );
 }

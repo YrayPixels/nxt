@@ -10,7 +10,7 @@ function Totalfaculty() {
     const { data, error } = useSWR('totalFaculty', fetcher)
     return (
         <div className="row topPills shadow  align-items-center">
-            <div className="col-12 col-md-8">
+            <div className="col-12 text-center col-md-8">
                 <p>Total Faculty</p>
                 <p className="fw-bold num">{
                     error ? '---' :

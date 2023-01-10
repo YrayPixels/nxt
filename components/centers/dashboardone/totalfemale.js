@@ -11,7 +11,7 @@ const fetcher = async () => {
 function Totalfemale() {
     const { data, error } = useSWR('totalFemales', fetcher)
     return (
-        <div className="row topPills shadow  align-items-center">
+        <div className="row topPills shadow text-center align-items-center">
             <div className="col-12 col-md-8">
                 <p>Total Female</p>
                 <p className="fw-bold num">{
