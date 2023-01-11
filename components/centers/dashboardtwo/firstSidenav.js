@@ -61,9 +61,11 @@ function FirstsideNav() {
 
         <ul className='firstsidebottom text-center p-2 '>
             <li className={(path.includes('profile') ? 'activated' : '')}>
-                <Person3Sharp />
+                <Link href="/centers/profile">
+                    <Person3Sharp />
+                </Link>
             </li>
-            <li className={(path.includes('dashboard') ? 'activated settings' : 'settings')}>
+            <li className={(path.includes('settings') ? 'activated settings' : 'settings')}>
                 <Link href="/centers/settings">
                     <Settings />
                 </Link>
