@@ -9,6 +9,8 @@ import AddAttendanceComp from "../../../components/centers/attendance/addAttenda
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import AddGraduatingList from "../../../components/centers/graduatinglist/add";
 import CreateGradlistComp from "../../../components/centers/graduatinglist/createGraduatinglist";
+import ProfileDetails from "../../../components/centers/profile/profiledetails";
+import Logo from '../../../public/image/spesee.png'
 
 function Profile() {
     const [bearer_key, setBearer_key] = useState(' ');
@@ -35,7 +37,7 @@ function Profile() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
 
@@ -57,7 +59,7 @@ function Profile() {
                                 </div>
 
                                 <div className="col-10 p-lg-3">
-                                    <CreateGradlistComp details={dets} bearer={bearer_key} />
+                                    <ProfileDetails details={dets} bearer={bearer_key} />
                                 </div>
                                 <div className="container text-center mt5  pt-5">
                                     <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>

@@ -14,7 +14,6 @@ function EditSessionComp(props) {
         session_start: " ",
         session_end: " ",
     });
-    console.log(sesInfo)
     const sessionFetcher = () => {
         // const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
         const singGradList = `https://stockmgt.gapaautoparts.com/api/getSingleSession/${id}`
@@ -28,7 +27,6 @@ function EditSessionComp(props) {
                 // const allcourses = allData[0].data.session;
                 const GradList = allData[0].data.session[0];
                 // setsession(allcourses)
-                console.log(GradList)
                 setsesInfo({
                     session: GradList.session,
                     session_start: GradList.session_start,

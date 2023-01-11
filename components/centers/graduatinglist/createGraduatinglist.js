@@ -11,25 +11,21 @@ function CreateGradlistComp(props) {
     const [bearer_key, setBearer_key] = useState(' ');
     const [session, setsession] = useState([])
     const [delay, setDelay] = useState(' ')
-
     const [gradListInfo, setgradListInfo] = useState({
         center_id: " ",
         title: " ",
         session_id: " ",
         certificate: " ",
     });
-
     const sessionFetcher = () => {
-        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
+        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
         const getallCourse = axios.get(coursesInCenter);
-
         axios.all([getallCourse]).then(
             axios.spread((...allData) => {
-                const allcourses = allData[0].data.result;
+                const allcourses = allData[0].data.session;
                 setsession(allcourses)
             })
         )
-
     }
     setInterval(() => {
         setDelay(Math.random())
@@ -40,21 +36,18 @@ function CreateGradlistComp(props) {
     // console.log(courses)
     const handlecreateGradList = async (e) => {
         e.preventDefault()
-
         var urlencoded = new URLSearchParams();
         urlencoded.append("center_id", '1');
         urlencoded.append("title", gradListInfo.title);
         urlencoded.append("session_id", gradListInfo.session_id);
         urlencoded.append("certificate", gradListInfo.certificate);
         urlencoded.append("Authorization", `Bearer ${bearer}`);
-
         var requestOptions = {
             method: 'POST',
             body: urlencoded,
             redirect: 'follow'
         };
         setNotify('loading')
-
         const addGradList = async () => {
             const response = await fetch("https://stockmgt.gapaautoparts.com/api/CreateGraduatingList", requestOptions)
             const data = await response.json()
@@ -78,8 +71,6 @@ function CreateGradlistComp(props) {
         }
         addGradList()
     };
-
-
     return (<>
         {
             notify == 'loading' && (

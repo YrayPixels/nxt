@@ -23,13 +23,13 @@ function AllPartners(props) {
             redirect: 'follow'
         };
         const deletefac = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/Hidepartners/${param}`, requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/deleteAcademicPartners/${param}`, requestOptions)
             const data = await response.json()
             // console.log(response.status)
             if (response.status == 200) {
                 // setNotify('partners Deleted Successfully')
                 Swal.fire({
-                    title: 'partners Deleted Succesfully',
+                    title: 'Partners Deleted Succesfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
@@ -82,7 +82,7 @@ function AllPartners(props) {
         <div className="bg-info p-4 shadow rounded-0">
 
             <div>
-                <h6 className="fw-bold">Total No of Faculties: {partners.length}</h6>
+                <h6 className="fw-bold">Total No of Partners: {partners.length}</h6>
             </div>
             <table className="tableData table table-striped table-sm table-responsive table">
                 <thead>

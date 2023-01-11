@@ -18,8 +18,8 @@ function AddPartnersComp(props) {
         }
     }, []);
     // console.log(details.id)
-    const handlePartnersReg = async (e) => {
-        e.preventDefault()
+    const handlePartnersReg = async () => {
+
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("title", partnerInfo.name);

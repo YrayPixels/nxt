@@ -41,12 +41,15 @@ function NewtopNAv(props) {
                 <div className="px-3">
                     <NotificationsActiveOutlined />
                 </div>
-                <div className="d-flex align-items-center">
-                    <Avatar />
-                    <div className="row px-3">
-                        <span className="col-12">{dets.center_name}</span>
+                <Link href={'/centers/profile'}>
+
+                    <div className="d-flex align-items-center">
+                        <Avatar />
+                        <div className="row px-3">
+                            <span className="col-12">{dets.center_name}</span>
+                        </div>
                     </div>
-                </div>
+                </Link>
                 <div className="col-2">
                     <Link href={'/centers/settings'}>
                         <span><Settings /></span>

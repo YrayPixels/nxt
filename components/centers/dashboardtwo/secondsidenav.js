@@ -160,9 +160,9 @@ function Secondnav() {
                 </Link>
             </div>
         </>)
-    if (path.includes('settings') || path.includes('graduatinglist') || path.includes('partners'))
+    if (path.includes('settings') || path.includes('graduatinglist') || path.includes('partners') || path.includes('profile'))
         return (<>
-            <div className="secondNav">
+            <div className="secondNav pb-3">
                 <Link href={'/centers/graduatinglist/create'}>
                     <li className={(path == '/centers/graduatinglist/create' ? 'activated' : '')}>
                         Create Graduating List
