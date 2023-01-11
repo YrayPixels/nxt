@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
+import axios from "axios";
+import Router from "next/router";
 
 
 function EditSessionComp(props) {
-    const { details, bearer } = props
+    const { details, bearer, id } = props
     const [notify, setNotify] = useState(' ');
     const [sesInfo, setsesInfo] = useState({
         center_id: " ",
@@ -12,7 +14,30 @@ function EditSessionComp(props) {
         session_start: " ",
         session_end: " ",
     });
+    console.log(sesInfo)
+    const sessionFetcher = () => {
+        // const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
+        const singGradList = `https://stockmgt.gapaautoparts.com/api/getSingleSession/${id}`
 
+        // const getallCourse = axios.get(coursesInCenter);
+        const getSingGradList = axios.get(singGradList);
+
+
+        axios.all([getSingGradList]).then(
+            axios.spread((...allData) => {
+                // const allcourses = allData[0].data.session;
+                const GradList = allData[0].data.session[0];
+                // setsession(allcourses)
+                console.log(GradList)
+                setsesInfo({
+                    session: GradList.session,
+                    session_start: GradList.session_start,
+                    session_end: GradList.session_end,
+                })
+            })
+        )
+
+    }
 
     const handleEditSession = async (e) => {
         e.preventDefault()
@@ -32,16 +57,17 @@ function EditSessionComp(props) {
         setNotify('loading')
 
         const editSession = async () => {
-            const response = await fetch("https://stockmgt.gapaautoparts.com/api/AddSession", requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/EditSession/${id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
             if (status == 200) {
-                setNotify('Session Added Succesfully')
+                setNotify('Session Edited Succesfully')
                 Swal.fire({
-                    title: 'Session Added Successfully',
+                    title: 'Session Edited Successfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                Router.push('/centers/session')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -71,12 +97,12 @@ function EditSessionComp(props) {
         <form className="card p-4" action="" onSubmit={handleEditSession}>
             <div className="mb-3">
                 <label htmlFor="session">Session</label>
-                <input onChange={(e) => setsesInfo(
+                <input onClick={sessionFetcher} value={sesInfo.session} onChange={(e) => setsesInfo(
                     { ...sesInfo, session: e.target.value })} type="text" name="session" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="session_start">Session Start</label>
-                <input onChange={(e) => setsesInfo(
+                <input value={sesInfo.session_start} onChange={(e) => setsesInfo(
                     { ...sesInfo, session_start: e.target.value })} type="date" name="session_start" className="form-control" />
             </div>
             <div className="mb-3">

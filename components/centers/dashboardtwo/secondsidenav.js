@@ -173,6 +173,31 @@ function Secondnav() {
                         View Graduating List
                     </li>
                 </Link>
+                <Link href={'/centers/graduatinglist/addstudents'}>
+                    <li className={(path == '/centers/graduatinglist/addstudents' ? 'activated' : '')}>
+                        Add Student to Graduating List
+                    </li>
+                </Link>
+                <Link href={'/centers/graduatinglist/all'}>
+                    <li className={(path == '/centers/partners/add' ? 'activated' : '')}>
+                        Add Academic Partners
+                    </li>
+                </Link>
+                <Link href={'/centers/partners/all'}>
+                    <li className={(path == '/centers/partners/all' ? 'activated' : '')}>
+                        View All Academic Partners
+                    </li>
+                </Link>
+                <Link href={'/centers/profile/edit'}>
+                    <li className={(path == '/centers/profile/edit' ? 'activated' : '')}>
+                        Edit Profile
+                    </li>
+                </Link>
+                <Link href={'/centers/profile/password'}>
+                    <li className={(path == '/centers/profile/password' ? 'activated' : '')}>
+                        Change Password
+                    </li>
+                </Link>
             </div>
         </>)
 }

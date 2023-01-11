@@ -36,6 +36,7 @@ function StudentRegistration(props) {
     const [faculty_id, setFaculty_id] = useState([]);
     // const [nationality, setNationality] = useState([])
     const [courses, setCourses] = useState([]);
+    
     const [userInfo, setUserInfo] = useState({
         names: " ",
         email: " ",

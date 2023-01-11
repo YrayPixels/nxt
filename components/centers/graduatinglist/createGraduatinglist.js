@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import Router from "next/router";
 
 
 function CreateGradlistComp(props) {
@@ -9,6 +10,7 @@ function CreateGradlistComp(props) {
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
     const [session, setsession] = useState([])
+    const [delay, setDelay] = useState(' ')
 
     const [gradListInfo, setgradListInfo] = useState({
         center_id: " ",
@@ -29,9 +31,12 @@ function CreateGradlistComp(props) {
         )
 
     }
+    setInterval(() => {
+        setDelay(Math.random())
+    }, 5000)
     useEffect(() => {
         sessionFetcher()
-    }, [])
+    }, [delay])
     // console.log(courses)
     const handlecreateGradList = async (e) => {
         e.preventDefault()
@@ -61,6 +66,7 @@ function CreateGradlistComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                Router.push('/centers/graduatinglist/all')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -114,7 +120,7 @@ function CreateGradlistComp(props) {
                     { ...gradListInfo, certificate: e.target.value })} type="text" name="certificate" className="form-control" />
             </div>
             <div className="col-5 m-auto singleSubmits">
-                <button type="submit" className="btn rounded-0  text-info w-100"> Create</button>
+                <button type="submit" className="btn rounded-0  text-info w-100"> Create </button>
             </div>
         </form>
     </>);

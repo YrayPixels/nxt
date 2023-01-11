@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import Router from "next/router";
 
 
 function EditGradListComp(props) {
@@ -9,7 +10,7 @@ function EditGradListComp(props) {
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
     const [session, setsession] = useState([])
-
+    const [delay, setDelay] = useState(' ')
     const [gradListInfo, setgradListInfo] = useState({
         center_id: " ",
         title: " ",
@@ -18,22 +19,42 @@ function EditGradListComp(props) {
     });
 
     const sessionFetcher = () => {
-        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
-        const getallCourse = axios.get(coursesInCenter);
+        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
+        const singGradList = `https://stockmgt.gapaautoparts.com/api/GetSingleGraduatingList/${id}`
 
-        axios.all([getallCourse]).then(
+        const getallCourse = axios.get(coursesInCenter);
+        const getSingGradList = axios.get(singGradList);
+
+
+        axios.all([getallCourse, getSingGradList]).then(
             axios.spread((...allData) => {
-                const allcourses = allData[0].data.result;
+                const allcourses = allData[0].data.session;
+                const GradList = allData[1].data.data[0];
                 setsession(allcourses)
+                setgradListInfo({
+                    title: GradList.title,
+                    session_id: GradList.session_id,
+                    certificate: GradList.certificate
+                })
             })
         )
 
     }
-    useEffect(() => {
+    // sessionFetcher()
+
+    // if (gradListInfo.title == ' ') {
+    //     setInterval(() => {
+    //         setDelay(Math.random())
+    //     }, 2000);
+    // } else {
+    //     setDelay('stable')
+    // }
+    const fetchdata = () => {
         sessionFetcher()
-    }, [])
+    }
+
     // console.log(courses)
-    const handlecreateGradList = async (e) => {
+    const handleEditList = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
@@ -61,6 +82,7 @@ function EditGradListComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                Router.push('/centers/graduatinglist/all')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -85,17 +107,17 @@ function EditGradListComp(props) {
                 <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
-            Create Graduation List
+            Edit Graduation List
         </h3>
-        <form className="card p-4" action="" onSubmit={handlecreateGradList}>
+        <form className="card p-4" action="" onSubmit={handleEditList}>
             <div className="mb-3">
                 <label htmlFor="title">Title</label>
-                <input onChange={(e) => setgradListInfo(
+                <input onClick={fetchdata} value={gradListInfo.title} onChange={(e) => setgradListInfo(
                     { ...gradListInfo, title: e.target.value })} type="text" name="title" className="form-control" />
             </div>
             <div className="mb-3">
                 <label htmlFor="session">Session</label>
-                <select onChange={(e) => setgradListInfo(
+                <select value={gradListInfo.session_id} onChange={(e) => setgradListInfo(
                     { ...gradListInfo, session_id: e.target.value })} type="text" name="session" className="form-control" >
 
                     <option value="">kindly select the session for this list</option>
@@ -110,7 +132,7 @@ function EditGradListComp(props) {
             </div>
             <div className="mb-3">
                 <label htmlFor="certificate">Certificate Title</label>
-                <input onChange={(e) => setgradListInfo(
+                <input value={gradListInfo.certificate} onChange={(e) => setgradListInfo(
                     { ...gradListInfo, certificate: e.target.value })} type="text" name="certificate" className="form-control" />
             </div>
             <div className="col-5 m-auto singleSubmits">

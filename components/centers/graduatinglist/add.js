@@ -11,34 +11,28 @@ function AddGraduatingList(props) {
     const [added, setAdded] = useState(' ');
     const [delay, setDelay] = useState(' ');
     const [studentList, setStudentList] = useState(' ')
-    const [moduleList, setModuleList] = useState(' ')
-    const [sessionList, setSessionList] = useState(' ')
+    const [gradList, setGradList] = useState(' ')
     const [arrays, setArrays] = useState([])
-    const [attendanceInf, setattendanceInf] = useState({
+    const [gradInf, setGradInf] = useState({
         center_id: " ",
-        session_id: " ",
-        course_id: " ",
-        student_id: " ",
+        list_id: " ",
+
     });
 
     const fetchData = () => {
-        const allModules = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
-        const allSession = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
+        const allGrad = `https://stockmgt.gapaautoparts.com/api/GetCreateGraduatingListByCenter/1`
         const allStudents = `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`
 
-        const getAllModules = axios.get(allModules);
-        const getAllSession = axios.get(allSession);
+        const getallGrad = axios.get(allGrad);
         const getAllStudent = axios.get(allStudents);
 
-        axios.all([getAllModules, getAllSession, getAllStudent]).then(
+        axios.all([getallGrad, getAllStudent]).then(
             axios.spread((...allData) => {
-                const allModulesData = allData[0].data.result;
-                const allSessionData = allData[1].data.session;
-                const allStudentData = allData[2].data.students.reverse();
+                const allGradData = allData[0].data.data;
+                const allStudentData = allData[1].data.students.reverse();
 
                 setStudentList(allStudentData)
-                setSessionList(allSessionData)
-                setModuleList(allModulesData)
+                setGradList(allGradData)
             })
         )
     }
@@ -79,12 +73,10 @@ function AddGraduatingList(props) {
             std_course: course,
             std_faculty: faculty,
         }
-
         const student = arrays.find(stud => {
             if (stud.std_id === student_data.std_id) {
                 return true;
             }
-
             return false;
         });
         // console.log(student)
@@ -104,50 +96,51 @@ function AddGraduatingList(props) {
 
 
     }
-    function AddAttendees() {
-        // console.log(arrays)
+    function AddGraduates() {
         if (arrays.length == 0) {
             Swal.fire({
                 title: 'No Student on List',
                 icon: 'error',
                 confirmButtonText: 'close'
             })
-        } else if (attendanceInf.session_id == ' ') {
+        } else if (gradInf.list_id == ' ' || gradInf.list_id == 'none') {
             Swal.fire({
-                title: 'Kindly Select a Session',
-                icon: 'error',
-                confirmButtonText: 'close'
-            })
-        } else if (attendanceInf.course_id == ' ') {
-            Swal.fire({
-                title: 'Kindly Select a Course',
+                title: 'Kindly Select a List',
                 icon: 'error',
                 confirmButtonText: 'close'
             })
         } else {
-            arrays.map(student => {
-                var urlencoded = new URLSearchParams();
-                urlencoded.append("center_id", details.id);
-                urlencoded.append("session_id", attendanceInf.session_id);
-                urlencoded.append("course_id", attendanceInf.course_id);
-                urlencoded.append("student_id", student.std_id);
-                urlencoded.append("Authorization", `Bearer ${bearer}`);
+            console.log(gradInf.list_id)
 
+            arrays.map(student => {
+                var myHeaders = new Headers();
+                myHeaders.append("Authorization", `Bearer ${bearer}`);
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("student_id", student.std_id);
 
                 var requestOptions = {
                     method: 'POST',
+                    headers: myHeaders,
                     body: urlencoded,
                     redirect: 'follow'
                 };
 
                 const addst = async () => {
-                    const response = fetch("https://stockmgt.gapaautoparts.com/api/AddAttendees", requestOptions)
+                    const response = fetch(`https://stockmgt.gapaautoparts.com/api/AddStudentToGraduationList/${gradInf.list_id}`, requestOptions)
                     const data = await response;
                     const status = data.status
-                    if (status) {
+                    if (status == 200) {
                         Swal.fire({
-                            title: 'Attendees added Successfully',
+                            title: 'Students added Successfully',
                             icon: 'success',
+                            confirmButtonText: 'close'
+                        })
+                    } else if (status == 201) {
+                        Swal.fire({
+                            title: 'Students Already Added',
+                            icon: 'error',
                             confirmButtonText: 'close'
                         })
                     }
@@ -163,14 +156,12 @@ function AddGraduatingList(props) {
         }
 
     }
-    // console.log(arrays)
-    // console.log(arrays.indexOf(Student))
     setInterval(function SetDelay() {
         setDelay(Math.random())
     }, 5000)
 
     useEffect(() => {
-        fetchData()
+        // fetchData()
     }, [delay])
 
     return (<>
@@ -184,18 +175,18 @@ function AddGraduatingList(props) {
                 <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4 ">
-            Add Attendees
+            Add Students to Graduating List
         </h3>
         <div>
-            Select session and module to add attendees
+            Select Graduating List to add Students
 
             <div className="mb-3 row">
                 <div className="col-6 p-1 tableData">
-                    <select type="text" onChange={(e) => setattendanceInf(
-                        { ...attendanceInf, course_id: e.target.value })} placeholder="select course" className="form-select" >
-                        <option value="">Select Module</option>
-                        {moduleList == " " ? <span><CircularProgress /></span> :
-                            moduleList.map(data => {
+                    <select onClick={fetchData} type="text" onChange={(e) => setGradInf(
+                        { ...gradInf, list_id: e.target.value })} placeholder="select course" className="form-select" >
+                        <option value={'none'}>Select Graduation List</option>
+                        {gradList == " " ? <span><CircularProgress /></span> :
+                            gradList.map(data => {
                                 return (<option value={data.id}>
                                     {data.title}
                                 </option>)
@@ -203,23 +194,11 @@ function AddGraduatingList(props) {
                         }
                     </select>
                 </div>
-                <div className="col-6 p-1 tableData">
-                    <select type="text" onChange={(e) => setattendanceInf(
-                        { ...attendanceInf, session_id: e.target.value })} className="form-select" >
-                        <option value="">Select Session</option>
-                        {sessionList == " " ? <span><CircularProgress /></span> :
-                            sessionList.map(session => {
-                                return (<option value={session.id}>
-                                    {session.session}
-                                </option>)
-                            })
-                        }
-                    </select>
-                </div>
+
 
             </div>
         </div>
-        <div className="row bg-info shadow-sm pt-3">
+        <div onClick={fetchData} className="row bg-info shadow-sm pt-3">
             <div className="table-responsive col-6 borer border-1 ">
                 Student List
                 <table className="tableData table table-striped table-sm table-hover ">
@@ -254,7 +233,7 @@ function AddGraduatingList(props) {
                 </table>
             </div>
             <div className="col-6">
-                Attendees Selected
+                Student Selected
                 <table className="tableData table table-striped table-sm table-hover ">
                     <thead>
                         <tr>
@@ -286,33 +265,14 @@ function AddGraduatingList(props) {
                     </tbody>
 
                     <div className=" text-center pt-3 singleSubmits">
-                        <button onClick={AddAttendees} className="btn w-100 text-info rounded-0">
-                            Add Attedees
+                        <button onClick={AddGraduates} className="btn w-100 text-info rounded-0">
+                            Add Students
                         </button>
                     </div>
                 </table>
             </div>
         </div>
-        {/* <form className="card p-4" action="" onSubmit={handleEditSession}>
-            <div className="mb-3">
-                <label htmlFor="session_id">Session</label>
-                <input onChange={(e) => setattendanceInf(
-                    { ...attendanceInf, session_id: e.target.value })} type="text" name="session_id" className="form-control" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="course_id">Course</label>
-                <input onChange={(e) => setattendanceInf(
-                    { ...attendanceInf, course_id: e.target.value })} type="text" name="course_id" className="form-control" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="student_id">Student</label>
-                <input onChange={(e) => setattendanceInf(
-                    { ...attendanceInf, student_id: e.target.value })} type="text" name="student_id" className="form-control" />
-            </div>
-            <div className="col-5 m-auto singleSubmits">
-                <button type="submit" className="btn rounded-0  text-info w-100"> Add Attendant</button>
-            </div>
-        </form> */}
+
     </>);
 }
 

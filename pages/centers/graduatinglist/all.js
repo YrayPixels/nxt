@@ -10,6 +10,8 @@ import AddAttendanceComp from "../../../components/centers/attendance/addAttenda
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import AllAttendees from "../../../components/centers/attendance/allAttendees";
 import AllGraduatinglist from "../../../components/centers/graduatinglist/all";
+import Logo from '../../../public/image/spesee.png'
+
 
 function AllGraduatingStud() {
     const [bearer_key, setBearer_key] = useState(' ');
@@ -35,7 +37,7 @@ function AllGraduatingStud() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
 

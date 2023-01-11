@@ -1,15 +1,14 @@
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
-import Router from "next/router"
+import Router, { useRouter } from "next/router"
 import { CircularProgress } from "@mui/material"
-import NewtopNAv from "../../../components/centers/dashboardtwo/newtopNav";
-import AllNavs from "../../../components/allNavs";
-import TopPilsItems from "../../../components/centers/toppills";
-import AddAttendanceComp from "../../../components/centers/attendance/addAttendance";
-import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
-import AddGraduatingList from "../../../components/centers/graduatinglist/add";
-import CreateGradlistComp from "../../../components/centers/graduatinglist/createGraduatinglist";
 import EditGradListComp from "../../../../components/centers/graduatinglist/edit";
+import Logo from '../../../../public/image/spesee.png'
+import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
+import AllNavs from "../../../../components/allNavs";
+import TopPilsItems from "../../../../components/centers/toppills";
+import Secondnav from "../../../../components/centers/dashboardtwo/secondsidenav";
+
 
 function EditGradList() {
     const router = useRouter()
@@ -38,7 +37,7 @@ function EditGradList() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
 

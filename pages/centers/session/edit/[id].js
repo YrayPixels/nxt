@@ -1,5 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AllNavs from "../../../../components/allNavs";
 import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
@@ -10,6 +11,8 @@ import Logo from '../../../../public/image/spesee.png'
 
 
 function ViewSession() {
+    const router = useRouter()
+    const { id } = router.query
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     function navState(ClickedNav) {
@@ -53,7 +56,7 @@ function ViewSession() {
                                 <Secondnav />
                             </div>
                             <div className="col-10 p-lg-3">
-                                <EditSessionComp details={dets} bearer={bearer_key} />
+                                <EditSessionComp id={id} details={dets} bearer={bearer_key} />
                             </div>
                         </div>
 

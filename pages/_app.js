@@ -11,29 +11,13 @@ import '../styles/otpcomp.css'
 
 import Head from 'next/head'
 import { SessionProvider } from 'next-auth/react'
-import { QueryClient, QueryClientProvider } from 'react-query'
-const queryClient = new QueryClient({
-    defaultOptions: {
-
-        queries: {
-
-            // refetchOnWindowFocus: 'always',
-            // refetchOnMount: true,
-
-        },
-
-    },
-
-});
 
 
 
 function MyApp({ Component, pageProps }) {
 
     return (<SessionProvider session={pageProps.session}>
-        <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
-        </QueryClientProvider>
+        <Component {...pageProps} />
     </SessionProvider>
     )
 

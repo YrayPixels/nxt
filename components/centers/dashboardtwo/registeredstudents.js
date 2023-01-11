@@ -24,7 +24,7 @@ function StudentsList(props) {
     const fetchFillables = () => {
         const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
-        const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/${'2'}`
+        const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
 
 
         const getAllPrograms = axios.get(allPrograms);
@@ -95,7 +95,7 @@ function StudentsList(props) {
                     .then(function (response) {
                         const data = response.data;
                         setFilterData(data.students)
-                        // setData(' ')
+                        setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -106,7 +106,7 @@ function StudentsList(props) {
         } else if (filterby == 'department') {
             var config = {
                 method: 'get',
-                url: `https://stockmgt.gapaautoparts.com/api/GetAllStudentsByDepartmentId/${std_id}`,
+                url: `https://stockmgt.gapaautoparts.com/api/viewRegisteredStudentByModule/`,
                 headers: {
                     'Authorization': `Bearer ${bearer}`,
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -117,7 +117,7 @@ function StudentsList(props) {
                     .then(function (response) {
                         const data = response.data;
                         setFilterData(data.students)
-                        // setData(' ')
+                        setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -141,7 +141,7 @@ function StudentsList(props) {
                     .then(function (response) {
                         const data = response.data;
                         setFilterData(data.students)
-                        // setData(' ')
+                        setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -160,7 +160,7 @@ function StudentsList(props) {
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
-    
+
     const fetchData = () => {
         axios(config)
             .then(function (response) {
@@ -176,7 +176,7 @@ function StudentsList(props) {
     setInterval(function setTimer() {
         setDelay(Math.random())
 
-    }, 5000)
+    }, 2000)
 
     useEffect(() => {
         fetchData()
@@ -186,8 +186,6 @@ function StudentsList(props) {
     function showFilters() {
         setfilter(!filter)
     }
-    // console.log(datali)
-    // console.log(programs)
     return (
         <div>
             <div className='d-flex align-items-center justify-content-between py-4'>
@@ -196,7 +194,7 @@ function StudentsList(props) {
                     <input type="text" className='col-12 text-end col-md-6 form-control w-50' placeholder='Enter Text Here...' />
                     <div className='d-flex p-2'>
                         <button onClick={showFilters} className='bg-info shadow btn btn-sm'> filter by<Add size={1} /></button>
-                        <div className={filter ? '' : 'd-none'}>
+                        <div className={filter ? ' ' : 'd-none'}>
                             <ul className='filter d-flex justify-content-around'>
                                 <li>
                                     <select className='form-select' name="" id="">
