@@ -80,7 +80,7 @@ function AddPartnersComp(props) {
                     <p className="text-success text-center fw-bold">{notify}</p>)
             }
             <h3 className="py-4">
-                Add Faculty
+                Add Partners
             </h3>
             <form className="card p-4" action="" onSubmit={handlePartnersReg}>
                 <div className="mb-3">
@@ -94,7 +94,7 @@ function AddPartnersComp(props) {
                         { ...partnerInfo, type: e.target.value })} type="text" name="type" className="form-control" />
                 </div>
                 <div className="col-5 m-auto singleSubmits">
-                    <button type="submit" className="btn rounded-0  text-info w-100"> Add Faculty</button>
+                    <button type="submit" className="btn rounded-0  text-info w-100"> Add Partners</button>
                 </div>
             </form>
         </>
