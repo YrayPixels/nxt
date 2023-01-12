@@ -213,20 +213,6 @@ function StudentsList(props) {
                                 </li>
                                 <li>
                                     <select className='form-select' name="" id="">
-                                        <option value="">department</option>
-                                        {
-                                            department.map(department => {
-                                                return (
-                                                    <option onClick={() => {
-                                                        filterStud(`${department.id}`, `department`)
-                                                    }} value={department.id}>{department.title}</option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </li>
-                                <li>
-                                    <select className='form-select' name="" id="">
                                         <option value="">faculty</option>
                                         {
                                             faculties.map(faculties => {
