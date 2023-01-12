@@ -9,31 +9,13 @@ function AddCenterUserComp(props) {
     const { details, bearer } = props;
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
-    const [session, setsession] = useState([])
-    const [delay, setDelay] = useState(' ')
     const [centerUser, setcenterUser] = useState({
         email: " ",
         password: " ",
         name: " ",
         phone_number: " ",
     });
-    const sessionFetcher = () => {
-        const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
-        const getallCourse = axios.get(coursesInCenter);
-        axios.all([getallCourse]).then(
-            axios.spread((...allData) => {
-                const allcourses = allData[0].data.session;
-                setsession(allcourses)
-            })
-        )
-    }
-    setInterval(() => {
-        setDelay(Math.random())
-    }, 5000)
-    useEffect(() => {
-        sessionFetcher()
-    }, [delay])
-    // console.log(courses)
+
     const handleUserAdding = async (e) => {
         e.preventDefault()
         var urlencoded = new URLSearchParams();
@@ -60,7 +42,7 @@ function AddCenterUserComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
-                Router.push('/centers/graduatinglist/all')
+                Router.push('/centers/users/all')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -83,7 +65,7 @@ function AddCenterUserComp(props) {
                 <p className="text-success text-center fw-bold">{notify}</p>)
         }
         <h3 className="py-4">
-            Create Graduation List
+            Create Center User
         </h3>
         <form className="card p-4" action="" onSubmit={handleUserAdding}>
             <div className="mb-3">
@@ -106,7 +88,7 @@ function AddCenterUserComp(props) {
             <div className="mb-3">
                 <label htmlFor="phone">Phone Number</label>
                 <input onChange={(e) => setcenterUser(
-                    { ...centerUser, name: e.target.value })} type="number" name="phone" className="form-control" />
+                    { ...centerUser, phone_number: e.target.value })} type="number" name="phone" className="form-control" />
             </div>
             <div className="col-5 m-auto singleSubmits">
                 <button type="submit" className="btn rounded-0  text-info w-100"> Create </button>

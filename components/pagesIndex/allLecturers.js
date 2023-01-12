@@ -22,6 +22,7 @@ function AllLecturers(props) {
             .then(function (response) {
                 const data = response.data;
                 setLecturers(data.result)
+                console.log(data)
                 return data;
             })
             .catch(function (error) {

@@ -160,7 +160,7 @@ function Secondnav() {
                 </Link>
             </div>
         </>)
-    if (path.includes('settings') || path.includes('graduatinglist') || path.includes('partners') || path.includes('profile'))
+    if (path.includes('settings') || path.includes('graduatinglist') || path.includes('partners') || path.includes('profile') || path.includes('users'))
         return (<>
             <div className="secondNav pb-3">
                 <Link href={'/centers/graduatinglist/create'}>

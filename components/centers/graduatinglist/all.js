@@ -11,7 +11,7 @@ function AllGraduatinglist(props) {
     const [delay, setDelay] = useState(' ');
 
     const fetchData = () => {
-        const gradlist = `https://stockmgt.gapaautoparts.com/api/GetCreateGraduatingListByCenter/1`
+        const gradlist = `https://stockmgt.gapaautoparts.com/api/GetCreateGraduatingListByCenter/${details.id}`
         const getgradlist = axios.get(gradlist);
         axios.all([getgradlist,]).then(
             axios.spread((...allData) => {
