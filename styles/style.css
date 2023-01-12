@@ -125,15 +125,19 @@
     background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
 }
 
+.footerDiv {
+    position: fixed;
+}
+
 .center_login .world {
     height: 200px;
     width: 100%;
 }
 
-.center_login img {
+/* .center_login img {
     height: 200px;
     width: 200px;
-}
+} */
 
 .conttt {
     background: url('../public//image/bg.png');
@@ -166,11 +170,4 @@
 
 
 
-@media screen and (max-width: 459px) {
-    .Right img {
-        height: 150px;
-        width: 100%;
-    }
-
-
-}
+@media screen and (max-width: 459px) {}

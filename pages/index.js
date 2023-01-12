@@ -68,9 +68,9 @@ function LoginComponent() {
     return (<>
         <div className="conttt">
 
-            <div className="loginCont container">
+            <div className="loginCont container py-sm-0">
 
-                <div className="container-fluid container-lg">
+                <div className="container py-sm-0">
 
                     <div className="center_login p-2 p-lg-5">
                         <div className="row align-items-center">
@@ -114,7 +114,7 @@ function LoginComponent() {
                                     </div>
                                 </form>
                             </div>
-                            <div className="col-12 Right col-lg-6 order-0 order-lg-2">
+                            <div className="col-12 col-lg-6 order-0 order-lg-2 my-sm-0  py-sm-0 my-lg-5 py-lg-5">
                                 <RightsideCenters spesee={speseeLogo} nuclogo={nuc} worldBank={worldbank} />
                             </div>
                         </div>

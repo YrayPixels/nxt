@@ -9,7 +9,7 @@ import RightsideCenters from '../../components/centers/loginComponent/rigthSide'
 import speseeLogo from '../../public/image/spesee.png'
 import worldbank from '../../public/image/worldBank.png'
 import nuc from '../../public/image/nuclogo.png'
-
+import FooterComp from '../../components/footer';
 
 
 function Otp() {
@@ -150,18 +150,19 @@ function Otp() {
         <>
             <div className="conttt">
 
-                <div className="loginCont container py-sm-0 py-lg-5">
+                <div className="loginCont container py-sm-0">
 
-                    <div className="container py-sm-0 py-lg-5">
-                        <div className="center_otp p-5">
-                            <div className="row">
-                                <div className="col-12 col-lg-6 order-1 ">
+                    <div className="container py-sm-0">
+
+                        <div className="center_login p-2 p-lg-5">
+                            <div className="row align-items-center">
+                                <div className="col-12 col-lg-6 order-1 order-lg-0">
                                     <h3 className="mb-5 fw-bold">CENTER FOR EXCELLENCE PORTAL (SPESSE)</h3>
                                     {
                                         notify != " " && (
                                             <p className="text-danger fw-bold">{notify}</p>)
                                     }
-                                    <h1>Enter OTP</h1>
+                                    <h5 className='fw-bold'>ENTER OTP</h5>
 
                                     <div className="">
                                         <div className="d-flex OtpComponent">
@@ -172,7 +173,6 @@ function Otp() {
                                             <input maxLength={1} onChange={handleInput} className="" type="text" />
                                         </div>
                                     </div>
-
                                     <div className='btn-group mt-3 p-2 '>
                                         <button onClick={verifyOtp} className='btn btn-dark align-items-center justify-content-center d-flex p-2'>
                                             {
@@ -184,19 +184,17 @@ function Otp() {
                                             Resend Otp
                                         </button>
                                     </div>
+
                                 </div>
-                                <div className="col-12 Right col-lg-6 order-0 order-lg-2">
+                                <div className="col-12 col-lg-6 order-0 order-lg-2 my-sm-0 py-sm-0 my-lg-5 py-lg-5">
                                     <RightsideCenters spesee={speseeLogo} nuclogo={nuc} worldBank={worldbank} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="container text-center mt5  pt-5">
-                        <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
+                    <div className="container text-center mt-5 pt-5">
+                        <FooterComp />
                     </div>
-
-
-
                 </div >
             </div>
         </ >
