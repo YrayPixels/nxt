@@ -74,7 +74,27 @@ function EditStudentComp(props) {
         axios(config)
             .then(function (response) {
                 const data = response.data;
-                setStdData(data.students)
+                setUserInfo({
+                    names: data.students.name,
+                    email: data.students.email,
+                    phone: data.students.phone,
+                    address: data.students.address,
+                    faculty_id: data.students.faculty_id,
+                    department_id: data.students.department_id,
+                    programme_id: data.students.programme_id,
+                    heighest_qualification: data.students.heighest_qualification,
+                    center_id: details.id,
+                    age: data.students.age,
+                    sex: data.students.sex,
+                    Nationality: data.students.Nationality,
+                    state: data.students.state,
+                    lga: data.students.lga,
+                    level: data.students.level,
+                    heighest_qualification_year: data.students.heighest_qualification_year,
+                    employee: data.students.employee,
+                    employee_type: data.students.employee_type,
+                    employment_status: data.students.employment_status,
+                })
                 // setStdQual(data.qualifications)
                 // console.log(data)
                 return data;
@@ -189,7 +209,6 @@ function EditStudentComp(props) {
         urlencoded.append("employee", userInfo.employee);
         urlencoded.append("employee_type", userInfo.employee_type);
         urlencoded.append("employment_status", userInfo.employment_status);
-        urlencoded.append('Nationality', userInfo.nationality);
         urlencoded.append('level', userInfo.level);
 
         var requestOptions = {
@@ -266,23 +285,23 @@ function EditStudentComp(props) {
                 <legend>Personal Data</legend>
                 <div className="col-6 mb-3">
                     <label htmlFor="fullname">Student Name</label>
-                    <input value={stdData.name} onChange={(e) => setUserInfo(
+                    <input value={userInfo.name} onChange={(e) => setUserInfo(
                         { ...userInfo, names: e.target.value })}
                         required type="text" name="fullname" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="phone">Telephone number</label>
-                    <input value={stdData.phone} onChange={(e) => setUserInfo(
+                    <input value={userInfo.phone} onChange={(e) => setUserInfo(
                         { ...userInfo, phone: e.target.value })} type="number" required name="phone" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="email">Email</label>
-                    <input value={stdData.email} onChange={(e) => setUserInfo(
+                    <input value={userInfo.email} onChange={(e) => setUserInfo(
                         { ...userInfo, email: e.target.value })} type="text" required name="email" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="age">Age</label>
-                    <input value={stdData.age} required onChange={(e) => setUserInfo(
+                    <input value={userInfo.age} required onChange={(e) => setUserInfo(
                         { ...userInfo, age: e.target.value })} type="number" name="age" className="form-control" max={90} min={10} >
                         {/* <option value="option your age"> option your age</option>
                         {
@@ -294,7 +313,7 @@ function EditStudentComp(props) {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="nationality">Nationality</label>
-                    <select value={stdData.nationality} required name="nationality" onChange={(e) => setUserInfo(
+                    <select value={userInfo.Nationality} required name="nationality" onChange={(e) => setUserInfo(
                         { ...userInfo, Nationality: e.target.value })} class="form-select" aria-label="Default select example"  >
                         <option selected value={0}>Select your Nationality</option>
                         <option value={'Nigeria'}>Nigeria</option>
@@ -303,7 +322,7 @@ function EditStudentComp(props) {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="state">State of Origin</label>
-                    <select value={stdData.state_tile} required name="state" onChange={(e) => setUserInfo(
+                    <select value={userInfo.state_tile} required name="state" onChange={(e) => setUserInfo(
                         { ...userInfo, state: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                         <option selected value={0}>Select your State</option>
@@ -321,7 +340,7 @@ function EditStudentComp(props) {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="lga">LGA</label>
-                    <select value={stdData.lga} required name="lga" onChange={(e) => setUserInfo(
+                    <select value={userInfo.lga} required name="lga" onChange={(e) => setUserInfo(
                         { ...userInfo, lga: e.target.value })} class="form-select" aria-label="Default select example"  >
                         <option selected>Select your LGA</option>
                         {
@@ -335,7 +354,7 @@ function EditStudentComp(props) {
                 </div>
                 <div className=" col-6 mb-3">
                     <label htmlFor="sex">Gender</label>
-                    <select value={stdData.sex} required onChange={(e) => setUserInfo(
+                    <select value={userInfo.sex} required onChange={(e) => setUserInfo(
                         { ...userInfo, sex: e.target.value })} type="text" name="address" className="form-control" >
                         <option value="none" selected>Select your gender</option>
                         <option value="Male">Male</option>
@@ -344,7 +363,7 @@ function EditStudentComp(props) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="address">Address</label>
-                    <textarea required onChange={(e) => setUserInfo(
+                    <textarea value={userInfo.address} required onChange={(e) => setUserInfo(
                         { ...userInfo, address: e.target.value })} type="text" name="address" className="form-control" > </textarea>
                 </div>
 
@@ -357,7 +376,7 @@ function EditStudentComp(props) {
                 <div className="mb-3 row ">
                     <div className="col-6 mb-3">
                         <label htmlFor="falculty">Faculty</label>
-                        <select value={'none'} required name="department" onChange={(e) => setUserInfo(
+                        <select value={userInfo.faculty_id} required name="department" onChange={(e) => setUserInfo(
                             { ...userInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                             <option selected value={0}>Select your Faculty</option>
@@ -376,7 +395,7 @@ function EditStudentComp(props) {
 
                     <div className="col-6 mb-3">
                         <label htmlFor="department">Department</label>
-                        <select value={stdData.departments_title} required name="department" onChange={(e) => setUserInfo(
+                        <select value={userInfo.department_id} required name="department" onChange={(e) => setUserInfo(
                             { ...userInfo, department_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                             <option selected value={0}>Select your Department</option>
@@ -395,7 +414,7 @@ function EditStudentComp(props) {
                     </div>
                     <div className="col-6 mb-3">
                         <label htmlFor="programme">Programme</label>
-                        <select value={stdData.programmes_title} required name="programme" onChange={(e) => setUserInfo(
+                        <select value={userInfo.programme_id} required name="programme" onChange={(e) => setUserInfo(
                             { ...userInfo, programme_id: e.target.value })} class="form-select" aria-label="Default select example">
 
                             <option selected>Select your program</option>
@@ -413,7 +432,7 @@ function EditStudentComp(props) {
                     </div>
                     <div className="col-6 mb-3">
                         <label htmlFor="level">Level </label>
-                        <select required onChange={(e) => setUserInfo(
+                        <select required value={userInfo.level} onChange={(e) => setUserInfo(
                             { ...userInfo, level: e.target.value })} type='text' name="level" className="form-control" >
 
                             <option value={'2020'}>Kindly select your level</option>
@@ -430,7 +449,7 @@ function EditStudentComp(props) {
                             <div className="row align-items-center">
                                 <div className="col-6 mb-3">
                                     <label htmlFor="highest_qualifcation">Highest Qualifcation</label>
-                                    <select value={stdData.heighest_qualification} onClick={looper} required name="highest_qualifcation" onChange={(e) => setUserInfo(
+                                    <select value={userInfo.heighest_qualification} onClick={looper} required name="highest_qualifcation" onChange={(e) => setUserInfo(
                                         { ...userInfo, heighest_qualification: e.target.value }
                                     )} class="form-select" aria-label="Default select example">
 
@@ -447,7 +466,7 @@ function EditStudentComp(props) {
                                 </div>
                                 <div className="col-6 mb-3">
                                     <label htmlFor="year_finished">Year Finished</label>
-                                    <select value={stdData.heighest_qualification_year} required onChange={(e) => setUserInfo(
+                                    <select value={userInfo.heighest_qualification_year} required onChange={(e) => setUserInfo(
                                         { ...userInfo, heighest_qualification_year: e.target.value })} type='text' name="year_finished" className="form-control" >
                                         {loope == ' ' ? <option > none </option> :
                                             loope.map(program => {
@@ -467,7 +486,7 @@ function EditStudentComp(props) {
                             <div className="row align-items-center">
                                 <div className="col-3 mb-3">
                                     <label htmlFor="qualification">Qualification</label>
-                                    <select required name="qualification" onChange={(e) => setQualArray(
+                                    <select required value={userInfo.qualification_id} name="qualification" onChange={(e) => setQualArray(
                                         { ...qaulArray, qualification_id: e.target.value }
                                     )} class="form-select" aria-label="Default select example">
 
@@ -549,7 +568,7 @@ function EditStudentComp(props) {
                 </legend>
                 <div className="mb-3">
                     <label htmlFor="employmentStatus">Employment Status</label>
-                    <select required name="employmentStatus" onChange={(e) => setUserInfo(
+                    <select required value={userInfo.employment_status} name="employmentStatus" onChange={(e) => setUserInfo(
                         { ...userInfo, employment_status: e.target.value })} class="form-select" aria-label="employement status" >
                         <option selected  >What's your employent Status</option>
                         <option value={'Employed'}>Employed</option>
@@ -561,12 +580,12 @@ function EditStudentComp(props) {
                     <div className="mb-3 row ">
                         <div className="col-6 mb-3">
                             <label htmlFor="Employee">Employee</label>
-                            <input placeholder="where do you work" required name="employee" onChange={(e) => setUserInfo(
+                            <input value={userInfo.employee} placeholder="where do you work" required name="employee" onChange={(e) => setUserInfo(
                                 { ...userInfo, employee: e.target.value })} class="form-control" aria-label="" />
                         </div>
                         <div className="col-6 mb-3">
                             <label htmlFor="EmployeeType">Employee Type</label>
-                            <select required name="employeeType" onChange={(e) => setUserInfo(
+                            <select value={userInfo.employee_type} required name="employeeType" onChange={(e) => setUserInfo(
                                 { ...userInfo, employee_type: e.target.value })} class="form-control" aria-label="Default select example">
                                 <option selected value={'None'}> What type of organization do you work for</option>
                                 <option value="Private">Private</option>

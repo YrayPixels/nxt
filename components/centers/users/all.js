@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-function AllGraduatinglist(props) {
+function AllCenterUSersComp(props) {
     const { details, bearer } = props
     const [gradlist, setGradList] = useState([]);
     const [delay, setDelay] = useState(' ');
@@ -118,4 +118,4 @@ function AllGraduatinglist(props) {
     </>);
 }
 
-export default AllGraduatinglist;
+export default AllCenterUSersComp;

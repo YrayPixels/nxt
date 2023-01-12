@@ -33,7 +33,7 @@ function LoginComponent() {
         var requestOptions = {
             method: 'POST',
             body: urlencoded,
-            // redirect: 'follow'
+            redirect: 'follow'
         };
         setLoading('loading')
 
@@ -82,7 +82,7 @@ function LoginComponent() {
                                 }
                                 <h2>Sign In</h2>
                                 <p>Enter the email and password provided to log in.</p>
-                                <form action="" onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit}>
                                     <div className="mb-4  col-12 col-lg-6 ">
                                         <label htmlFor="email">Email</label>
                                         <input type="email" name="email"

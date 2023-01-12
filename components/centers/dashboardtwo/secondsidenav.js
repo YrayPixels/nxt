@@ -188,6 +188,16 @@ function Secondnav() {
                         View All Academic Partners
                     </li>
                 </Link>
+                <Link href={'/centers/users/addUser'}>
+                    <li className={(path == '/centers/users/addUser' ? 'activated' : '')}>
+                        Add Users
+                    </li>
+                </Link>
+                <Link href={'/centers/users/all'}>
+                    <li className={(path == '/centers/users/all' ? 'activated' : '')}>
+                        View Users
+                    </li>
+                </Link>
                 <Link href={'/centers/profile'}>
                     <li className={(path == '/centers/profile/edit' ? 'activated' : '')}>
                         Edit Profile

@@ -18,12 +18,12 @@ function AddPartnersComp(props) {
         }
     }, []);
     // console.log(details.id)
-    const handlePartnersReg = async () => {
-
+    const handlePartnersReg = async (e) => {
+        e.preventDefault()
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("title", partnerInfo.name);
-        urlencoded.append("code", partnerInfo.type);
+        urlencoded.append("name", partnerInfo.name);
+        urlencoded.append("type", partnerInfo.type);
         urlencoded.append("center_id", details.id);
         urlencoded.append("Authorization", `Bearer ${bearer}`);
 
@@ -45,7 +45,7 @@ function AddPartnersComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
-                router.push('/centers/faculties')
+                router.push('/centers/partners')
 
             } else if (status == 201) {
                 setNotify('Partner already Added ')
@@ -54,7 +54,7 @@ function AddPartnersComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
-                router.push('/centers/faculties')
+                router.push('/centers/partners')
 
             } else {
                 setNotify('Error Occured!!!')
@@ -90,8 +90,11 @@ function AddPartnersComp(props) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="type">Partner Type</label>
-                    <input onChange={(e) => setpartnerInfo(
-                        { ...partnerInfo, type: e.target.value })} type="text" name="type" className="form-control" />
+                    <select onChange={(e) => setpartnerInfo(
+                        { ...partnerInfo, type: e.target.value })} type="text" name="type" className="form-control" >
+                        <option selected value={'International Partner'}>International Partner</option>
+                        <option value={'Industrial Partner'}>Industrial Partner</option>
+                    </select>
                 </div>
                 <div className="col-5 m-auto singleSubmits">
                     <button type="submit" className="btn rounded-0  text-info w-100"> Add Partners</button>

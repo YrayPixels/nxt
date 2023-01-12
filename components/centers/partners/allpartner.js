@@ -49,7 +49,7 @@ function AllPartners(props) {
 
     var config = {
         method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/viewAllAcademicPartners/23232223`,
+        url: `https://stockmgt.gapaautoparts.com/api/viewAllAcademicPartners/${details.id}`,
         headers: {
             'Authorization': `Bearer ${bearer}`,
             "Content-Type": "application/x-www-form-urlencoded",

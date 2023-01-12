@@ -10,6 +10,7 @@ import AllNavs from "../../../../components/allNavs";
 import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
 import Secondnav from "../../../../components/centers/dashboardtwo/secondsidenav";
 import TopPilsItems from "../../../../components/centers/toppills";
+import Logo from '../../../../public/image/spesee.png'
 
 
 
@@ -20,9 +21,9 @@ function FacultyEdit() {
     const { status, data } = useSession();
     const [oldData, setOldData] = useState(' ');
     const [showNav, setShowNav] = useState(false);
-    const [deptInfo, setdeptInfo] = useState({
-        facultyTitle: " ",
-        facultyCode: " ",
+    const [partnerInfo, setpartnerInfo] = useState({
+        name: " ",
+        type: " ",
     });
     function navState(ClickedNav) {
         // alert(ClickedNav)
@@ -32,7 +33,7 @@ function FacultyEdit() {
 
     var config = {
         method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/getfacultyById/${id}`,
+        url: `https://stockmgt.gapaautoparts.com/api/viewSingleAcademicPartner/${id}`,
         headers: {
             'Authorization': `Bearer ${bearer_key}`,
             "Content-Type": "application/x-www-form-urlencoded",
@@ -43,10 +44,10 @@ function FacultyEdit() {
         axios(config)
             .then(function (response) {
                 // console.log(response)
-                const data = response.data;
-                setdeptInfo({
-                    facultyTitle: data.result[0].title,
-                    facultyCode: data.result[0].code,
+                const data = response.data.data;
+                setpartnerInfo({
+                    name: data[0].name,
+                    type: data[0].type,
                 })
                 // setOldData(data.result)
                 return data;
@@ -68,15 +69,15 @@ function FacultyEdit() {
         }
     }, []);
 
-    const handleEditFaculty = async (e) => {
+    const handlePartnersReg = async (e) => {
         e.preventDefault()
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${bearer_key}`);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("title", `${deptInfo.facultyTitle}`);
-        urlencoded.append("code", `${deptInfo.facultyCode}`);
+        urlencoded.append("name", `${partnerInfo.name}`);
+        urlencoded.append("type", `${partnerInfo.type}`);
 
         var requestOptions = {
             method: 'POST',
@@ -85,18 +86,18 @@ function FacultyEdit() {
         };
         setNotify('loading')
 
-        const addFaculty = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/EditFaculty/${id}`, requestOptions)
+        const editPartner = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/editAcademicPartners/${id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
             if (status == 200) {
-                setNotify('Faculty Updated Succesfully')
+                setNotify('Partner Updated Succesfully')
                 Swal.fire({
-                    title: 'Faculty Updated Successfully',
+                    title: 'Partner Updated Successfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
-                router.push('/centers/faculties')
+                router.push('/centers/partners')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -104,9 +105,10 @@ function FacultyEdit() {
                     icon: 'error',
                     confirmButtonText: 'close'
                 })
+                router.push('/centers/partners')
             }
         }
-        addFaculty()
+        editPartner()
     };
     useEffect(() => {
         if (status === 'unauthenticated') Router.replace('/');
@@ -116,7 +118,7 @@ function FacultyEdit() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">
@@ -145,23 +147,24 @@ function FacultyEdit() {
                                         <p className="text-success text-center fw-bold">{notify}</p>)
                                 }
                                 <h3 className="py-4">
-                                    Edit Faculty
+                                    Edit Partners
                                 </h3>
-                                <form className="card p-4" action="" onSubmit={handleEditFaculty}>
+                                <form className="card p-4" action="" onSubmit={handlePartnersReg}>
                                     <div className="mb-3">
-                                        <label htmlFor="facultyTitle">Faculty Name</label>
-                                        <input value={deptInfo.facultyTitle}
-                                            onChange={(e) => setdeptInfo(
-                                                { ...deptInfo, facultyTitle: e.target.value })} type="text" name="facultyTitle" className="form-control" />
+                                        <label htmlFor="name">Partner Name</label>
+                                        <input value={partnerInfo.name} onChange={(e) => setpartnerInfo(
+                                            { ...partnerInfo, name: e.target.value })} type="text" name="name" className="form-control" />
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="facultyCode">Faculty Code</label>
-                                        <input value={deptInfo.facultyCode}
-                                            onChange={(e) => setdeptInfo(
-                                                { ...deptInfo, facultyCode: e.target.value })} type="text" name="facultyCode" className="form-control" />
+                                        <label htmlFor="type">Partner Type</label>
+                                        <select value={partnerInfo.type} onChange={(e) => setpartnerInfo(
+                                            { ...partnerInfo, type: e.target.value })} type="text" name="type" className="form-control" >
+                                            <option selected value={'International Partner'}>International Partner</option>
+                                            <option value={'Industrial Partner'}>Industrial Partner</option>
+                                        </select>
                                     </div>
                                     <div className="col-5 m-auto singleSubmits">
-                                        <button type="submit" className="btn rounded-0  text-info w-100">Save</button>
+                                        <button type="submit" className="btn rounded-0  text-info w-100"> Save</button>
                                     </div>
                                 </form>
                             </div>
