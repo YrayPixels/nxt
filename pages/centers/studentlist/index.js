@@ -36,7 +36,6 @@ function Students() {
                         <NewtopNAv logo={Logos} naviState={navState} />
                     </div>
                 </div>
-
                 <div className="row ">
                     <div className={(showNav == true) ? `d-block d-lg-none col-md-3 d-flex allNavSide` : `d-none`}>
                         <AllNavs />

@@ -57,6 +57,9 @@ function StartM() {
                                 <StartModules details={dets} bearer={bearer_key} />
                             </div>
                         </div>
+                        <div className="container text-center mt5  pt-5">
+                            <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
+                        </div>
                     </div>
                 </div>
             </div>

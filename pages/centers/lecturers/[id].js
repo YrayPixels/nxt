@@ -92,10 +92,11 @@ function LecturerInfo() {
                             <TopPilsItems />
                         </div>
                         <div className="row pt-3">
-                            <div className="col-2 border bg-info border-1">
+                            <div className="d-none d-lg-block col-2 border bg-info border-1">
                                 <Secondnav />
                             </div>
-                            <div className="px-lg-3 col-10 ">
+                            <div className="col-12 col-lg-10 px-lg-3">
+
                                 <div className="col-12">
                                     <div className="bg-info p-5 shadow">
 
@@ -200,6 +201,9 @@ function LecturerInfo() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="container text-center mt5  pt-5">
+                                <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
                             </div>
                         </div>
                     </div>

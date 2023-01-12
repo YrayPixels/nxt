@@ -47,10 +47,10 @@ function EditStudents() {
                             <TopPilsItems />
                         </div>
                         <div className="row pt-3">
-                            <div className="col-2 border bg-info border-1">
+                            <div className="d-none d-lg-block col-2 border bg-info border-1">
                                 <Secondnav />
                             </div>
-                            <div className="col-10 p-lg-3">
+                            <div className="col-12 col-lg-10 p-lg-3">
                                 <EditStudentComp details={dets} id={id} bearer={bearer_key} />
                                 {/* <AllAttendees details={dets} bearer={bearer_key} /> */}
                             </div>

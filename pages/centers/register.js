@@ -51,10 +51,10 @@ function RegisterStudents() {
                         </div>
 
                         <div className="row pt-3">
-                            <div className="col-2 border bg-info border-1">
+                            <div className="d-none d-lg-block col-2 border bg-info border-1">
                                 <Secondnav />
                             </div>
-                            <div className="col-10 p-lg-3">
+                            <div className="col-12 col-lg-10 p-lg-3">
                                 <StudentRegistration details={dets} bearer={bearer_key} />
                             </div>
                             <div className="container text-center mt5  pt-5">

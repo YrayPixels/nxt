@@ -53,17 +53,18 @@ function CreateGraduatingStud() {
                         </div>
                         <div className="">
                             <div className="row pt-3">
-                                <div className="col-2 border bg-info border-1">
+                                <div className="d-none d-lg-block col-2 border bg-info border-1">
                                     <Secondnav />
                                 </div>
 
-                                <div className="col-10 p-lg-3">
+                                <div className="col-12 col-lg-10 p-lg-3">
                                     <CreateGradlistComp details={dets} bearer={bearer_key} />
                                 </div>
-                                <div className="container text-center mt5  pt-5">
-                                    <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
-                                </div>
+
                             </div>
+                        </div>
+                        <div className="container text-center mt5  pt-5">
+                            <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
                         </div>
 
                     </div>

@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 const Studentfeedback = () => {
     const [date, setDate] = useState(' ');
-    useEffect(() => {
+    setInterval(() => {
         const d = new Date();
-        setDate(`${d.getUTCDate()}-${d.getMonth() + 1}-${d.getFullYear()} -- ${d.getSeconds()}`);
-    }, [])
-    console.log(date)
+        setDate(`${d.getUTCDate()}-${d.getMonth() + 1}-${d.getFullYear()}-${d.getSeconds()}`);
+    }, 1000)
+
     // let dates = getMonth()
     return (<div className="">
         <div className="p-5">

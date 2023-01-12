@@ -86,11 +86,11 @@ function StudentInfo() {
                         </div>
 
                         <div className="row pt-3">
-                            <div className="col-2 border bg-info border-1">
+                            <div className="d-none d-lg-block col-2 border bg-info border-1">
                                 <Secondnav />
                             </div>
 
-                            <div className="col-10  regMain">
+                            <div className="col-12 col-lg-10 p-lg-3 regMain">
 
                                 {stdData == null ? <p><CircularProgress /></p> :
                                     <>
