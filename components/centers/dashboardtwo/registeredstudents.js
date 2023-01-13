@@ -1,6 +1,6 @@
 import { Avatar, CircularProgress, Input } from '@mui/material';
 
-import { useEffect, useState } from 'react';
+import { Component, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Add, EmailOutlined, FiveG } from '@mui/icons-material';
 import Link from 'next/link';
@@ -145,32 +145,34 @@ function StudentsList(props) {
             fetchData()
         }
     }
-    var config = {
-        method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`,
-        headers: {
-            'Authorization': `Bearer ${bearer}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-    };
-    const fetchData = () => {
-        axios(config)
-            .then(res => {
-                setDatali(res.data.students)
-                console.log(datali)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const dataliEmpty = () => {
-        if (datali == ' ') {
+
+
+    setInterval(() => {
+        setDelay(Math.random());
+    }, 1000)
+    useEffect(() => {
+        if (datali.length == 0 || datali == ' ') {
+            var config = {
+                method: 'get',
+                url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`,
+                headers: {
+                    'Authorization': `Bearer ${bearer}`,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            };
+            const fetchData = () => {
+                axios(config)
+                    .then(res => {
+                        setDatali(res.data.students)
+                        console.log(datali)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            };
             fetchData()
         }
-    }
-    useEffect(() => {
-        dataliEmpty()
-    })
+    }, [delay])
 
     function showFilters() {
         setfilter(!filter)
