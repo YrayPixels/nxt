@@ -20,7 +20,7 @@ function AddGraduatingList(props) {
     });
 
     const fetchData = () => {
-        const allGrad = `https://stockmgt.gapaautoparts.com/api/GetCreateGraduatingListByCenter/1`
+        const allGrad = `https://stockmgt.gapaautoparts.com/api/GetCreateGraduatingListByCenter/${details.id}`
         const allStudents = `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`
 
         const getallGrad = axios.get(allGrad);

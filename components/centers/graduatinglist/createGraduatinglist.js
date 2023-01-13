@@ -37,7 +37,7 @@ function CreateGradlistComp(props) {
     const handlecreateGradList = async (e) => {
         e.preventDefault()
         var urlencoded = new URLSearchParams();
-        urlencoded.append("center_id", '1');
+        urlencoded.append("center_id", details.id);
         urlencoded.append("title", gradListInfo.title);
         urlencoded.append("session_id", gradListInfo.session_id);
         urlencoded.append("certificate", gradListInfo.certificate);
