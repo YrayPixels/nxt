@@ -85,7 +85,7 @@ function LoginComponent() {
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-4  col-12 col-lg-6 ">
                                         <label htmlFor="email">Email</label>
-                                        <input type="email" name="email"
+                                        <input value={userInfo.email} type="email" name="email"
                                             onChange={(e) => setUserInfo(
                                                 { ...userInfo, email: e.target.value })}
                                             // value={userInfo.email}
@@ -94,7 +94,7 @@ function LoginComponent() {
                                     </div>
                                     <div className="mb-4 col-12 col-lg-6 ">
                                         <label htmlFor="password">Password</label>
-                                        <input type="password" name="password"
+                                        <input value={userInfo.password} type="password" name="password"
                                             onChange={(e) => setUserInfo(
                                                 { ...userInfo, password: e.target.value })}
                                             // value={userInfo.password}

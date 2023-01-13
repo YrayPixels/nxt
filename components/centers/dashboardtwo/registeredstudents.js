@@ -15,12 +15,9 @@ function StudentsList(props) {
     const [department, setDepartment] = useState([]);
     const [filter, setfilter] = useState(false);
     const [Inst, setInst] = useState([]);
-    // const [dets, setDets] = useState({});
-    // console.log(data)
     const [filterData, setFilterData] = useState(' ');
-    const [datali, setData] = useState(' ');
+    const [datali, setDatali] = useState(' ');
     const [delay, setDelay] = useState(' ')
-    // console.log(datali)
     const fetchFillables = () => {
         const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
@@ -95,7 +92,6 @@ function StudentsList(props) {
                     .then(function (response) {
                         const data = response.data;
                         setFilterData(data.students)
-                        setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -117,7 +113,6 @@ function StudentsList(props) {
                     .then(function (response) {
                         const data = response.data;
                         setFilterData(data.students)
-                        setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -141,7 +136,6 @@ function StudentsList(props) {
                     .then(function (response) {
                         const data = response.data;
                         setFilterData(data.students)
-                        setData(' ')
                         return data;
                     })
                     .catch(function (error) {
@@ -151,7 +145,6 @@ function StudentsList(props) {
             fetchData()
         }
     }
-    // useEffect(() => {
     var config = {
         method: 'get',
         url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`,
@@ -160,31 +153,28 @@ function StudentsList(props) {
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
-
     const fetchData = () => {
         axios(config)
-            .then(function (response) {
-                const data = response.data;
-                setData(data.students.reverse())
-                return data;
+            .then(res => {
+                setDatali(res.data.students)
+                console.log(datali)
             })
             .catch(function (error) {
                 console.log(error);
             });
+    };
+    const dataliEmpty = () => {
+        if (datali == ' ') {
+            fetchData()
+        }
     }
-
-    setInterval(function setTimer() {
-        setDelay(Math.random())
-
-    }, 2000)
-
     useEffect(() => {
-        fetchData()
-        fetchFillables()
-    }, [delay])
+        dataliEmpty()
+    })
 
     function showFilters() {
         setfilter(!filter)
+        fetchFillables()
     }
     return (
         <div>
@@ -252,10 +242,10 @@ function StudentsList(props) {
                     </thead>
                     <tbody>
                         {filterData == " " ?
-                            datali == ' ' || datali == null ? <p><CircularProgress /></p> :
+                            datali == ' ' ? <p><CircularProgress /></p> :
                                 datali.map(student => {
                                     return (
-                                        <tr className='align-items-center '>
+                                        <tr key={student.id} className='align-items-center '>
                                             <td>{datali.indexOf(student) + 1}</td>
                                             <td><span><img src="" alt="" /></span> {student.name}</td>
                                             <td>{student.email}</td>
@@ -277,8 +267,8 @@ function StudentsList(props) {
                                 })
                             : filterData.map(student => {
                                 return (
-                                    <tr className='align-items-center '>
-                                        <td>{datali.indexOf(student) + 1}</td>
+                                    <tr key={student.id} className='align-items-center '>
+                                        <td>{filterData.indexOf(student) + 1}</td>
                                         <td><span><img src="" alt="" /></span> {student.name}</td>
                                         <td>{student.email}</td>
                                         <td>{student.phone}</td>
