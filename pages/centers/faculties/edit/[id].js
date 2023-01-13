@@ -57,7 +57,7 @@ function FacultyEdit() {
     }
 
     useEffect(() => {
-        if (deptInfo.faculty == ' ') {
+        if (deptInfo.facultyTitle == ' ') {
 
             fetchData()
         }
