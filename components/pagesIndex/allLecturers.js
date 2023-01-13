@@ -1,13 +1,14 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
 
 function AllLecturers(props) {
     const { details, bearer } = props
+    const [delay, setDelay] = useState(' ')
     const [lecturers, setLecturers] = useState(' ')
     var config = {
         method: 'get',
@@ -17,6 +18,7 @@ function AllLecturers(props) {
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
+
     const fetchData = () => {
         axios(config)
             .then(function (response) {
@@ -29,7 +31,15 @@ function AllLecturers(props) {
                 console.log(error);
             });
     }
-    fetchData()
+    setInterval(() => {
+        setDelay(Math.random());
+    }, 1000)
+    useEffect(() => {
+        if (lecturers.length == 0 || lecturers == ' ') {
+
+            fetchData()
+        }
+    }, [delay])
     // console.log(lecturers)
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>

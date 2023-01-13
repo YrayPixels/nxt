@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -67,27 +67,13 @@ function AllFaculties(props) {
                 console.log(error);
             });
     }
+    useEffect(() => {
+        if (faculty.length == 0 || faculty == ' ') {
 
-    fetchData()
-    // var myHeaders = new Headers();
-    // myHeaders.append("Authorization", `Bearer ${bearer}`);
-    // var requestOptions = {
-    //     method: 'GET',
-    //     // headers: myHeaders,
-    //     redirect: 'follow'
-    // };
+            fetchData()
+        }
+    })
 
-    // const fetcher = async () => {
-    //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`, requestOptions)
-    //     const data = await response.json()
-    //     return data.result
-    // }
-    // fetcher()
-    // const { data, error } = useSWR('faculty', fetcher)
-    // if (error)
-    //     return 'An error has occured'
-    // if (!data) return <CircularProgress />
-    // // console.log(data)
     return (<div>
         {
             notify != ' ' ? <p>{notify}</p> : <CircularProgress />
