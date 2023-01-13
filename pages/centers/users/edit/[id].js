@@ -8,9 +8,11 @@ import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
 import AllNavs from "../../../../components/allNavs";
 import TopPilsItems from "../../../../components/centers/toppills";
 import Secondnav from "../../../../components/centers/dashboardtwo/secondsidenav";
+import AddCenterUserComp from "../../../../components/centers/users/addUser";
+import EditUserComp from "../../../../components/centers/users/edit";
 
 
-function EditGradList() {
+function EditUserList() {
     const router = useRouter()
     const { id } = router.query
     const [bearer_key, setBearer_key] = useState(' ');
@@ -57,9 +59,8 @@ function EditGradList() {
                                 <div className="d-none d-lg-block col-2 border bg-info border-1">
                                     <Secondnav />
                                 </div>
-
                                 <div className="col-12 col-lg-10 p-lg-3">
-                                    <EditGradListComp id={id} details={dets} bearer={bearer_key} />
+                                    <EditUserComp id={id} details={dets} bearer={bearer_key} />
                                 </div>
                                 <div className="container text-center mt5  pt-5">
                                     <p>Copyright © 2022 Sustainable Procurement, Environmenta Social Standards Enhancement (SPESSE)</p>
@@ -80,7 +81,7 @@ function EditGradList() {
     )
 }
 
-export default EditGradList;
+export default EditUserList;
 
 
 

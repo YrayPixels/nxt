@@ -5,22 +5,22 @@ import axios from "axios";
 import Router from "next/router";
 
 
-function EditGradListComp(props) {
+function EditUserComp(props) {
     const { details, bearer, id } = props;
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
     const [session, setsession] = useState([])
     const [delay, setDelay] = useState(' ')
-    const [gradListInfo, setgradListInfo] = useState({
-        center_id: " ",
-        title: " ",
-        session_id: " ",
-        certificate: " ",
+    const [centerUser, setcenterUser] = useState({
+        email: " ",
+        password: " ",
+        name: " ",
+        phone_number: " ",
     });
 
     const sessionFetcher = () => {
         const coursesInCenter = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
-        const singGradList = `https://stockmgt.gapaautoparts.com/api/GetSingleGraduatingList/${id}`
+        const singGradList = `https://stockmgt.gapaautoparts.com/api/ViewSingleUser/${id}`
 
         const getallCourse = axios.get(coursesInCenter);
         const getSingGradList = axios.get(singGradList);
@@ -30,38 +30,32 @@ function EditGradListComp(props) {
             axios.spread((...allData) => {
                 const allcourses = allData[0].data.session;
                 const GradList = allData[1].data.data[0];
+                console.log(GradList)
                 setsession(allcourses)
-                setgradListInfo({
-                    title: GradList.title,
-                    session_id: GradList.session_id,
-                    certificate: GradList.certificate
-                })
+                setcenterUser({
+                    email: GradList.email,
+                    password: GradList.password,
+                    name: GradList.name,
+                    phone_number: GradList.phone_number,
+                });
             })
         )
 
     }
-    // sessionFetcher()
 
-    // if (gradListInfo.title == ' ') {
-    //     setInterval(() => {
-    //         setDelay(Math.random())
-    //     }, 2000);
-    // } else {
-    //     setDelay('stable')
-    // }
     const fetchdata = () => {
         sessionFetcher()
     }
 
-    // console.log(courses)
     const handleEditList = async (e) => {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("center_id", details.id);
-        urlencoded.append("title", gradListInfo.title);
-        urlencoded.append("session_id", gradListInfo.session_id);
-        urlencoded.append("certificate", gradListInfo.certificate);
+        urlencoded.append("name", centerUser.name);
+        urlencoded.append("email", centerUser.email);
+        urlencoded.append("password", centerUser.password);
+        urlencoded.append("phone_number", centerUser.phone_number);
         urlencoded.append("Authorization", `Bearer ${bearer}`);
 
         var requestOptions = {
@@ -72,7 +66,7 @@ function EditGradListComp(props) {
         setNotify('loading')
 
         const addGradList = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/EditGraduatingList/${id}`, requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/EditCenterUser/${id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
             if (status == 200) {
@@ -82,7 +76,7 @@ function EditGradListComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
-                Router.push('/centers/graduatinglist/all')
+                Router.push('/centers/users/all')
             } else {
                 setNotify('Error Occured!!!')
                 Swal.fire({
@@ -111,35 +105,32 @@ function EditGradListComp(props) {
         </h3>
         <form className="card p-4" action="" onSubmit={handleEditList}>
             <div className="mb-3">
-                <label htmlFor="title">Title</label>
-                <input onClick={fetchdata} value={gradListInfo.title} onChange={(e) => setgradListInfo(
-                    { ...gradListInfo, title: e.target.value })} type="text" name="title" className="form-control" />
+                <label htmlFor="Email">Email</label>
+                <input onClick={fetchdata} value={centerUser.email} onChange={(e) => setcenterUser(
+                    { ...centerUser, email: e.target.value })} type="text" name="Email" className="form-control" />
             </div>
             <div className="mb-3">
-                <label htmlFor="session">Session</label>
-                <select value={gradListInfo.session_id} onChange={(e) => setgradListInfo(
-                    { ...gradListInfo, session_id: e.target.value })} type="text" name="session" className="form-control" >
+                <label htmlFor="Password">Password</label>
+                <input onChange={(e) => setcenterUser(
+                    { ...centerUser, password: e.target.value })} type="password" name="Password" className="form-control" />
 
-                    <option value="">kindly select the session for this list</option>
-                    {session.map(session => {
-                        return (
-                            <option value={session.id}>{session.session}</option>)
-                    })
 
-                    }
-
-                </select>
             </div>
             <div className="mb-3">
-                <label htmlFor="certificate">Certificate Title</label>
-                <input value={gradListInfo.certificate} onChange={(e) => setgradListInfo(
-                    { ...gradListInfo, certificate: e.target.value })} type="text" name="certificate" className="form-control" />
+                <label htmlFor="name">Name</label>
+                <input value={centerUser.name} onChange={(e) => setcenterUser(
+                    { ...centerUser, name: e.target.value })} type="text" name="name" className="form-control" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="phone">Phone Number</label>
+                <input value={centerUser.phone_number} onChange={(e) => setcenterUser(
+                    { ...centerUser, phone_number: e.target.value })} type="number" name="phone" className="form-control" />
             </div>
             <div className="col-5 m-auto singleSubmits">
-                <button type="submit" className="btn rounded-0  text-info w-100"> Create</button>
+                <button type="submit" className="btn rounded-0  text-info w-100"> Save </button>
             </div>
         </form>
     </>);
 }
 
-export default EditGradListComp;
+export default EditUserComp;
