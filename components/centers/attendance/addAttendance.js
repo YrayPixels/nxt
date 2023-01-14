@@ -112,13 +112,13 @@ function AddAttendanceComp(props) {
                 icon: 'error',
                 confirmButtonText: 'close'
             })
-        } else if (attendanceInf.session_id == ' ') {
+        } else if (attendanceInf.session_id == ' ' || attendanceInf.session_id == 'none') {
             Swal.fire({
                 title: 'Kindly Select a Session',
                 icon: 'error',
                 confirmButtonText: 'close'
             })
-        } else if (attendanceInf.course_id == ' ') {
+        } else if (attendanceInf.course_id == ' ' || attendanceInf.course_id == 'none') {
             Swal.fire({
                 title: 'Kindly Select a Course',
                 icon: 'error',
@@ -163,15 +163,11 @@ function AddAttendanceComp(props) {
         }
 
     }
-    // console.log(arrays)
-    // console.log(arrays.indexOf(Student))
-    setInterval(function SetDelay() {
-        setDelay(Math.random())
-    }, 5000)
-
     useEffect(() => {
-        fetchData()
-    }, [delay])
+        if (sessionList.length == 0 || sessionList == " ") {
+            fetchData()
+        }
+    })
 
     return (<>
         {
@@ -192,8 +188,8 @@ function AddAttendanceComp(props) {
             <div className="mb-3 row">
                 <div className="col-6 p-1 tableData">
                     <select type="text" onChange={(e) => setattendanceInf(
-                        { ...attendanceInf, course_id: e.target.value })} placeholder="select course" className="form-select" >
-                        <option value="">Select Module</option>
+                        { ...attendanceInf, course_id: e.target.value })} className="form-select" >
+                        <option value="none">Select Module</option>
                         {moduleList == " " ? <span><CircularProgress /></span> :
                             moduleList.map(data => {
                                 return (<option value={data.id}>
@@ -206,7 +202,7 @@ function AddAttendanceComp(props) {
                 <div className="col-6 p-1 tableData">
                     <select type="text" onChange={(e) => setattendanceInf(
                         { ...attendanceInf, session_id: e.target.value })} className="form-select" >
-                        <option value="">Select Session</option>
+                        <option value="none">Select Session</option>
                         {sessionList == " " ? <span><CircularProgress /></span> :
                             sessionList.map(session => {
                                 return (<option value={session.id}>

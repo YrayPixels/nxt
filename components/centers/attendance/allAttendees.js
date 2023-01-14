@@ -1,6 +1,7 @@
 import { Search } from "@mui/icons-material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 function AllAttendees(props) {
     const { details, bearer } = props
@@ -8,13 +9,13 @@ function AllAttendees(props) {
     const [loading, setLoading] = useState(false)
     const [session, setSession] = useState([]);
     const [module, setModule] = useState([]);
+    const [student, setStudents] = useState(' ');
     const [searchParams, setSearchParams] = useState({
         session_id: " ",
         course_id: " ",
     });
 
 
-    // console.log(session)
     const fetchData = () => {
         const allSession = `https://stockmgt.gapaautoparts.com/api/getAllSession/${details.id}`
         const allModules = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
@@ -31,43 +32,44 @@ function AllAttendees(props) {
             })
         )
     }
-    fetchData()
+    useEffect(() => {
+        if (module.length == 0 || module == ' ') {
+            fetchData()
+        }
+    })
 
-    // var config = {
-    //     method: 'get',
-    //     url: 'https://stockmgt.gapaautoparts.com/api/getAllSession/1634I6495442478',
-    //     headers: {
-    //         'Authorization': `Bearer ${bearer_key}`,
-    //         "Content-Type": "application/x-www-form-urlencoded",
-    //     },
-    // };
+    function checkAttendees(e) {
+        e.preventDefault()
+        if (searchParams.course_id == ' ') {
+            Swal.fire({
+                title: 'Select Course',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
+        } else if (searchParams.session_id == ' ') {
+            Swal.fire({
+                title: 'Select Session',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
+        } else {
+            var urlencoded = new URLSearchParams();
 
-    // // const fetchData = () => {
-    // //     axios(config)
-    // //         .then(function (response) {
-    // //             const data = response.data;
-    // //             setSessiony(data.session)
-    // //             return data;
-    // //         })
-    // //         .catch(function (error) {
-    // //             console.log(error);
-    // //         });
-    // // }
-    // // fetchData()
+            var requestOptions = {
+                method: 'GET',
+                body: urlencoded,
+                redirect: 'follow'
+            };
+            const addst = async () => {
+                const response = fetch(`https://stockmgt.gapaautoparts.com/api/ViewAttendees?course_id=${searchParams.course_id}&session_id=${searchParams.session_id}`, requestOptions)
+                const data = await response;
+                const status = data.status
+                if (status == 200) {
+                    console.log(data)
+                }
 
-    function checkAttendees() {
-        var urlencoded = new URLSearchParams();
-
-        var requestOptions = {
-            method: 'GET',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-
-        fetch("https://stockmgt.gapaautoparts.com/api/ViewAttendees?course_id=1&session_id=1", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            }
+        }
 
     }
 
@@ -115,8 +117,6 @@ function AllAttendees(props) {
                 </div>
             </div>
         </form>
-
-
 
         <div className="bg-info p-4 shadow rounded-0 table-responsive">
             <table className="tableData table table-striped table-sm table-hover  ">

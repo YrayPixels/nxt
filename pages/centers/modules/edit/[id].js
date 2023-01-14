@@ -62,12 +62,12 @@ function CourseEdit() {
             })
         )
     }
-    setInterval(function SetDelay() {
-        setDelay('active')
-    }, 1000)
+
     useEffect(() => {
-        fetchData()
-    }, [delay])
+        if (department.length == 0 || department == ' ') {
+            fetchData()
+        }
+    })
 
     const editCourse = async (e) => {
         e.preventDefault()

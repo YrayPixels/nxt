@@ -43,39 +43,7 @@ function StudentsList(props) {
             })
         )
     }
-    function deleteStud(param) {
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        const deleteStudent = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideStudent/${param}`, requestOptions)
-            const data = await response.json()
-            // console.log(response.status)
-            if (response.status == 200) {
-                // setNotify('Faculty Deleted Successfully')
-                Swal.fire({
-                    title: 'Student Deleted Succesfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-            } else if (response.status == 400) {
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
-            }
-            return data;
-
-        }
-
-        deleteStudent()
-    }
 
     function filterStud(std_id, filterby) {
         if (filterby == 'program') {
@@ -150,30 +118,62 @@ function StudentsList(props) {
     setInterval(() => {
         setDelay(Math.random());
     }, 1000)
+    var config = {
+        method: 'get',
+        url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`,
+        headers: {
+            'Authorization': `Bearer ${bearer}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    };
+    const fetchData = () => {
+        axios(config)
+            .then(res => {
+                setDatali(res.data.students)
+                console.log(datali)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     useEffect(() => {
         if (datali.length == 0 || datali == ' ') {
-            var config = {
-                method: 'get',
-                url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`,
-                headers: {
-                    'Authorization': `Bearer ${bearer}`,
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-            };
-            const fetchData = () => {
-                axios(config)
-                    .then(res => {
-                        setDatali(res.data.students)
-                        console.log(datali)
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            };
             fetchData()
         }
     }, [delay])
+    function deleteStud(param) {
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        const deleteStudent = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideStudent/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Student Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+                fetchData()
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+        }
+
+        deleteStudent()
+    }
     function showFilters() {
         setfilter(!filter)
         fetchFillables()

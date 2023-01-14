@@ -50,7 +50,7 @@ function DepartmentEdit() {
                 setdeptInfo({
                     faculty_id: data.result[0].faculty_id,
                     depttitle: data.result[0].title,
-                    code: data.result[0].code
+                    deptcode: data.result[0].code
                 })
                 return data;
             })
@@ -58,9 +58,7 @@ function DepartmentEdit() {
                 console.log(error);
             });
     }
-    useEffect(() => {
-        fetchDept()
-    }, [])
+
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
@@ -80,8 +78,12 @@ function DepartmentEdit() {
         )
     }
     useEffect(() => {
-        fetchData()
-    }, [deptInfo.depttitle])
+        if (deptInfo.depttitle == ' ' || deptInfo.deptcode == ' ') {
+            fetchData()
+            fetchDept()
+        }
+    })
+
     const handleDeptReg = async (e) => {
         e.preventDefault()
 

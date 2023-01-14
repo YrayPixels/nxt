@@ -13,39 +13,6 @@ function AllFaculties(props) {
     const { loading, setLoading } = useState(false);
     const [faculty, setFaculty] = useState(' ')
 
-    function deleteFaculty(param) {
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer}`);
-
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        const deletefac = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
-            const data = await response.json()
-            // console.log(response.status)
-            if (response.status == 200) {
-                // setNotify('Faculty Deleted Successfully')
-                Swal.fire({
-                    title: 'Faculty Deleted Succesfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-            } else if (response.status == 400) {
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
-            }
-            return data;
-
-        }
-
-        deletefac()
-    }
 
     var config = {
         method: 'get',
@@ -69,10 +36,44 @@ function AllFaculties(props) {
     }
     useEffect(() => {
         if (faculty.length == 0 || faculty == ' ') {
-
             fetchData()
         }
     })
+
+    function deleteFaculty(param) {
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
+
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        const deletefac = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Faculty Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+                fetchData()
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+
+        deletefac()
+    }
 
     return (<div>
         {

@@ -58,7 +58,6 @@ function FacultyEdit() {
 
     useEffect(() => {
         if (deptInfo.facultyTitle == ' ') {
-
             fetchData()
         }
     });
@@ -66,7 +65,6 @@ function FacultyEdit() {
 
     useEffect(() => {
         if (window) {
-
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
         }
     }, []);

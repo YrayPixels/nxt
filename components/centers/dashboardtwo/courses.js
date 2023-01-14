@@ -12,6 +12,26 @@ function AllCourses(props) {
     const [course, setCourse] = useState(' ');
     var [delay, setDelay] = useState(' ');
 
+    const fetchData = () => {
+        var config = {
+            method: 'get',
+            url: `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`,
+            headers: {
+                'Authorization': `Bearer ${bearer}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                const data = response.data;
+                setCourse(data.result.reverse())
+                return data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     function deleteModules(param) {
         // console.log(param)
         var urlencoded = new URLSearchParams();
@@ -33,6 +53,7 @@ function AllCourses(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                fetchData()
             } else if (response.status == 400) {
                 Swal.fire({
                     title: 'An Error Occured',
@@ -46,33 +67,11 @@ function AllCourses(props) {
     }
 
 
-    const fetchData = () => {
-        var config = {
-            method: 'get',
-            url: `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`,
-            headers: {
-                'Authorization': `Bearer ${bearer}`,
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-        };
-        axios(config)
-            .then(function (response) {
-                const data = response.data;
-                setCourse(data.result.reverse())
-                return data;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    setInterval(function SetDelay() {
-        setDelay(Math.random())
-    }, 1000)
-
     useEffect(() => {
-        fetchData()
-    }, [delay])
+        if (course.length == 0 || course == ' ') {
+            fetchData()
+        }
+    })
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>All</p>

@@ -12,66 +12,7 @@ function AllDepartment(props) {
     const { details, bearer } = props
     const [faculty, setFaculty] = useState(' ');
 
-    function deleteDept(param) {
-        // console.log(param)
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer}`);
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
 
-        const deleteDept = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/HideDepartment/${param}`, requestOptions)
-            const data = await response.json()
-            // console.log(response.status)
-            if (response.status == 200) {
-                // setNotify('Faculty Deleted Successfully')
-                Swal.fire({
-                    title: 'Department Deleted Succesfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-            } else if (response.status == 400) {
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
-            }
-            return data;
-
-        }
-
-        deleteDept()
-
-        // const deleteDep = async () => {
-        //     const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideFaculty/${param}`, requestOptions)
-        //     const data = await response.json()
-        //     // console.log(response.status)
-        //     if (response.status == 200) {
-        //         // setNotify('Faculty Deleted Successfully')
-        //         Swal.fire({
-        //             title: 'Faculty Deleted Succesfully',
-        //             icon: 'success',
-        //             confirmButtonText: 'close'
-        //         })
-        //     } else if (response.status == 400) {
-        //         Swal.fire({
-        //             title: 'An Error Occured',
-        //             icon: 'error',
-        //             confirmButtonText: 'close'
-        //         })
-        //     }
-        //     return data;
-
-        // }
-
-        // deleteDep()
-
-
-    }
 
     var config = {
         method: 'get',
@@ -93,8 +34,48 @@ function AllDepartment(props) {
                 console.log(error);
             });
     }
+    function deleteDept(param) {
+        // console.log(param)
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
 
-    fetchData()
+        const deleteDept = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/HideDepartment/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Department Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+                fetchData()
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+
+        deleteDept()
+
+    }
+
+    useEffect(() => {
+        if (faculty.length == 0 || faculty == ' ') {
+            fetchData()
+        }
+    })
 
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>
