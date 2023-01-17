@@ -11,7 +11,7 @@ function AllNodes(props) {
 
     var config = {
         method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/getNodes/2`,
+        url: `https://stockmgt.gapaautoparts.com/api/getNodes/${details.id}`,
         headers: {
             'Authorization': `Bearer ${bearer}`,
             "Content-Type": "application/x-www-form-urlencoded",
@@ -29,10 +29,12 @@ function AllNodes(props) {
                 console.log(error);
             });
     }
-    fetchData()
-    // useEffect(() => {
-    //     fetchData()
-    // }, [])
+    useEffect(() => {
+        if (nodes.length == 0 || nodes == ' ') {
+            fetchData()
+
+        }
+    })
 
     console.log(nodes)
 

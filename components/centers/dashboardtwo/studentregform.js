@@ -36,7 +36,7 @@ function StudentRegistration(props) {
     const [faculty_id, setFaculty_id] = useState([]);
     // const [nationality, setNationality] = useState([])
     const [courses, setCourses] = useState([]);
-    
+
     const [userInfo, setUserInfo] = useState({
         names: " ",
         email: " ",
@@ -76,7 +76,7 @@ function StudentRegistration(props) {
 
     const fetchData = () => {
         const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
-        const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
+        const allPrograms = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
         const allCourses = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
         const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/${userInfo.faculty_id}`
         const allStates = "https://stockmgt.gapaautoparts.com/api/getAllStates"

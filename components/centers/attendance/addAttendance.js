@@ -152,13 +152,8 @@ function AddAttendanceComp(props) {
                         })
                     }
                     return status
-
                 }
-
                 addst()
-
-
-
             })
         }
 

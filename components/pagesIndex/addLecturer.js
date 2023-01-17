@@ -89,7 +89,7 @@ function LecturerRegistration(props) {
 
     const fetchData = () => {
         const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
-        const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
+        const allPrograms = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
         const allDepartment = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByFacultyId/${lecturerInfo.faculty_id}`
         const allQual = `https://stockmgt.gapaautoparts.com/api/GetAllQualifications`
         const allInstitutes = `https://stockmgt.gapaautoparts.com/api/GetAllinstitutions`

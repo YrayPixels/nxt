@@ -49,7 +49,6 @@ function LoginComponent() {
             })
             sessionStorage.setItem("bearer_token", data.barear_token);
             sessionStorage.setItem("dets", [JSON.stringify(data.message)]);
-            sessionStorage.setItem("token_", [userInfo.password]);
 
             redirect()
         } else if (status == 201) {

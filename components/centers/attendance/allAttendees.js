@@ -53,22 +53,22 @@ function AllAttendees(props) {
                 confirmButtonText: 'close'
             })
         } else {
-            var urlencoded = new URLSearchParams();
 
             var requestOptions = {
                 method: 'GET',
-                body: urlencoded,
                 redirect: 'follow'
             };
             const addst = async () => {
                 const response = fetch(`https://stockmgt.gapaautoparts.com/api/ViewAttendees?course_id=${searchParams.course_id}&session_id=${searchParams.session_id}`, requestOptions)
                 const data = await response;
                 const status = data.status
+                console.log(data)
                 if (status == 200) {
                     console.log(data)
                 }
 
             }
+            addst()
         }
 
     }

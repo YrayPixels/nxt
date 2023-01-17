@@ -18,7 +18,6 @@ function AddCoursesComp(props) {
         department_id: " ",
         node_id: " ",
     });
-    // console.log(department)
     const fetchData = () => {
         const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetDepartmentByCenterId/${details.id}`
         const getAllDept = axios.get(allDept);
@@ -29,15 +28,12 @@ function AddCoursesComp(props) {
             })
         )
     }
-    setInterval(function SetDelay() {
-        setDelay('active')
-    }, 1000)
-    useEffect(() => {
-        fetchData()
-    }, [delay])
 
-    // useEffect(() => {
-    // }, [courseInfo.coursetitle])
+    useEffect(() => {
+        if (department.length == 0) {
+            fetchData()
+        }
+    })
 
     const handleCourseReg = async (e) => {
         e.preventDefault()
@@ -111,7 +107,7 @@ function AddCoursesComp(props) {
                     {
                         department.map(department => {
                             return (
-                                <option value={department.id}>{department.title}</option>
+                                <option key={department.id} value={department.id}>{department.title}</option>
 
                             )
                         })
@@ -130,7 +126,7 @@ function AddCoursesComp(props) {
                     {
                         department.map(department => {
                             return (
-                                <option value={department.id}>{department.title}</option>
+                                <option key={department.id} value={department.id}>{department.title}</option>
 
                             )
                         })

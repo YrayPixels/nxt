@@ -35,17 +35,14 @@ function StartModules(props) {
             })
         )
     }
-    setInterval(function SetDelay() {
-        setDelay('active')
-    }, 1000)
+
 
     useEffect(() => {
-        fetchData()
-    }, [delay])
-    // fetchData()
+        if (module.length == 0) {
+            fetchData()
+        }
+    })
 
-    // useEffect(() => {
-    // }, [startsesion.coursetitle])
 
     const handleStartModule = async (e) => {
         e.preventDefault()

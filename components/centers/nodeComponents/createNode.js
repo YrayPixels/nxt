@@ -30,8 +30,10 @@ function AddNodeComp(props) {
 
     }
     useEffect(() => {
-        coursesdataFetcher()
-    }, [nodeInfo.node])
+        if (courses.length == 0) {
+            coursesdataFetcher()
+        }
+    })
     console.log(courses)
     const handleAddNode = async (e) => {
         e.preventDefault()
@@ -101,7 +103,7 @@ function AddNodeComp(props) {
                     <option value="">kindly select the course for this node</option>
                     {courses.map(course => {
                         return (
-                            <option value={course.id}>{course.title}</option>)
+                            <option key={course.id} value={course.id}>{course.title}</option>)
                     })
 
                     }
