@@ -10,7 +10,6 @@ function CreateGradlistComp(props) {
     const [notify, setNotify] = useState(' ');
     const [bearer_key, setBearer_key] = useState(' ');
     const [session, setsession] = useState([])
-    const [delay, setDelay] = useState(' ')
     const [gradListInfo, setgradListInfo] = useState({
         center_id: " ",
         title: " ",
@@ -27,12 +26,13 @@ function CreateGradlistComp(props) {
             })
         )
     }
-    setInterval(() => {
-        setDelay(Math.random())
-    }, 5000)
+
     useEffect(() => {
-        sessionFetcher()
-    }, [delay])
+        if (session.length == 0 || session == []) {
+            sessionFetcher()
+        }
+
+    })
     // console.log(courses)
     const handlecreateGradList = async (e) => {
         e.preventDefault()

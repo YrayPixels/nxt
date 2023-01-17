@@ -10,6 +10,7 @@ import AllNavs from "../../../../components/allNavs";
 import NewtopNAv from "../../../../components/centers/dashboardtwo/newtopNav";
 import Secondnav from "../../../../components/centers/dashboardtwo/secondsidenav";
 import TopPilsItems from "../../../../components/centers/toppills";
+import Logo from '../../../../public/image/spesee.png'
 
 
 
@@ -137,7 +138,7 @@ function DepartmentEdit() {
             <div className="container-fluid">
                 <div>
                     <div className="p-3">
-                        <NewtopNAv naviState={navState} />
+                        <NewtopNAv logo={Logo} naviState={navState} />
                     </div>
                 </div>
                 <div className="row ">
@@ -181,13 +182,13 @@ function DepartmentEdit() {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="falculty">Faculty</label>
-                                        <select name="department" onChange={(e) => setdeptInfo(
+                                        <select value={deptInfo.faculty_id} name="department" onChange={(e) => setdeptInfo(
                                             { ...deptInfo, faculty_id: e.target.value })} class="form-select" aria-label="Default select example"  >
                                             <option selected>Select your Faculty</option>
                                             {
                                                 faculty.map(faculty => {
                                                     return (
-                                                        <option value={faculty.id}>{faculty.title}</option>
+                                                        <option key={faculty.id} value={faculty.id}>{faculty.title}</option>
                                                     )
                                                 })
                                             }

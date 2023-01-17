@@ -156,13 +156,13 @@ function AddGraduatingList(props) {
         }
 
     }
-    setInterval(function SetDelay() {
-        setDelay(Math.random())
-    }, 5000)
+
 
     useEffect(() => {
-        // fetchData()
-    }, [delay])
+        if (studentList.length == 0 || studentList == ' ') {
+            fetchData()
+        }
+    })
 
     return (<>
         {
@@ -187,7 +187,7 @@ function AddGraduatingList(props) {
                         <option value={'none'}>Select Graduation List</option>
                         {gradList == " " ? <span><CircularProgress /></span> :
                             gradList.map(data => {
-                                return (<option value={data.id}>
+                                return (<option key={data.id} value={data.id}>
                                     {data.title}
                                 </option>)
                             })
@@ -215,7 +215,7 @@ function AddGraduatingList(props) {
                             studentList.map(student => {
 
                                 return (<>
-                                    <tr>
+                                    <tr key={student.id}>
                                         <td onClick={() => {
                                             addStudent(`${student.id}`, `${student.name}`, `${student.programmes_title}`, `${student.faculties_title}`,)
                                         }}>
@@ -245,11 +245,11 @@ function AddGraduatingList(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {arrays == [] ? <p><CircularProgress /></p> :
+                        {arrays == [] ? <tr> <p><CircularProgress /></p></tr> :
                             arrays.map(student => {
 
                                 return (<>
-                                    <tr>                                        <td>
+                                    <tr key={student.id}>                                        <td>
                                         {student.std_name}
                                     </td>
                                         <td>{student.std_course}</td>

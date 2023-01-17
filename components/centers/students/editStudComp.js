@@ -87,8 +87,8 @@ function EditStudentComp(props) {
                     age: data.students.age,
                     sex: data.students.sex,
                     Nationality: data.students.Nationality,
-                    state: data.students.state,
-                    lga: data.students.lga,
+                    state: data.students.state_id,
+                    lga: data.students.lga_id,
                     level: data.students.level,
                     heighest_qualification_year: data.students.heighest_qualification_year,
                     employee: data.students.employee,
@@ -104,7 +104,11 @@ function EditStudentComp(props) {
                 console.log(error);
             });
     }
-    stdDataS()
+    useEffect(() => {
+        if (userInfo.names == ' ') {
+            stdDataS()
+        }
+    })
 
 
     function looper() {
@@ -158,6 +162,13 @@ function EditStudentComp(props) {
             })
         )
     }
+
+    useEffect(() => {
+        if (userInfo.names == ' ') {
+            stdDataS()
+            fetchData()
+        }
+    })
     useEffect(() => {
         fetchData()
     }, [userInfo.state, userInfo.faculty_id])
@@ -219,7 +230,7 @@ function EditStudentComp(props) {
 
         setNotify('loading')
         const addStudent = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/editStudent/1`, requestOptions)
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/editStudent/${id}`, requestOptions)
             const data = await response.json()
             const status = response.status;
             let student = data.student;
@@ -285,7 +296,7 @@ function EditStudentComp(props) {
                 <legend>Personal Data</legend>
                 <div className="col-6 mb-3">
                     <label htmlFor="fullname">Student Name</label>
-                    <input value={userInfo.name} onChange={(e) => setUserInfo(
+                    <input value={userInfo.names} onChange={(e) => setUserInfo(
                         { ...userInfo, names: e.target.value })}
                         required type="text" name="fullname" className="form-control" />
                 </div>
@@ -322,14 +333,14 @@ function EditStudentComp(props) {
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="state">State of Origin</label>
-                    <select value={userInfo.state_tile} required name="state" onChange={(e) => setUserInfo(
+                    <select value={userInfo.state_id} required name="state" onChange={(e) => setUserInfo(
                         { ...userInfo, state: e.target.value })} class="form-select" aria-label="Default select example"  >
 
                         <option selected value={0}>Select your State</option>
                         {
                             state.map(State => {
                                 return (
-                                    <option value={State.id}>{State.title}</option>
+                                    <option key={State.id} value={State.id}>{State.title}</option>
 
                                 )
                             })
@@ -346,7 +357,7 @@ function EditStudentComp(props) {
                         {
                             lga.map(lga => {
                                 return (
-                                    <option value={lga.id}>{lga.Lga}</option>
+                                    <option key={lga.id} value={lga.id}>{lga.Lga}</option>
                                 )
                             })
                         }
@@ -383,7 +394,7 @@ function EditStudentComp(props) {
                             {
                                 faculties.map(faculty => {
                                     return (
-                                        <option value={faculty.id}>{faculty.title}</option>
+                                        <option key={faculty.id} value={faculty.id}>{faculty.title}</option>
 
                                     )
                                 })
@@ -402,7 +413,7 @@ function EditStudentComp(props) {
                             {
                                 department.map(department => {
                                     return (
-                                        <option value={department.id}>{department.title}</option>
+                                        <option key={department.id} value={department.id}>{department.title}</option>
 
                                     )
                                 })
@@ -421,7 +432,7 @@ function EditStudentComp(props) {
                             {
                                 programs.map(program => {
                                     return (
-                                        <option value={program.id}>{program.title}</option>
+                                        <option key={program.id} value={program.id}>{program.title}</option>
 
                                     )
                                 })

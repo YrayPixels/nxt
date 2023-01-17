@@ -103,7 +103,7 @@ function AllFaculties(props) {
                     {faculty == ' ' ? <p><CircularProgress /></p> :
                         faculty.map(data => {
                             return (
-                                <tr className='align-items-start '>
+                                <tr key={data.id} className='align-items-start '>
 
                                     <td><span><img src="" alt="" /></span>  {faculty.indexOf(data) + 1}</td>
                                     <td>{data.title}</td>

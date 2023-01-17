@@ -21,12 +21,12 @@ function AllGraduatinglist(props) {
             })
         )
     }
-    setInterval(() => {
-        setDelay(Math.random())
-    }, 2000)
+
     useEffect(() => {
-        fetchData()
-    }, [delay])
+        if (gradlist == [] || gradlist.length == 0) {
+            fetchData()
+        }
+    })
 
     function deleteGradList(gradId) {
         var urlencoded = new URLSearchParams();
@@ -81,10 +81,10 @@ function AllGraduatinglist(props) {
                 </thead>
 
                 <tbody>
-                    {gradlist.length == 0 ? <p><CircularProgress /></p> :
+                    {gradlist.length == 0 ? <tr> <p><CircularProgress /></p> </tr> :
                         gradlist.map(data => {
                             return (
-                                <tr className='align-items-center '>
+                                <tr key={data.id} className='align-items-center '>
                                     <td>{gradlist.indexOf(data) + 1}</td>
                                     <td>{data.title}</td>
                                     <td>{data.session_id}</td>

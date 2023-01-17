@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -12,40 +12,6 @@ function AllPartners(props) {
     const { notify, setNotify } = useState(' ');
     const { loading, setLoading } = useState(false);
     const [partners, setPartners] = useState(' ')
-
-    function deletepartners(param) {
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer}`);
-
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        const deletefac = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/deleteAcademicPartners/${param}`, requestOptions)
-            const data = await response.json()
-            // console.log(response.status)
-            if (response.status == 200) {
-                // setNotify('partners Deleted Successfully')
-                Swal.fire({
-                    title: 'Partners Deleted Succesfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-            } else if (response.status == 400) {
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
-            }
-            return data;
-
-        }
-
-        deletefac()
-    }
 
     var config = {
         method: 'get',
@@ -68,7 +34,49 @@ function AllPartners(props) {
             });
     }
 
-    fetchData()
+    function deletepartners(param) {
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
+
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        const deletefac = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/deleteAcademicPartners/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('partners Deleted Successfully')
+                Swal.fire({
+                    title: 'Partners Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+                fetchData()
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+
+        deletefac()
+    }
+
+
+
+    useEffect(() => {
+        if (partners.length == 0 || partners == ' ') {
+            fetchData()
+        }
+    })
+
     return (<div>
         {
             notify != ' ' ? <p>{notify}</p> : <CircularProgress />

@@ -21,51 +21,61 @@ function AddPartnersComp(props) {
     const handlePartnersReg = async (e) => {
         e.preventDefault()
 
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("name", partnerInfo.name);
-        urlencoded.append("type", partnerInfo.type);
-        urlencoded.append("center_id", details.id);
-        urlencoded.append("Authorization", `Bearer ${bearer}`);
+        if (partnerInfo.name != ' ' && partnerInfo.type != ' ') {
 
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        setNotify('loading')
 
-        const addPartners = async () => {
-            const response = await fetch("https://stockmgt.gapaautoparts.com/api/addAcademicPartners", requestOptions)
-            const data = await response.json()
-            const status = response.status;
-            if (status == 200) {
-                setNotify('Partner Added Succesfully')
-                Swal.fire({
-                    title: 'Partner Added Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-                router.push('/centers/partners')
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("name", partnerInfo.name);
+            urlencoded.append("type", partnerInfo.type);
+            urlencoded.append("center_id", details.id);
+            urlencoded.append("Authorization", `Bearer ${bearer}`);
 
-            } else if (status == 201) {
-                setNotify('Partner already Added ')
-                Swal.fire({
-                    title: 'Partner already Added ',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-                router.push('/centers/partners')
+            var requestOptions = {
+                method: 'POST',
+                body: urlencoded,
+                redirect: 'follow'
+            };
+            setNotify('loading')
 
-            } else {
-                setNotify('Error Occured!!!')
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
+            const addPartners = async () => {
+                const response = await fetch("https://stockmgt.gapaautoparts.com/api/addAcademicPartners", requestOptions)
+                const data = await response.json()
+                const status = response.status;
+                if (status == 200) {
+                    setNotify('Partner Added Succesfully')
+                    Swal.fire({
+                        title: 'Partner Added Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'close'
+                    })
+                    router.push('/centers/partners')
+
+                } else if (status == 201) {
+                    setNotify('Partner already Added ')
+                    Swal.fire({
+                        title: 'Partner already Added ',
+                        icon: 'success',
+                        confirmButtonText: 'close'
+                    })
+                    router.push('/centers/partners')
+
+                } else {
+                    setNotify('Error Occured!!!')
+                    Swal.fire({
+                        title: 'An Error Occured',
+                        icon: 'error',
+                        confirmButtonText: 'close'
+                    })
+                }
             }
+            addPartners()
+        } else {
+            Swal.fire({
+                title: 'Kindly fill the fields',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
         }
-        addPartners()
     };
 
     return (
@@ -92,7 +102,8 @@ function AddPartnersComp(props) {
                     <label htmlFor="type">Partner Type</label>
                     <select onChange={(e) => setpartnerInfo(
                         { ...partnerInfo, type: e.target.value })} type="text" name="type" className="form-control" >
-                        <option selected value={'International Partner'}>International Partner</option>
+                        <option value="none" selected> Kindly Select a Partner</option>
+                        <option value={'International Partner'}>International Partner</option>
                         <option value={'Industrial Partner'}>Industrial Partner</option>
                     </select>
                 </div>

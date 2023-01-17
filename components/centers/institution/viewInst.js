@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { CircularProgress, Input } from '@mui/material';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -12,41 +12,6 @@ function ViewInstitutes(props) {
     const { notify, setNotify } = useState(' ');
     const { loading, setLoading } = useState(false);
     const [faculty, setFaculty] = useState(' ')
-
-    function deleteInst(param) {
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer}`);
-
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        const deleteInstitute = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideInstitution/${param}`, requestOptions)
-            const data = await response.json()
-            // console.log(response.status)
-            if (response.status == 200) {
-                // setNotify('Faculty Deleted Successfully')
-                Swal.fire({
-                    title: 'Institution Deleted Succesfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-            } else if (response.status == 400) {
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
-            }
-            return data;
-
-        }
-
-        deleteInstitute()
-    }
-
     var config = {
         method: 'get',
         url: `https://stockmgt.gapaautoparts.com/api/getInstitutionByCenterId/${details.id}`,
@@ -68,8 +33,50 @@ function ViewInstitutes(props) {
                 console.log(error);
             });
     }
+    function deleteInst(param) {
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("Authorization", `Bearer ${bearer}`);
 
-    fetchData()
+        var requestOptions = {
+            method: 'POST',
+            body: urlencoded,
+            redirect: 'follow'
+        };
+        const deleteInstitute = async () => {
+            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/HideInstitution/${param}`, requestOptions)
+            const data = await response.json()
+            // console.log(response.status)
+            if (response.status == 200) {
+                // setNotify('Faculty Deleted Successfully')
+                Swal.fire({
+                    title: 'Institution Deleted Succesfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+
+                })
+                fetchData()
+            } else if (response.status == 400) {
+                Swal.fire({
+                    title: 'An Error Occured',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            }
+            return data;
+
+        }
+
+        deleteInstitute()
+    }
+
+    console.log(faculty)
+
+    useEffect(() => {
+        if (faculty == ' ' || faculty.length == 0) {
+            fetchData()
+
+        }
+    })
     return (<div>
         {
             notify != ' ' ? <p>{notify}</p> : <CircularProgress />

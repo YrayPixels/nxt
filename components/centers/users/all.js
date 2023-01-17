@@ -21,12 +21,12 @@ function AllCenterUSersComp(props) {
             })
         )
     }
-    setInterval(() => {
-        setDelay(Math.random())
-    }, 2000)
+
     useEffect(() => {
-        fetchData()
-    }, [delay])
+        if (centerUser.length == 0) {
+            fetchData()
+        }
+    })
 
     function deletecenterUser(userId) {
         var urlencoded = new URLSearchParams();
@@ -47,6 +47,7 @@ function AllCenterUSersComp(props) {
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
+                fetchData()
             } else {
                 Swal.fire({
                     title: 'An Error Occured',
@@ -55,7 +56,7 @@ function AllCenterUSersComp(props) {
                 })
             }
         }
-        // deleteList()
+        deleteList()
 
     }
 
@@ -82,7 +83,7 @@ function AllCenterUSersComp(props) {
                     {centerUser.length == 0 ? <p><CircularProgress /></p> :
                         centerUser.map(data => {
                             return (
-                                <tr className='align-items-center '>
+                                <tr key={data.id} className='align-items-center '>
                                     <td>{centerUser.indexOf(data) + 1}</td>
                                     <td>{data.name}</td>
                                     <td>{data.email}</td>

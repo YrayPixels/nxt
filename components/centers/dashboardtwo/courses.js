@@ -97,7 +97,7 @@ function AllCourses(props) {
                     {course == ' ' ? <p><CircularProgress /></p> :
                         course.map(data => {
                             return (
-                                <tr className='align-items-center '>
+                                <tr key={data.id} className='align-items-center '>
                                     <td><span><img src="" alt="" /></span> {course.indexOf(data) + 1}</td>
                                     <td>{data.title}</td>
                                     <td>{data.code}</td>

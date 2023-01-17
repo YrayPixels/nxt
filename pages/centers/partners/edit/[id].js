@@ -58,8 +58,11 @@ function FacultyEdit() {
     }
 
     useEffect(() => {
-        fetchData()
-    }, []);
+        if (partnerInfo.name == ' ') {
+            fetchData()
+        }
+
+    });
 
 
     useEffect(() => {

@@ -31,9 +31,7 @@ function AllLecturers(props) {
                 console.log(error);
             });
     }
-    setInterval(() => {
-        setDelay(Math.random());
-    }, 1000)
+
     useEffect(() => {
         if (lecturers.length == 0 || lecturers == ' ') {
 

@@ -1,0 +1,4 @@
+Graduating list Center ID
+Moving List Id
+Institution is having a issue of bringing all institution irrespective of their status
+Lecturer view , edit , delete

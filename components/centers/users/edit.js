@@ -30,7 +30,6 @@ function EditUserComp(props) {
             axios.spread((...allData) => {
                 const allcourses = allData[0].data.session;
                 const GradList = allData[1].data.data[0];
-                console.log(GradList)
                 setsession(allcourses)
                 setcenterUser({
                     email: GradList.email,
@@ -42,10 +41,12 @@ function EditUserComp(props) {
         )
 
     }
+    useEffect(() => {
+        if (session.length == 0) {
+            sessionFetcher()
+        }
+    })
 
-    const fetchdata = () => {
-        sessionFetcher()
-    }
 
     const handleEditList = async (e) => {
         e.preventDefault()
@@ -70,9 +71,9 @@ function EditUserComp(props) {
             const data = await response.json()
             const status = response.status;
             if (status == 200) {
-                setNotify('Graduation List Edited Succesfully')
+                setNotify('User Edited Succesfully')
                 Swal.fire({
-                    title: 'Graduation List Edited Successfully',
+                    title: 'User Edited Successfully',
                     icon: 'success',
                     confirmButtonText: 'close'
                 })
@@ -106,7 +107,7 @@ function EditUserComp(props) {
         <form className="card p-4" action="" onSubmit={handleEditList}>
             <div className="mb-3">
                 <label htmlFor="Email">Email</label>
-                <input onClick={fetchdata} value={centerUser.email} onChange={(e) => setcenterUser(
+                <input value={centerUser.email} onChange={(e) => setcenterUser(
                     { ...centerUser, email: e.target.value })} type="text" name="Email" className="form-control" />
             </div>
             <div className="mb-3">
