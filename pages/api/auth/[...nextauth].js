@@ -5,6 +5,9 @@ const authoptions = {
     session: {
         strategy: 'jwt'
     },
+
+    secret: 'ifiafdfip98108037413',
+
     providers: [
         CredentialsProvider({
             type: "credentials",
@@ -34,7 +37,6 @@ const authoptions = {
     pages: {
         signIn: '/',
     },
-    secret: 'ifiafdfip98108037413',
 }
 
 

@@ -68,12 +68,12 @@ function Secondnav() {
                     </Link>
                     <Link href={'/centers/attendance/addattendees'}>
                         <li className={(path == '/centers/attendance/addattendees' ? 'activated' : '')}>
-                            Add Attendees
+                            Module Registration
                         </li>
                     </Link>
                     <Link href={'/centers/attendance/allattendees'}>
                         <li className={(path == '/centers/attendance/allattendees' ? 'activated' : '')}>
-                            View Attendees
+                            View Student Registered
                         </li>
                     </Link>
                 </ul>

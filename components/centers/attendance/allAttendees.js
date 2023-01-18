@@ -1,5 +1,7 @@
 import { Search } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -54,30 +56,33 @@ function AllAttendees(props) {
             })
         } else {
 
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
-            const addst = async () => {
-                const response = fetch(`https://stockmgt.gapaautoparts.com/api/ViewAttendees?course_id=${searchParams.course_id}&session_id=${searchParams.session_id}`, requestOptions)
-                const data = await response;
-                const status = data.status
-                console.log(data)
-                if (status == 200) {
-                    console.log(data)
-                }
 
-            }
-            addst()
+            var axios = require('axios');
+
+            var config = {
+                method: 'get',
+                url: `https://stockmgt.gapaautoparts.com/api/ViewAttendees?course_id=${searchParams.course_id}&session_id=${searchParams.session_id}`,
+                headers: {},
+            };
+
+            axios(config)
+                .then(function (response) {
+                    setStudents(response.data.attendees)
+                    console.log(response.data.attendees)
+                    // console.log(JSON.stringify(response.data));
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
         }
 
     }
 
     return (<>
 
-
         <div className='d-flex align-items-center justify-content-between py-4'>
-            <p>Get Attendees for Individual Modules</p>
+            <p>Get Registered Student By Modules</p>
 
             <input type="text" className='col-12 col-md-6 form-control w-50' placeholder='Enter Text Here...' />
         </div>
@@ -85,28 +90,28 @@ function AllAttendees(props) {
         <form className="p-4 " action="" onSubmit={checkAttendees}>
             <div className="row input-group">
                 <div className="mb-3 col-5">
-                    <label htmlFor="node">Session you're starting module on</label>
+                    <label htmlFor="node">Session you're searching Student on</label>
                     <select name="node" onChange={(e) => setSearchParams(
                         { ...searchParams, session_id: e.target.value })} class="form-select" aria-label="Default select example">
                         <option selected>Select session</option>
                         {
                             session.map(dat => {
                                 return (
-                                    <option value={dat.id}>{dat.session}</option>
+                                    <option key={dat.id} value={dat.id}>{dat.session}</option>
                                 )
                             })
                         }
                     </select>
                 </div>
                 <div className="mb-3 col-5">
-                    <label htmlFor="department">Course you are starting module on</label>
+                    <label htmlFor="department">Course you are searching Student on</label>
                     <select name="department" onChange={(e) => setSearchParams(
                         { ...searchParams, course_id: e.target.value })} class="form-select" aria-label="Default select example">
                         <option selected>Select Course</option>
                         {
                             module.map(dat => {
                                 return (
-                                    <option value={dat.id}>{dat.title}</option>
+                                    <option key={dat.id} value={dat.id}>{dat.title}</option>
                                 )
                             })
                         }
@@ -128,14 +133,13 @@ function AllAttendees(props) {
                         <th>DEPARTMENT</th>
                         <th>PROGRAMME</th>
                         <th>FACULTY</th>
-                        <th>OCCUPATION</th>
                         <th>ACTIONS</th>
                     </tr>
                 </thead>
 
-                {/* <tbody>
-                    {
-                        data.map(student => {
+                <tbody>
+                    {student == ' ' ? <tr><p><CircularProgress /></p></tr> :
+                        student.map(student => {
                             return (
                                 <tr className='align-items-center '>
                                     <td><span><img src="" alt="" /></span> {student.name}</td>
@@ -144,18 +148,28 @@ function AllAttendees(props) {
                                     <td>{student.departments_title} </td>
                                     <td>{student.programmes_title}</td>
                                     <td>{student.faculties_title}</td>
-                                    <td>{student.occupation}</td>
                                     <td>
-                                        <Link href={`/centers/studentlist/${student.id}`} >
-                                            <button className='btn btn-primary'>View</button>
-                                        </Link>
+
+                                        <div className="btn-group">
+
+
+
+                                            <button className='btn btn-sm btn-primary'>
+                                                <Link href={`/centers/studentlist/${student.id}`} >
+                                                    View
+                                                </Link>
+                                            </button>
+                                            <button className="btn btn-sm btn-danger">
+                                                Delete
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             )
                         })
                     }
 
-                </tbody> */}
+                </tbody>
             </table>
         </div>
     </>);

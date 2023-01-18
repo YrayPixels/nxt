@@ -24,7 +24,7 @@ function AllLecturers(props) {
             .then(function (response) {
                 const data = response.data;
                 setLecturers(data.result)
-                console.log(data)
+                // console.log(data)
                 return data;
             })
             .catch(function (error) {
@@ -37,7 +37,7 @@ function AllLecturers(props) {
 
             fetchData()
         }
-    }, [delay])
+    })
     // console.log(lecturers)
     return (<div>
         <div className='d-flex align-items-center justify-content-between py-4'>

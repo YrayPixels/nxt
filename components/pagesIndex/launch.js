@@ -49,9 +49,11 @@ function Programlaunching(props) {
             })
         )
     }
-    useSWR(() => {
-        fetchData()
-    }, [])
+    useEffect(() => {
+        if (programs.length == 0) {
+            fetchData()
+        }
+    })
 
 
 
@@ -115,7 +117,7 @@ function Programlaunching(props) {
         <h3 className="py-4">
             Lauch A Course
         </h3>
-        <form className="card p-4" action="" >
+        <form className="card p-4" action="" onSubmit={programlaunch}>
             <div className="mb-3">
                 <label htmlFor="programme">Course</label>
                 <select name="programme" onChange={(e) => setlaunchInfo(

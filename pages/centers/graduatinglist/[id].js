@@ -147,7 +147,7 @@ function StudGradList() {
                                             {stdData == ' ' || stdData == [] ? <p><CircularProgress /> No Student Added</p> :
                                                 stdData.map(student => {
                                                     return (
-                                                        <tr className='align-items-center '>
+                                                        <tr key={student.id} className='align-items-center '>
                                                             <td>{stdData.indexOf(student) + 1}</td>
                                                             <td><span><img src="" alt="" /></span> {student.name}</td>
                                                             <td>{student.email}</td>

@@ -1,8 +1,9 @@
-Graduating list Center ID 
 Moving List Id
 Lecturer view , edit , delete
 
-attendess search data returned
+
 also Adding Attendees i have to be careful of data added 
+deleting Attendees
+data returned doesn't have department name and facult title
 
 Nodes
