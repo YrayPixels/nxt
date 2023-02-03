@@ -28,7 +28,6 @@ function AddCoursesComp(props) {
             })
         )
     }
-
     useEffect(() => {
         if (department.length == 0) {
             fetchData()
