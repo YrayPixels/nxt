@@ -102,7 +102,7 @@ function Otp() {
             Swal.fire({
                 title: 'OTP Verified Successfully',
                 icon: 'success',
-                confirmButtonText: 'close'
+                timer: 1000,
             })
 
             const res = await signIn('credentials', {
@@ -117,7 +117,7 @@ function Otp() {
                 title: 'Incorrect OTP!',
                 text: 'kindly check your mail for the correct OTP',
                 icon: 'error',
-                confirmButtonText: 'close'
+                timer: 1000,
             })
             setLoading(' ')
         } else {
@@ -126,7 +126,7 @@ function Otp() {
                 title: 'No Authorization!',
                 text: 'Invalid Request',
                 icon: 'error',
-                confirmButtonText: 'close'
+                timer: 1000,
             })
         }
     }

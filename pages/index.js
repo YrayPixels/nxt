@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import Swal from 'sweetalert2';
-import { RemoveRedEye } from '@mui/icons-material'
+import { RemoveRedEye, Visibility, VisibilityOff } from '@mui/icons-material'
 import { CircularProgress } from "@mui/material";
 import FooterComp from "../components/footer";
 import md5 from "md5";
@@ -47,11 +47,11 @@ function LoginComponent() {
             Swal.fire({
                 title: 'Logged In Succesfully',
                 icon: 'success',
-                confirmButtonText: 'close'
+                confirmButtonText: 'close',
+                timer: 1000,
             })
             sessionStorage.setItem("bearer_token", data.barear_token);
             sessionStorage.setItem("dets", [JSON.stringify(data.message)]);
-
             redirect()
         } else if (status == 201) {
             setNotify('Incorrect Details')
@@ -59,7 +59,8 @@ function LoginComponent() {
             Swal.fire({
                 title: 'Incorrect Details',
                 icon: 'error',
-                confirmButtonText: 'close'
+                confirmButtonText: 'close',
+                timer: 1000,
             })
         } else {
             setNotify('An Error has Occured')
@@ -94,12 +95,17 @@ function LoginComponent() {
                                             className="form-control rounded-0" id="" />
                                     </div>
                                     <div className="mb-4 col-12 col-lg-6 ">
-                                        <label htmlFor="password">Password  <span onClick={() => { setShowPass(!showPass) }}><RemoveRedEye /> </span></label>
-                                        <input value={userInfo.password} type={showPass ? 'text' : 'password'} name="password"
-                                            onChange={(e) => setUserInfo(
-                                                { ...userInfo, password: e.target.value })}
-                                            // value={userInfo.password}
-                                            className="form-control rounded-0 " id="" />
+                                        <label htmlFor="password">Password  </label>
+                                        <div className="input-group">
+                                            <input type={showPass ? 'text' : 'password'} name="password"
+                                                onChange={(e) => setUserInfo(
+                                                    { ...userInfo, password: e.target.value })}
+                                                // value={userInfo.password}
+                                                className="form-control rounded-0 " id="" />
+                                            <span className="btn btn-dark" onClick={() => { setShowPass(!showPass) }}>
+                                                {showPass ? <VisibilityOff /> : <Visibility />}
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className="form-check mb-4 form-switch">
                                         <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
