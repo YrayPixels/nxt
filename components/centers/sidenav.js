@@ -204,7 +204,9 @@ function Sidenav() {
                     </li>
 
                     <li onClick={() => {
-                        signOut()
+                        signOut({
+                            redirect: false
+                        })
                     }} >
                         <span><Key /></span>Sign Out
                     </li>

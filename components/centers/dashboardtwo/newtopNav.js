@@ -1,5 +1,6 @@
-import { Menu, Notifications, NotificationsActiveOutlined, Settings } from "@mui/icons-material";
+import { Key, Menu, Notifications, NotificationsActiveOutlined, Settings } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -54,6 +55,13 @@ function NewtopNAv(props) {
                     <Link href={'/centers/settings'}>
                         <span><Settings /></span>
                     </Link>
+                </div>
+                <div>
+                    <button className="btn btn-sm btn-outline-dark" onClick={() => {
+                        signOut({
+                            redirect: false
+                        })
+                    }} type="button"><Key /> Sign Out</button>
                 </div>
                 <div onClick={openNav} className=" border border-1 d-none d-md-block d-lg-none rounded-1 p-2">
                     <span><Menu /></span>

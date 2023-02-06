@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 function AllCenterUSersComp(props) {
     const { details, bearer } = props
-    const [centerUser, setcenterUser] = useState([]);
+    const [centerUser, setcenterUser] = useState(' ');
     const [delay, setDelay] = useState(' ');
 
     const fetchData = () => {
@@ -59,12 +59,9 @@ function AllCenterUSersComp(props) {
         deleteList()
 
     }
-
     return (<>
-
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>Center Users List</p>
-
             <input type="text" className='col-12 col-md-6 form-control w-50' placeholder='Enter Text Here...' />
         </div>
         <div className="bg-info p-4 shadow rounded-0 table-responsive">
