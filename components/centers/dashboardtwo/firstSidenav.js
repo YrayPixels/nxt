@@ -9,9 +9,12 @@ function FirstsideNav() {
     return (<>
         <ul className='firstSide text-center p-2'>
             <li className={(path.includes('dashboard') ? 'activated' : '')}>
-                <Link href='/centers/dashboard'>
-                    <span><HomeIcon /></span>
-                </Link>
+                <CTooltip content="Dashboard">
+                    <Link href='/centers/dashboard'>
+                        <span><HomeIcon /></span>
+                    </Link>
+                </CTooltip>
+
             </li>
             <li className={(path.includes('studentlist') || path.includes('institution') || path.includes == 'centers/register' ? 'activated' : '')}>
                 <Link href='/centers/studentlist'><span><PeopleOutlineOutlined /></span>

@@ -183,7 +183,6 @@ function Sidenav() {
                             </ul>
                         </div>
                     </li>
-                    {/* Lauunch Course Link */}
                     <li>
                         <Link href="/centers/launchcourse">
                             <span><RocketLaunch /></span>Launch Course
