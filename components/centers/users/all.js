@@ -7,8 +7,8 @@ import Swal from "sweetalert2";
 
 function AllCenterUSersComp(props) {
     const { details, bearer } = props
-    const [centerUser, setcenterUser] = useState(' ');
-    const [delay, setDelay] = useState(' ');
+    const [centerUser, setcenterUser] = useState([]);
+    // const [delay, setDelay] = useState(' ');
 
     const fetchData = () => {
         const centerUser = `https://stockmgt.gapaautoparts.com/api/ViewAllUser/${details.id}`
@@ -17,7 +17,6 @@ function AllCenterUSersComp(props) {
             axios.spread((...allData) => {
                 const centerUserData = allData[0].data.data.reverse();
                 setcenterUser(centerUserData)
-                // console.log(centerUserData)
             })
         )
     }
@@ -29,36 +28,54 @@ function AllCenterUSersComp(props) {
     })
 
     function deletecenterUser(userId) {
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("Authorization", `Bearer ${bearer}`);
+        Swal.fire({
+            title: 'Do you want Delete User?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Don't Delete`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("Authorization", `Bearer ${bearer}`);
 
-        var requestOptions = {
-            method: 'POST',
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        const deleteList = async () => {
-            const response = await fetch(`https://stockmgt.gapaautoparts.com/api/DeleteCenterUser/${userId}`, requestOptions)
-            const data = await response.json()
-            const status = response.status;
-            if (status == 200) {
-                Swal.fire({
-                    title: 'User  Deleted Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'close'
-                })
-                fetchData()
-            } else {
-                Swal.fire({
-                    title: 'An Error Occured',
-                    icon: 'error',
-                    confirmButtonText: 'close'
-                })
+                var requestOptions = {
+                    method: 'POST',
+                    body: urlencoded,
+                    redirect: 'follow'
+                };
+                const deleteList = async () => {
+                    const response = await fetch(`https://stockmgt.gapaautoparts.com/api/DeleteCenterUser/${userId}`, requestOptions)
+                    const data = await response.json()
+                    const status = response.status;
+                    if (status == 200) {
+                        Swal.fire({
+                            title: 'User  Deleted Successfully',
+                            icon: 'success',
+                            confirmButtonText: 'close'
+                        })
+                        fetchData()
+                    } else {
+                        Swal.fire({
+                            title: 'An Error Occured',
+                            icon: 'error',
+                            confirmButtonText: 'close'
+                        })
+                    }
+                }
+                deleteList()
+            } else if (result.isDenied) {
+                Swal.fire('User not Deleted', '', 'info')
             }
-        }
-        deleteList()
+        })
+
+
 
     }
+
+
+
     return (<>
         <div className='d-flex align-items-center justify-content-between py-4'>
             <p>Center Users List</p>
