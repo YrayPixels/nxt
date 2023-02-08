@@ -7,8 +7,17 @@
     transition: 0.5s;
 }
 
+.firstSide a {
+    margin-top: 20px;
+    /* list-style: none; */
+    padding: 15px;
+    border-radius: 10px;
+    transition: 0.5s;
+}
 
-.firstSide li:hover {
+
+
+.firstSide a:hover {
     color: white;
     background: linear-gradient(135deg, #A6CE34 0%, #0A770C 100%);
 

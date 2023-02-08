@@ -1,4 +1,4 @@
-import { Female } from '@mui/icons-material';
+import { Female, People } from '@mui/icons-material';
 import { CircularProgress } from '@mui/material';
 import useSWR from 'swr';
 
@@ -13,14 +13,14 @@ function Totalfemale() {
     return (
         <div className="row topPills shadow text-center align-items-center">
             <div className="col-12 col-md-8">
-                <p>Total Female</p>
+                <p>Total Students</p>
                 <p className="fw-bold num">{
                     error ? '---' :
 
                         !data ? '---' : data.students}</p>
             </div>
             <div className="col-12 col-md-4 text-center ">
-                <span className='text-center shadow-sm '><Female /></span>
+                <span className='text-center shadow-sm '><People /></span>
 
             </div>
         </div>

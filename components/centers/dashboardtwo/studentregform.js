@@ -38,7 +38,8 @@ function StudentRegistration(props) {
     const [courses, setCourses] = useState([]);
 
     const [userInfo, setUserInfo] = useState({
-        names: " ",
+        firstname: " ",
+        lastname: " ",
         email: " ",
         phone: " ",
         address: " ",
@@ -51,12 +52,12 @@ function StudentRegistration(props) {
         sex: "",
         Nationality: " ",
         state: "0",
-        lga: " ",
+        lga: "0",
         level: " ",
         heighest_qualification_year: " ",
-        employee: " ",
-        employee_type: "",
-        employment_status: " ",
+        employee: "0",
+        employee_type: "0",
+        employment_status: "0",
         nationality: " ",
     });
     const { session, status } = useSession();
@@ -117,7 +118,7 @@ function StudentRegistration(props) {
     }
     useEffect(() => {
         fetchData()
-    }, [userInfo.state, userInfo.faculty_id])
+    }, [userinfo.firstname, userInfo.state, userInfo.faculty_id])
 
     function removeQual(e, val) {
         e.preventDefault()
@@ -146,7 +147,8 @@ function StudentRegistration(props) {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("name", userInfo.names);
+        urlencoded.append("firstname", userInfo.firstname);
+        urlencoded.append("lastname", userInfo.lastname);
         urlencoded.append("email", userInfo.email);
         urlencoded.append("phone", userInfo.phone);
         urlencoded.append("address", userInfo.address);
@@ -166,7 +168,6 @@ function StudentRegistration(props) {
         urlencoded.append("employee", userInfo.employee);
         urlencoded.append("employee_type", userInfo.employee_type);
         urlencoded.append("employment_status", userInfo.employment_status);
-        urlencoded.append('Nationality', userInfo.nationality);
         urlencoded.append('level', userInfo.level);
 
         var requestOptions = {
@@ -241,10 +242,16 @@ function StudentRegistration(props) {
             <fieldset className="row">
                 <legend>Personal Data</legend>
                 <div className="col-6 mb-3">
-                    <label htmlFor="fullname">Student Name</label>
+                    <label htmlFor="firstName">First Name</label>
                     <input onChange={(e) => setUserInfo(
-                        { ...userInfo, names: e.target.value })}
-                        required type="text" name="fullname" className="form-control" />
+                        { ...userInfo, firstname: e.target.value })}
+                        required type="text" name="firstName" className="form-control" />
+                </div>
+                <div className="col-6 mb-3">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input onChange={(e) => setUserInfo(
+                        { ...userInfo, lastname: e.target.value })}
+                        required type="text" name="lastName" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
                     <label htmlFor="phone">Telephone number</label>
@@ -257,9 +264,9 @@ function StudentRegistration(props) {
                         { ...userInfo, email: e.target.value })} type="text" required name="email" className="form-control" />
                 </div>
                 <div className="col-6 mb-3">
-                    <label htmlFor="age">Age</label>
+                    <label htmlFor="age">Date of Birth</label>
                     <input required onChange={(e) => setUserInfo(
-                        { ...userInfo, age: e.target.value })} type="number" name="age" className="form-control" max={90} min={10} >
+                        { ...userInfo, age: e.target.value })} type="date" name="age" className="form-control"  >
                         {/* <option value="option your age"> option your age</option>
                         {
                             looperArray.map(age => {
@@ -277,38 +284,44 @@ function StudentRegistration(props) {
                         <option value={'Foreign'}>Foreign</option>
                     </select>
                 </div>
-                <div className="col-6 mb-3">
-                    <label htmlFor="state">State of Origin</label>
-                    <select required name="state" onChange={(e) => setUserInfo(
-                        { ...userInfo, state: e.target.value })} class="form-select" aria-label="Default select example"  >
+                {
+                    userInfo.Nationality == 'Nigeria' && <>
+                        <div className="col-6 mb-3">
+                            <label htmlFor="state">State of Origin</label>
+                            <select required name="state" onChange={(e) => setUserInfo(
+                                { ...userInfo, state: e.target.value })} class="form-select" aria-label="Default select example"  >
 
-                        <option selected value={0}>Select your State</option>
-                        {
-                            state.map(State => {
-                                return (
-                                    <option value={State.id}>{State.title}</option>
+                                <option selected value={0}>Select your State</option>
+                                {
+                                    state.map(State => {
+                                        return (
+                                            <option value={State.id}>{State.title}</option>
 
-                                )
-                            })
+                                        )
+                                    })
 
-                        }
+                                }
 
-                    </select>
-                </div>
-                <div className="col-6 mb-3">
-                    <label htmlFor="lga">LGA</label>
-                    <select required name="lga" onChange={(e) => setUserInfo(
-                        { ...userInfo, lga: e.target.value })} class="form-select" aria-label="Default select example"  >
-                        <option selected>Select your LGA</option>
-                        {
-                            lga.map(lga => {
-                                return (
-                                    <option value={lga.id}>{lga.Lga}</option>
-                                )
-                            })
-                        }
-                    </select>
-                </div>
+                            </select>
+                        </div>
+                        <div className="col-6 mb-3">
+                            <label htmlFor="lga">LGA</label>
+                            <select required name="lga" onChange={(e) => setUserInfo(
+                                { ...userInfo, lga: e.target.value })} class="form-select" aria-label="Default select example"  >
+                                <option selected>Select your LGA</option>
+                                {
+                                    lga.map(lga => {
+                                        return (
+                                            <option value={lga.id}>{lga.Lga}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </>
+                }
+
+
                 <div className=" col-6 mb-3">
                     <label htmlFor="sex">Gender</label>
                     <select required onChange={(e) => setUserInfo(
@@ -517,7 +530,7 @@ function StudentRegistration(props) {
             </fieldset>
             {/* Employment Info */}
             <fieldset>
-                <legend>
+                {/* <legend>
                     Employment Information
                 </legend>
                 <div className="mb-3">
@@ -547,9 +560,14 @@ function StudentRegistration(props) {
                             </select>
                         </div>
                     </div>
-                }
+                } */}
                 <div className="col-5 m-auto singleSubmits">
-                    <button type="submit" className="btn rounded-0  text-info w-100"> Submit</button>
+                    {
+                        notify == 'loading' ? <p class="text-center"><CircularProgress
+                            color="inherit" /></p> : ' '
+                    }
+                    <button type="submit" className="btn rounded-0  text-info w-100">
+                        Submit</button>
                 </div>
             </fieldset>
         </form>

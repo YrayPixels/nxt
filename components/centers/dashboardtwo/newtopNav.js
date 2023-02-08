@@ -43,7 +43,6 @@ function NewtopNAv(props) {
                     <NotificationsActiveOutlined />
                 </div>
                 <Link href={'/centers/profile'}>
-
                     <div className="d-flex align-items-center">
                         <Avatar />
                         <div className="row px-3">
@@ -51,11 +50,11 @@ function NewtopNAv(props) {
                         </div>
                     </div>
                 </Link>
-                <div className="col-2">
+                {/* <div className="col-2">
                     <Link href={'/centers/settings'}>
                         <span><Settings /></span>
                     </Link>
-                </div>
+                </div> */}
                 <div>
                     <button className="btn btn-sm btn-outline-dark" onClick={() => {
                         signOut({

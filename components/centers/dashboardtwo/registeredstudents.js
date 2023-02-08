@@ -183,7 +183,6 @@ function StudentsList(props) {
             <div className='d-flex align-items-center justify-content-between py-4'>
                 <p>Registered Students</p>
                 <div className='text-end'>
-                    <input type="text" className='col-12 text-end col-md-6 form-control w-50' placeholder='Enter Text Here...' />
                     <div className='d-flex p-2'>
                         <button onClick={showFilters} className='bg-info shadow btn btn-sm'> filter by<Add size={1} /></button>
                         <div className={filter ? ' ' : 'd-none'}>
