@@ -102,7 +102,7 @@ function Programlaunching(props) {
             }
         }
 
-        // programlaunch()
+        programlaunch()
     };
     return (<>
         {
