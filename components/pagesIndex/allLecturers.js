@@ -54,7 +54,7 @@ function AllLecturers(props) {
                 <thead>
                     <tr>
                         <th>LECTURER'S NAME</th>
-                        <th>EMAIl</th>
+                        <th>EMAIL</th>
                         <th>PHONE</th>
                         <th>DEPARTMENT</th>
                         <th>PROGRAMME</th>

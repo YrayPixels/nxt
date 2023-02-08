@@ -232,12 +232,11 @@ function StudentsList(props) {
                         <tr>
                             <th>S/N</th>
                             <th>STUDENT'S NAME</th>
-                            <th>EMAIl</th>
+                            <th>EMAIL</th>
                             <th>PHONE</th>
-                            <th>DEPARTMENT</th>
-                            <th>PROGRAMME</th>
                             <th>FACULTY</th>
-                            <th>OCCUPATION</th>
+                            <th>DEPARTMENT</th>
+                            <th>COURSE</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
@@ -251,10 +250,11 @@ function StudentsList(props) {
                                             <td><span><img src="" alt="" /></span> {student.name}</td>
                                             <td>{student.email}</td>
                                             <td>{student.phone}</td>
+                                            <td>{student.faculties_title}</td>
                                             <td>{student.departments_title} </td>
                                             <td>{student.programmes_title}</td>
-                                            <td>{student.faculties_title}</td>
-                                            <td>{student.occupation}</td>
+
+
                                             <td className='btn-group'>
                                                 <Link href={`/centers/studentlist/${student.id}`} >
                                                     <button className='btn btn-sm btn-primary'>View</button>
@@ -273,10 +273,9 @@ function StudentsList(props) {
                                         <td><span><img src="" alt="" /></span> {student.name}</td>
                                         <td>{student.email}</td>
                                         <td>{student.phone}</td>
+                                        <td>{student.faculties_title}</td>
                                         <td>{student.departments_title} </td>
                                         <td>{student.programmes_title}</td>
-                                        <td>{student.faculties_title}</td>
-                                        <td>{student.occupation}</td>
                                         <td className='btn-group'>
                                             <Link href={`/centers/studentlist/${student.id}`} >
                                                 <button className='btn btn-sm btn-primary'>View</button>
