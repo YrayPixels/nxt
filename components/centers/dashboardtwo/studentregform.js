@@ -58,7 +58,6 @@ function StudentRegistration(props) {
         employee: "0",
         employee_type: "0",
         employment_status: "0",
-        nationality: " ",
     });
     const { session, status } = useSession();
     const [loope, setLooper] = useState(' ');
@@ -118,7 +117,7 @@ function StudentRegistration(props) {
     }
     useEffect(() => {
         fetchData()
-    }, [userinfo.firstname, userInfo.state, userInfo.faculty_id])
+    }, [userInfo.firstname, userInfo.state, userInfo.faculty_id])
 
     function removeQual(e, val) {
         e.preventDefault()
