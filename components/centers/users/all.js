@@ -94,7 +94,7 @@ function AllCenterUSersComp(props) {
                 </thead>
 
                 <tbody>
-                    {centerUser.length == 0 ? <p><CircularProgress /></p> :
+                    {centerUser.length == 0 ? <p>---</p> :
                         centerUser.map(data => {
                             return (
                                 <tr key={data.id} className='align-items-center '>
