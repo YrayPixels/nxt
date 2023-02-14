@@ -105,10 +105,10 @@ function LoginComponent() {
                                             </span>
                                         </div>
                                     </div>
-                                    <div className="form-check mb-4 form-switch">
+                                    {/* <div className="form-check mb-4 form-switch">
                                         <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
                                         <label htmlFor=""> Remember Me</label>
-                                    </div>
+                                    </div> */}
                                     <div className="mb-4 col-12 col-lg-6 text-center">
                                         <button className="btn w-100 d-flex justify-content-center align-items-center rounded-0"
                                             type="submit" name="" id="">

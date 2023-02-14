@@ -18,6 +18,7 @@ function StudentsList(props) {
     const [filterData, setFilterData] = useState(' ');
     const [datali, setDatali] = useState(' ');
     const [delay, setDelay] = useState(' ')
+
     const fetchFillables = () => {
         const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
         const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
@@ -120,9 +121,9 @@ function StudentsList(props) {
     }, 1000)
     var config = {
         method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}`,
+        url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/6154417375300G0`,
         headers: {
-            'Authorization': `Bearer ${bearer}`,
+            'Authorization': `Bearer 2863|r7wlhGF11SnMBUJA1Dn9qdX9PcI6jTMJI1fhcPwp`,
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
@@ -130,7 +131,7 @@ function StudentsList(props) {
         axios(config)
             .then(res => {
                 setDatali(res.data.students)
-                console.log(datali)
+                // console.log(datali)
             })
             .catch(function (error) {
                 console.log(error);

@@ -38,26 +38,27 @@ function StudentRegistration(props) {
     const [courses, setCourses] = useState([]);
 
     const [userInfo, setUserInfo] = useState({
-        firstname: " ",
-        lastname: " ",
+        // firstname: " ",
+        lastname: "none",
+        name: " ",
         email: " ",
         phone: " ",
         address: " ",
-        faculty_id: "0",
-        department_id: "0",
-        programme_id: " ",
+        faculty_id: "Nil",
+        department_id: "Nil",
+        programme_id: "Nil",
         heighest_qualification: " ",
         center_id: details.id,
         age: " ",
         sex: "",
         Nationality: " ",
-        state: "0",
-        lga: "0",
+        state: "Nil",
+        lga: "Nil",
         level: " ",
         heighest_qualification_year: " ",
-        employee: "0",
-        employee_type: "0",
-        employment_status: "0",
+        employee: "Nil",
+        employee_type: "Nil",
+        employment_status: "Nil",
     });
     const { session, status } = useSession();
     const [loope, setLooper] = useState(' ');
@@ -147,8 +148,9 @@ function StudentRegistration(props) {
         e.preventDefault()
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("firstname", userInfo.firstname);
+        // urlencoded.append("firstname", userInfo.firstname);
         urlencoded.append("lastname", userInfo.lastname);
+        urlencoded.append("name", userInfo.name);
         urlencoded.append("email", userInfo.email);
         urlencoded.append("phone", userInfo.phone);
         urlencoded.append("address", userInfo.address);
@@ -242,17 +244,17 @@ function StudentRegistration(props) {
             <fieldset className="row">
                 <legend>Personal Data</legend>
                 <div className="col-6 mb-3">
-                    <label htmlFor="firstName">First Name</label>
+                    <label htmlFor="name">Full Name</label>
                     <input onChange={(e) => setUserInfo(
-                        { ...userInfo, firstname: e.target.value })}
-                        required type="text" name="firstName" className="form-control" />
+                        { ...userInfo, name: e.target.value })}
+                        required type="text" name="name" className="form-control" />
                 </div>
-                <div className="col-6 mb-3">
+                {/* <div className="col-6 mb-3">
                     <label htmlFor="lastName">Last Name</label>
                     <input onChange={(e) => setUserInfo(
                         { ...userInfo, lastname: e.target.value })}
                         required type="text" name="lastName" className="form-control" />
-                </div>
+                </div> */}
                 <div className="col-6 mb-3">
                     <label htmlFor="phone">Telephone number</label>
                     <input onChange={(e) => setUserInfo(
