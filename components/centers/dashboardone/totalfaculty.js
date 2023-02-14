@@ -1,12 +1,14 @@
 import { LocationCityOutlined } from '@mui/icons-material';
 import { CircularProgress } from '@mui/material';
 import useSWR from 'swr';
-const fetcher = async () => {
-    const response = await fetch('https://stockmgt.gapaautoparts.com/api/center/getTotalFaculty')
-    const data = await response.json()
-    return data
-}
-function Totalfaculty() {
+
+function Totalfaculty(props) {
+    const { det, bearer_key } = props;
+    const fetcher = async () => {
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getTotalFaculty/{det.id}`)
+        const data = await response.json()
+        return data
+    }
     const { data, error } = useSWR('totalFaculty', fetcher)
     return (
         <div className="row topPills shadow  align-items-center">

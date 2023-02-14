@@ -138,6 +138,7 @@ function StudentRegistration(props) {
     function handleQualAdd(e) {
         e.preventDefault()
         ArraysQualification.push(qaulArray)
+
         setArrayys(arrayys.concat(ArraysQualification))
 
     }

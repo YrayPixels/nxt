@@ -58,8 +58,8 @@ function Programlaunching(props) {
 
 
     const programlaunch = async (e) => {
-        e.preventDefault()
-        console.log(details.id)
+        e.preventDefault();
+
         var urlencoded = new URLSearchParams();
         urlencoded.append("center_id", details.id);
         urlencoded.append("programme_id", launchInfo.programme_id);
@@ -76,33 +76,35 @@ function Programlaunching(props) {
             body: urlencoded,
             redirect: 'follow'
         };
+
         setNotify('loading')
 
-        function launchprog() {
-            const programlaunch = async () => {
-                const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/LunchProgramme", requestOptions)
-                const data = await response.json()
-                const status = response.status;
 
-                if (status == 200) {
-                    setNotify('Program Launched')
-                    Swal.fire({
-                        title: 'Program Launched Successfully',
-                        icon: 'success',
-                        confirmButtonText: 'close'
-                    })
-                } else {
-                    setNotify('Error Occured!!!')
-                    Swal.fire({
-                        title: 'An Error Occured!!!',
-                        icon: 'error',
-                        confirmButtonText: 'close'
-                    })
-                }
+        const programlaunching = async () => {
+            const response = await fetch("https://stockmgt.gapaautoparts.com/api/center/LunchProgramme", requestOptions)
+            const data = await response.json()
+            const status = response.status;
+
+            console.log('e no wrrk');
+            if (status == 200) {
+                setNotify('Program Launched')
+                Swal.fire({
+                    title: 'Program Launched Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'close'
+                })
+            } else {
+                setNotify('Error Occured!!!')
+                Swal.fire({
+                    title: 'An Error Occured!!!',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
             }
         }
 
-        programlaunch()
+        programlaunching()
+
     };
     return (<>
         {
@@ -182,11 +184,6 @@ function Programlaunching(props) {
                 <input onChange={(e) => setlaunchInfo(
                     { ...launchInfo, other_media_link: e.target.value })} type="text" name="mediaLink" className="form-control" />
             </div>
-
-
-
-
-
             <div className="col-5 m-auto singleSubmits">
                 <button type="submit" className="btn rounded-0  text-info w-100"> Submit</button>
             </div>

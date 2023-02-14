@@ -46,7 +46,7 @@ function LaunchProgram
                     </div>
                     <div className="col-12 col-lg-11 regMain">
                         <div className="pb-4 px-2">
-                            <TopPilsItems />
+                            {/* <TopPilsItems /> */}
                         </div>
                         <div className="row pt-3">
                             <div className="d-none d-lg-block col-2 border bg-info border-1">

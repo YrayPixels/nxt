@@ -26,8 +26,6 @@ function LoginComponent() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-
         var urlencoded = new URLSearchParams();
         urlencoded.append("email", userInfo.email);
         urlencoded.append("password", userInfo.password);
