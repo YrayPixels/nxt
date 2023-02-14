@@ -2,13 +2,15 @@ import { Female, People } from '@mui/icons-material';
 import { CircularProgress } from '@mui/material';
 import useSWR from 'swr';
 
-const fetcher = async () => {
-    const response = await fetch('https://stockmgt.gapaautoparts.com/api/center/getTotalFemaleStudents')
-    const data = await response.json()
-    return data
-}
 
-function Totalfemale() {
+
+function Totalfemale(props) {
+    const { det, bearer_key } = props;
+    const fetcher = async () => {
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getTotalFemaleStudents/${det.id}`)
+        const data = await response.json()
+        return data
+    }
     const { data, error } = useSWR('totalFemales', fetcher)
     return (
         <div className="row topPills shadow text-center align-items-center">

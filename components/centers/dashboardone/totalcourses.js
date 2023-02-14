@@ -1,13 +1,15 @@
 import { Book } from '@mui/icons-material';
 import { CircularProgress } from '@mui/material';
 import useSWR from 'swr';
-const fetcher = async () => {
-    const response = await fetch('https://stockmgt.gapaautoparts.com/api/center/getTotalCourses')
-    const data = await response.json()
-    return data
-}
 
-function TotalCourse() {
+
+function TotalCourse(props) {
+    const { det, bearer_key } = props;
+    const fetcher = async () => {
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getTotalCourses/${det.id}`)
+        const data = await response.json()
+        return data
+    }
     const { data, error } = useSWR('totalCourses', fetcher)
 
     return (

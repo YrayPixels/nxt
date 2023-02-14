@@ -5,7 +5,7 @@ import useSWR from 'swr';
 function Totalfaculty(props) {
     const { det, bearer_key } = props;
     const fetcher = async () => {
-        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getTotalFaculty/{det.id}`)
+        const response = await fetch(`https://stockmgt.gapaautoparts.com/api/center/getTotalFaculty/${det.id}`)
         const data = await response.json()
         return data
     }

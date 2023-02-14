@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TotalactiveUsers from "./dashboardone/activeusers";
 import TotalCourse from "./dashboardone/totalcourses";
 import Totalfaculty from "./dashboardone/totalfaculty";
