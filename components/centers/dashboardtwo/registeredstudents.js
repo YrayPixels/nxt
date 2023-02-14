@@ -19,32 +19,6 @@ function StudentsList(props) {
     const [datali, setDatali] = useState(' ');
     const [delay, setDelay] = useState(' ')
 
-    const fetchFillables = () => {
-        const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
-        const allPrograms = "https://stockmgt.gapaautoparts.com/api/admin/getAllProgrammes"
-        const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
-
-
-        const getAllPrograms = axios.get(allPrograms);
-        const getAllFaculties = axios.get(allFaculties);
-        const getAllDept = axios.get(allDept);
-
-
-        axios.all([getAllPrograms, getAllFaculties, getAllDept,]).then(
-            axios.spread((...allData) => {
-                const allProgramsData = allData[0].data.result;
-                const allFacultiesData = allData[1].data.result;
-                const allDeptData = allData[2].data.result;
-
-
-                setProgram(allProgramsData)
-                // setCourses(allCoursesData)
-                setFaculties(allFacultiesData)
-                setDepartment(allDeptData)
-            })
-        )
-    }
-
 
     function filterStud(std_id, filterby) {
         if (filterby == 'program') {
@@ -115,15 +89,11 @@ function StudentsList(props) {
         }
     }
 
-
-    setInterval(() => {
-        setDelay(Math.random());
-    }, 1000)
     var config = {
         method: 'get',
-        url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/6154417375300G0`,
+        url: `https://stockmgt.gapaautoparts.com/api/center/GetStudentByCenterId/${details.id}}`,
         headers: {
-            'Authorization': `Bearer 2863|r7wlhGF11SnMBUJA1Dn9qdX9PcI6jTMJI1fhcPwp`,
+            'Authorization': `Bearer ${bearer}`,
             "Content-Type": "application/x-www-form-urlencoded",
         },
     };
@@ -137,11 +107,12 @@ function StudentsList(props) {
                 console.log(error);
             });
     };
+
     useEffect(() => {
         if (datali.length == 0 || datali == ' ') {
             fetchData()
         }
-    }, [delay])
+    })
     function deleteStud(param) {
         var urlencoded = new URLSearchParams();
         urlencoded.append("Authorization", `Bearer ${bearer}`);
@@ -177,6 +148,25 @@ function StudentsList(props) {
     }
     function showFilters() {
         setfilter(!filter)
+        const fetchFillables = () => {
+            const allFaculties = `https://stockmgt.gapaautoparts.com/api/center/GetFacultyByCenterId/${details.id}`
+            const allPrograms = `https://stockmgt.gapaautoparts.com/api/center/GetAllLunchedProgrammeByCenterId/${details.id}`
+            const allDept = `https://stockmgt.gapaautoparts.com/api/center/GetCourseByCenterId/${details.id}`
+            const getAllPrograms = axios.get(allPrograms);
+            const getAllFaculties = axios.get(allFaculties);
+            const getAllDept = axios.get(allDept);
+            axios.all([getAllPrograms, getAllFaculties, getAllDept,]).then(
+                axios.spread((...allData) => {
+                    const allProgramsData = allData[0].data.result;
+                    const allFacultiesData = allData[1].data.result;
+                    const allDeptData = allData[2].data.result;
+                    setProgram(allProgramsData)
+                    // setCourses(allCoursesData)
+                    setFaculties(allFacultiesData)
+                    setDepartment(allDeptData)
+                })
+            )
+        }
         fetchFillables()
     }
     return (

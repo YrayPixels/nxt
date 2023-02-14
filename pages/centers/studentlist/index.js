@@ -9,12 +9,14 @@ import TopPilsItems from "../../../components/centers/toppills";
 import Secondnav from "../../../components/centers/dashboardtwo/secondsidenav";
 import Logos from '../../../public/image/spesee.png'
 
+// const detach = JSON.parse(sessionStorage.getItem('dets'));
 
 function Students() {
     const { status, data } = useSession();
     const [showNav, setShowNav] = useState(false)
     const [bearer_key, setBearer_key] = useState(' ');
     const [dets, setDets] = useState({});
+
     useEffect(() => {
         if (window) {
             setBearer_key(window.sessionStorage.getItem("bearer_token"));
