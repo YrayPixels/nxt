@@ -23,7 +23,7 @@ function TopPilsItems() {
                 <Totalfaculty det={dets} bearer_key={bearer_key} />
             </div>
             <div className="col-5 col-lg-3">
-                {/* <TotalactiveUsers det={dets} bearer_key={bearer_key} /> */}
+                <TotalactiveUsers det={dets} bearer_key={bearer_key} />
             </div>
             <div className="col-5 col-lg-3">
                 {/* <TotalCourse det={dets} bearer_key={bearer_key} /> */}

@@ -12,10 +12,8 @@ function Totalfaculty(props) {
         setData(data);
     }
     useEffect(() => {
-        if (data.length == 0) {
-            fetcher();
-        }
-    })
+        fetcher();
+    }, [])
     // const { data, error } = useSWR('totalFaculty', fetcher)
     return (
         <div className="row topPills shadow  align-items-center">
